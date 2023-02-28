@@ -1,4 +1,4 @@
-class Users::CreateUsersFromCSV
+class Users::CreateUsersFromCsv
   require 'csv'
 
   def initialize(csv_file, subsidiary_id, role, current_user)
