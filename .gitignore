@@ -29,7 +29,7 @@
 
 # Ignore application configuration
 /config/application.yml
-Gemfile.lock
+# Gemfile.lock
 dump.rdb
 
 # Ignore .DS_Store
