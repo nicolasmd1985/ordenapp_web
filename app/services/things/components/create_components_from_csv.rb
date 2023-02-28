@@ -1,4 +1,4 @@
-class Things::Components::CreateComponentsFromCSV
+class Things::Components::CreateComponentsFromCsv
   require 'csv'
 
   def initialize(csv_file, thing, subsidiary_id)
