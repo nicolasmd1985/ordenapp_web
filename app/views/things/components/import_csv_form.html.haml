@@ -1,0 +1,29 @@
+.row.flex-box-center
+  .col.s12.m10.force_margin
+    .card.card-cascade.narrower.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-between.align-items-center
+        = link_to :back, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t("base.forms.back") do
+          %i.fas.fa-chevron-left
+        %h3.center.mt-2
+          %strong
+            = t('components.index.title')
+        = link_to :back, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2 disabled hidden", title: t("base.forms.details") do
+          %i.fas.fa-info
+      .card.py-0
+        .card-body
+          = form_tag({controller: 'components', action: 'import_csv'}, {class: 'md-form', id: "up_comp_form", method: :post, multipart: true}) do            
+            .row.justify-content-center
+              .col-md-6
+                .file-field
+                  .btn.btn-sm.secondary-color.btn-rounded.float-right.text-white
+                    %span
+                      %i.fas.fa-upload.mr-2{"aria-hidden" => "true"}>
+                      = t('components.index.file')
+                    %input#csv_file.custom-file-input{:type => "file", name: "csv_file", accept: "text/csv", required: true}/
+                  .file-path-wrapper
+                    %input.file-path.validate{:placeholder => "#{t('components.index.up_file')}", :type => "text"}/                                  
+            .row.justify-content-center
+              .col-md-8.mt-4{style: "text-align: center;"}
+                %button.btn.btn-success.btn-rounded.my-2.my-sm-0.mr-sm-2.lowcase{type: "submit"}
+                  = t('components.index.upload')
+                = link_to t('components.index.download'), components_layout_csv_path(format: "csv"), class: "btn btn-primary btn-rounded my-2 my-sm-0 mr-sm-2 lowcase"

@@ -1,0 +1,770 @@
+en:
+  activerecord:
+    attributes:
+      order:
+        internal_id: Internal ID
+        customer_id_order: Customer order ID
+        created_at: Created at
+        updated_at: Updated at
+        description: Description
+        address: Address
+        status_id: Statud ID
+        substatus_id: Substatus ID
+        install_date: Install date
+        install_time: Install time
+        limit_time: Limit time
+        comment: Comment
+        sync: Synchronized
+        origin: Origin
+        city:
+          name: City
+        supervisor:
+          first_name: Supervisor first name
+          last_name: Supervisor lastname
+        tecnic:
+          first_name: User first name
+          last_name: User lastname
+        customer:
+          first_name: Customer first name
+          last_name: Customer lastname
+        status:
+          description: Status
+        substatus:
+          description: Substatus
+        category:
+          name: Category
+        subsidiary:
+          name: Subsidiary
+  home:
+    meta:
+      title: "Ordenapp Assets Management"
+      description: "Business solution to optimize the management of facilities, maintenance and repairs. You will be able to control activities in real time and optimize the management of your company. "
+      tags: "Software, Tool, Management, Implementation, Maintenance, Optimization, Productivity, Monitoring, Control, Installation, Assets, Repair "
+    index:
+      title_1: "Follow up your operations in real time"
+      sub_title: "ORDENAPP is a business software to optimize and manage resources, maintenances and repairs. "
+      video: "WATCH VIDEO"
+      demo: "Get started right now at no cost"
+      name: "Type here your name"
+      email: "Type here your e-mail"
+      phone: "Type here your phone number"
+      send: "SEND"
+      terms: "Accept Terms Service and Conditions"
+      terms_and: "Terms and Conditions"
+      habeas: "Habeas Data"
+      sponsors: "Sponsors"
+      title_2: "Manage work orders"
+      title_3: "with your collaborators no matter where they are!"
+      title_4: "Reasign orders from clients to your collaborators easily, increasing effectiveness and improving times of service."
+      request: "REQUEST YOUR DEMO"
+      title_5: "Supervise agilely"
+      title_6: "in real time"
+      title_7: "Now you will be able to follow up and have control over all the movements and transactions in your subsidiary in real time."
+      title_8: "...and much more"
+      geo: "Geolocation"
+      geo_1: "Resource tracking in real time."
+      time: "Time Control"
+      time_1: "Know exactly when and where operations are carried out."
+      work_orders: "Work Orders"
+      work_orders_1: "Online work orders assignment 24/7"
+      digital_sig: "Digital Signature"
+      digital_sig_1: "Make sure that your orders have been completed throught the digital signature capture."
+      activity: "Activity"
+      activity_1: "Know the current status and activities of your collaborators."
+      report: "Tools tracking report"
+      report_1: "Avoid tools loss knowing to whom it has been assigned."
+      follow_up: "Follow up materials and equipment"
+      follow_up_1: "Identify and track in real time electromechanical equipment and materials."
+      alert_maint: "Maintenance Alert"
+      alert_maint_1: "Mainteinance automation for materials and equipments according to their nature. "
+      contact: "Contact Us"
+  base:
+    navbar:
+      plans: "Plans"
+      create_account: "Create Account"
+      sign_in: "Sign in"
+      logout: "Logout"
+      edit_profile: "My profile"
+      corporation: "Company"
+      subsidiary: "Subsidiary"
+      contact: "Contact"
+    filters:
+      technic: "Technician"
+      status: "Status"
+      city: "City"
+      customer: "Customer"
+      synchronization: "Synchronization"
+      filter: "Filter"
+      search: "Search here..."
+    forms: #general btns
+      back: "Back"
+      edit: "Update"
+      delete: "Delete"
+      details: "Details"
+      all: View all
+      save: "Save"
+      options: "Options"
+      created_at: "Created at:"
+      updated_at: "Updated at:"
+      confirm: "Are you sure?"
+      list_of: "List of "
+      add_info: "Aditional Information"
+      err_2: "This field is required!"
+      err_3: "Please select a valid date."
+      err_4: "Please select a valid time."
+      search: "Search"
+      select_date: "Select date"
+      select_hour: "Select tIme"
+      cancel: "Cancel"
+      clear: "Clear"
+    bar_menu:
+      admins:
+        subsidiaries: Subsidiaries
+        new: New subsidiary
+        list: Subsidiaries list
+        supervisor: Supervisors
+        new_s: New supervisor
+      users: Users
+      customers:
+        customers: Customers
+        new: New customer
+        list: Customers list
+        upload: Upload customers
+      tecnics:
+        tecnics: Users
+        new: New user
+        list: Users list
+      orders:
+        orders: Work orders
+        new: New order
+        list: Orders list
+        finish_list: Finished orders
+        preorder: Pre orders
+        support: Support request
+      categories:
+        categories: Categories
+        new: New category
+        list: Categories list
+      things:
+        things: "Inventory"
+        new: "New product"
+        list: "Inventory list"
+      tools:
+        tools: Tools
+        new: New tool
+        list: "Tools list"
+      poll:
+        poll: Polls
+        list: Polls list
+      toggle:
+        expand: Expand menu
+        collapse: Minimize menu
+    breadcrumb: Home
+  mailers:
+    general:
+      news: "You are receiving this email because you have visited our site or asked us about regular newsletter."
+      unsubscribe: "Unsubscribe from future emails."
+      about_us: "About Us"
+      what_is: "What is Ordenapp"
+      contact_us: "Contact Us"
+    devise:
+      hello: "Hello"
+      line_1: "Someone has requested a link to change your password. You can do this through the link below."
+      change: "Change my password"
+      line_2: "If you didn't request this, please ignore this email."
+      line_3: "Your password won't change until you access the link above and create a new one."
+    customer:
+      welcome: "!Welcome to  "
+      intro: "Below you will find your credentials to accesss to the platform"
+      user: "User: "
+      password: "Password: "
+    orders:
+      order: "Order "
+      assign: "asigned: "
+      subsidiary: "Subsidiary: "
+      technic: "In charge"
+      phone: "Phone: "
+      email: "Email: "
+      time: "Visit date and time: "
+      see: "Details"
+      sr: "Srs. "
+      created: "has been created successfully"
+      info: "Below you will find details about this order:"
+      comp_in_charge: "Subsidiary in charge: "
+      assignment_order: "Order assignment "
+      dear: "Dear "
+      assigned_to: "has been assigned to you"
+      client: "Client: "
+      description: "Job description: "
+      address: "Address: "
+      reported: "reported by customer: "
+      creation_date: "Created at: "
+      devices: "Inventory: "
+      city: "City: "
+    tecnic:
+      welcome: "!Welcome to  "
+      intro: "Below you will find your credentials to accesss to the APP remember first download the APP in the Google PlayStore.."
+      user: "User: "
+      password: "Password: "
+      change_password: "Change Password"
+    supervisor:
+      welcome: "Welcome "
+      tutorial: "We encourage you to watch the video below to teach you how to set up your subsidiary."
+      intro: "Below you will find your credentials to accesss to the APP"
+    admin:
+      welcome: "Welcome to Ordenapp"
+      tutorial: "We encourage you to watch the video below to teach you how to set up your subsidiary."
+      intro: "Below you will find your credentials to accesss to the APP"
+  dashboard:
+    customers: #tabs
+        orders: Reported orders
+        finished: Closed orders
+        help:
+          advise: "Corporation or subsidiary inactive. Imposible to generate a new ticket"
+          contact: "Please contact with them via email or phone."
+    keep: "keep trying" #borrar
+    supervisor:
+      map: "Map"
+      orders: "Orders"
+      finished_orders: "Finished Orders"
+      request_orders: "Request Orders"
+      list: "Supervisors list"
+    welcome: "Welcome %{name}!"
+    welcome_msg: "We invite you to create your first subsidiary to start to manage yor company: %{company}"
+  orders:
+    pdf:
+      address: "Address:"
+      order_id: "Order ID"
+      order_client: "Client Internal ID"
+      client_info: "Client Information "
+      client_name: "Name: "
+      comment: "Comments: "
+      id: "Identification: "
+      imagen: "Images"
+      type_id: "Identification Type: "
+      phone: "Phone: "
+      technician_info: "Technician Information"
+      t_name: "Name: "
+      t_id:  "Identification: "
+      order_sumary: "Order Sumary"
+      start_time: "Start Time: "
+      end_time: "End Time: "
+      duration: "Duration: "
+      order_type: "Order Type: "
+      dev_code: "Product Code"
+      item: "Item"
+      description: "Description: "
+      warranty: "Warranty"
+      price: "Price"
+      Total: "Total"
+      signature: "Signature"
+      website: "Website: "
+    index:
+      title1: "Orders"
+      title2: "Pending orders"
+      finish_title: "Finished orders"
+      my_orders: My orders
+      person_in_charge: "Technician"
+      customer: "Customer"
+      supervisor: "Supervisor"
+      description: "Description"
+      assign_to: "Assign to"
+      to_do: "To Do"
+      status: "Status"
+      sync: "Sync APP"
+      options: "Options"
+      finished_time: "Finished Time"
+      finished_date: "Finished Date"
+      address: "Address"
+      install_date: "Service Date"
+      install_time: "Service Time" #no se esta llamando revisar
+      contact: "Contact"
+      phone_contact: "Phone Contact"
+      limit_time: "Limit time"
+      unit_time: "Unit of time"
+      city: "City"
+      new: "Create Order"
+      download: "Download"
+      report: Report order
+      id: ID
+      date: Date
+      order: Order
+      err_1: "Prohibited this order from being saved."
+      err_2: "The selected Technic is already booked for that time."
+      ord_details: "Order Details "
+      tec_details: "Technician Details"
+      cust_details: "Customer Details"
+      things_ids: "Inventory"
+      parent_order: "Main order:"
+      children_orders: "Related orders:"
+      group_type: "Group"
+      single_type: "Single"
+      order_type: "Type:"
+      select_customer: "Choose customer"
+      select_tecnic: "Choose User"
+      select_status: "Choose status"
+      referral: 'Referral'
+      details: 'See Details'
+      customer_id_order: 'customer id'
+      comment: Comments
+      overlapped: Overlapped
+      non_overlapped: Ok
+      update: Update
+      finish: Finish order
+      change: Change status
+      change_sub: Change substatus
+      reassign: Reassign
+      reassign_tecnic: Reassign User
+      title_confirm: "Finish and close order %{order}"
+      body_confirm: "Are you sure to finish and close the order?<br>When you finish the order, the order will be closed and can't be reopened."
+    time:
+      day: "Days"
+      hour: "Hours"
+      minute: "Minutes"
+    status:
+      request: "Requested" #500
+      assigned: "Assigned" #501
+      in_progress: "In Progress" #502
+      rejected: "Rejected" #503
+      done: "Done" #504
+      pre_order: "Preorder" #505
+      pending: "Pending" #506
+      receivable: "Receivable" #507
+      service_center: "Service Center" #508
+      service_evaluation: "Service Evaluation" #509
+      arrives_place: "Arrives Place" #510
+      manual_order: "Manual Order Generated" #511
+      no_progress: "No Progress" #512
+    substatuses_type:
+      done: "Done"
+      pending: "Pending"
+      receivable: "Receivable"
+      service_center: "Service Center"
+    substatuses:
+      warranty: "Warranty"
+      serv_qua: "Quality Service"
+      cancelled: "Cancelled"
+      absent: "Absent customer"
+      non_comp: "Cancelled due non-compliance"
+      price_pend: "Price quote pending"
+      budget: "Pending by budget"
+      canc_by_custo: "Canceled by customer"
+      auth_requ: "Authorization required"
+      wrong_data: "Wrong data"
+      product_return: "Product return"
+      wait_cust_contact: "Waiting customer contact"
+      prepaid: "Prepaid"
+      paid: "Paid"
+      deliv_goods: "Delivered goods"
+      transf: "Transfer to service center"
+    sync:
+      sync: "Synchronized"
+      desync: "Out of Sync"
+    logs:
+      log: Log
+      logs: Logs
+      description: "Description"
+      address: "Address"
+      priority: "Priority"
+      supervisor_id: "Supervisor"
+      customer_id: "Customer"
+      tecnic_id: "User"
+      status_id: "Status"
+      substatus_id: "Substatus"
+      install_date: "Install date"
+      install_time: "Install time"
+      city_id: "City"
+      limit_time: "Limit"
+      subsidiary_id: "Subsidiary"
+      category_id: "Category"
+      order_type: "Type"
+      parent: "Parent"
+      parent_order: "Parent order"
+      things_ids: "things_ids"
+      updated_at: "updated_at"
+      customer_id_order: "Order ID"
+      user: "User"
+      action: "Action"
+      status: "Status"
+      date: "Date"
+      changes: "Changes"
+      comment: "Comments"
+      sync: "Sync"
+    comments:
+      comments: Comments
+      comment: Comment
+      user: User
+      date: Date
+    tec_avai:
+      check: "Check Availability"
+      available: "Technic Availability"
+      overlaps: "Overlaps?"
+      qty: "Orders assigned for that date:"
+  things:
+    index:
+      order: "Order"
+      status: "Status"
+      device: "Product"
+      devices: "Inventory"
+      code: "Code scan"
+      thing_name: "Name"
+      thing_desc: "Description"
+      customer: "Customer"
+      ini_address: "Initial address"
+      end_address: "Final address"
+      date: "Date"
+      maint_date: "Maintenance date"
+      maint_time: "Mantenance time"
+      internal_id: "Id"
+      freq: "Frequency"
+      nro: "Maintenance Quantity"
+      new: "New Product"
+      details: Details
+      histories: Histories
+      modal_close: Close
+      last_works: "Last 5 work orders for"
+      main_info: Main information
+      aditional_info: Aditional information
+      summary: Summary
+      price: "Price"
+      warranty: "Warranty"
+      record: Record
+      intervention: "Intervention type"
+      imgs: Images
+      images: "'s images"
+      historical: "Historical from"
+      evidence: "Photographic evidence from"
+      next_image: Next
+      prev_image: Previous
+      h6_text: "<strong>User</strong> %{tecnic} - <strong>Order:</strong> %{order}"
+      err_1: "Prohibited this product from being saved."
+      updated_true: "Thing was successfully updated."
+      updated_false: "You can't modify the customer of this product."
+      category: "Category"
+      create: "Create Product"
+      edit: "Edit Product"
+      notification: "Notification Maintenance"
+      time: "Time Notification"
+      serial_number: "Serial number"
+      stock: "Stock"
+      final_price: "Final price"
+      cost_price: "Cost price"
+      substatus: "Substatus"
+      start_warranty: "Start warranty"
+      finish_warranty: "Finish warranty"
+      weight: "Weight"
+      kilogram: "Kilograms"
+      gram: "Grams"
+      ton: "Tons"
+      mg: "Milligrams"
+      ounce: "Ounces"
+      pound: "Pounds"
+      unit_weight: "Unit weight"
+      quantity: "Quantity"
+      discount: "Discount"
+    status:
+      active: "Active"
+      corrective_m: "Corrective Maintenance"
+      inactive: "Inactive"
+      installed: "Installed"
+      installing: "Installing"
+      on_the_way: "On the way"
+      preventive_m: "Preventive Maintenance"
+      replacement: "Replacement"
+      stock: "Stock"
+      in: "In"
+      out: "Out"
+    time:
+      minutes: Minutes
+      hours: Hours
+      days: Days
+      weeks: Weeks
+  tools:
+    index:
+      tools: Tools
+      tool: Tool
+      new: New Tool
+      update: Update
+      details: Details
+      code_scan: Code Scan
+      name: Name
+      description: Description
+      status: Status
+      tecnic: User
+      responsable: Responsible
+      slug: Slug
+      registered: Registered by
+      created: Created
+      updated: Updated
+      modal_close: Close
+      date: Date
+      user: User
+      save: Save
+      info: Info
+      comment: Comments
+      err_1: "This tool can not be saved."
+    status:
+      assigned: Assigned
+      stock: Stock
+      replacement: Replacement
+      lost: Lost
+  components:
+    index:
+      new: New Component
+      components: Components
+      name: Name
+      description: Description
+      code: Code scan
+      thing: Product
+      search: Search product
+      modal_close: Close
+      title: Upload components via CSV file
+      load_components: Upload Components
+      file: "Choose file"
+      up_file: Upload your file
+      upload: Upload
+      download: Download layout
+      download_qr: Download QR codes
+  maintenaces:
+    index:
+      maintenance_date: Maintenance Date
+      maintenance_time: Maintenance Time
+  qr:
+    generator: "QR Generator"
+    obj_class: "QR product"
+    quantity: "Quantity"
+    generate: "Generate"
+  category:
+    index:
+      category: "Category"
+      categories: "Categories"
+      cat_caption: "List of categories"
+      new_cat_title: "Create New Category"
+      cat_details: "Category Details"
+      cat_name: "Category Name"
+      category_type: Category Type
+      select_category: Choose category
+      create: Create Category
+    status:
+      install: "Install"
+      maintenance: "Mainteinance"
+      repair: "Repair"
+    types:
+      order: Order
+      thing: Thing
+      tool: Tool
+      component: Component
+      uncat: Uncategorized
+  substatus:
+    index:
+      substatus: "Substatus"
+      substatuses: "Substatuses"
+      caption: "Substatuses list"
+      status_id: "Type:"
+      description: "Description:"
+      details: "Details"
+      new: "New substatus"
+      options: "Options"
+      modal_close: "Close"
+      edit: "Update"
+      504: Done
+      506: Pending
+      507: Receivable
+      508: Service Center
+      300: In
+      301: Out
+  users:
+    import:
+      upload: "Upload"
+      file: "Browse File..."
+      download: "Download Layout"
+      title: "Masive Client Creation"
+      success: " %{saved} users has been created, from %{users_loaded} sent."
+    index:
+      users: "Users"
+      c_name: "Name"
+      name: "First Name"
+      last_name: "Last name"
+      email: "Email"
+      document_type: "Document type"
+      document_number: "Document number"
+      city: "City"
+      orders: "Orders"
+      id: "Identification"
+      phone_1: "Company Phone"
+      phone_2: "Phone 2"
+      address_1: "Address 1"
+      address_2: "Address 2"
+      image: "Change image"
+      id_number: "Document number"
+      subsidiary: "Subsidiary"
+      active: "Active"
+      inactive: "Inactive"
+      role: "Role"
+      err_1: "Prohibited this user from being saved."
+      company_name: "Company Name"
+      web_page: "Web Page"
+      priority_user: "Customer Priority"
+      principal_activity: "Main Activity"
+      watch: Supervise
+      subsidiaries: Subsidiaries
+      as_supervisor: View as supervisor
+      subsidiary_view: View as administrator
+      as_supervisor_msg: "You are supervising: %{subsidiary} subsidiary"
+      no_apply: As admin
+      create: Create User
+  subsidiary:
+    index:
+      contact: Contact
+      name: "Name"
+      phone: "Phone"
+      email: "Email"
+      identification: "Identification"
+      address: "Address"
+      logo: "Change logo"
+      status: "Status"
+      active: "Active"
+      inactive: "Inactive"
+      upd_subsidiary: "Update Subsidiary"
+      subsidiary_initials: "Subsidiary initials"
+      err_1: "Prohibited this subsidiary from being saved."
+      err_2: "This field is required!"
+      list: "Subsidiary List"
+  corporation:
+    index:
+      corporate: "Corporation"
+      name: "Company name"
+      phone: "Company phone"
+      email: "Company email"
+      identification: "Company ID"
+      address: "Company address"
+      logo: "Change logo"
+      status: "Status"
+      active: "Active"
+      inactive: "Inactive"
+      upd_subsidiary: "Update Company"
+      initials: "Company initials"
+      invitation: "We invite you to update your company's information."
+      err_1: "Prohibited this subsidiary from being saved."
+      err_2: "This field is required!"
+  session:
+    index:
+      welcome: "Welcome"
+      start: "Let's get started"
+      continue: "Continue"
+      information: "We invite you to complete the following information to continue with the registration:"
+      sign_in: "Sign in with:"
+      sign_up: "Sign up with:"
+      log_in: "Log in"
+      register: "Register"
+      forgot_pwd: "Forgot password?"
+      member: "Are you a member?"
+      not_member: "Not a member?"
+      or: "or"
+      field_required: "This field is required!"
+      terms_service: "You must agree before submitting"
+      send_instru: "Send instructions"
+      email_register: "Email Register"
+  profile:
+    current_password: "We need the current password to confirm changes"
+    password_length: "8 characters minimum"
+    password: "Password"
+    password_confirmation: "Confirm password"
+    new_password: "New password"
+    confirm_new_password: "Confirm new password"
+    change_password: "Change password"
+    reset_password: "Reset password"
+    invalid_pattern_password: "Password must have 1 capital letter, 1 lowercase letter, 1 number and 1 special character."
+    mismatched_password: "Passwords do not match"
+    invalid_email: "Invalid email"
+    invalid_subsidiary: "Invalid subsidiary name"
+    invalid_tel: "Invalid phone"
+    invalid_activity: "Invalid activity "
+    invalid_address: "Invalid address"
+    invalid_doc: "Invalid document"
+  customers:
+    contact:
+      contact: "Contact"
+      name: "Name:"
+      phone: "Phone:"
+      address: "Address:"
+      email: "Email:"
+      company: "Company"
+      subsidiary: "Subsidiary"
+  reports:
+    reports: "Reports"
+    report: "Report"
+    order: "Orders Report"
+    orders: "Orders"
+    from_date: "From date"
+    to_date: "To date"
+    download: "Download csv"
+    excel: Download excel
+    no_text: ""
+  notifications:
+    notifications: Notifications
+    notification: Notification
+    all_read: Mark all as read
+    delete_all: Delete all
+    delete_readed: Delete readed
+    date: "Date:"
+    order: "Order:"
+    status: "Status:"
+    readed: "Read at:"
+    link_order: "Order %{order}"
+    text: "%{user} update order %{order} to <bold>%{status}</bold> status"
+    view: "Viewed:"
+    notificated: "Notificated at:"
+    show_all: See all notifications
+  datetime:
+    distance_in_words:
+      half_a_minute: 'Half a minute ago'
+      less_than_x_seconds:
+        zero: 'Less than 1 second ago'
+        one: 'Less than 1 second ago'
+        other: 'Less than %{count} Seconds ago'
+      x_seconds:
+        one: '1 Second ago'
+        other: '%{count} Seconds ago'
+      less_than_x_minutes:
+        zero: 'Less than 1 Minute ago'
+        one: 'About 1 Minute ago'
+        other: 'Less than %{count} Minutes ago'
+      x_minutes:
+        one: '1 Minute ago'
+        other: '%{count} Minutes ago'
+      about_x_hours:
+        one: 'About 1 Hour ago'
+        other: 'About %{count} Hours ago'
+      x_days:
+        one: '1 Day ago'
+        other: '%{count} Days ago'
+      about_x_months:
+        one: 'About 1 Month ago'
+        other: 'About %{count} Months ago'
+      x_months:
+        one: '1 Month ago'
+        other: '%{count} Months ago'
+      about_x_years:
+        one: 'About 1 Year'
+        other: 'About %{count} Years ago'
+      over_x_years:
+        one: 'More than 1 Year ago'
+        other: 'More than %{count} Years ago'
+      almost_x_years:
+        one: 'Almost 1 Year ago'
+        other: 'Almost %{count} Years ago'
+    prompts:
+      second: "Seconds"
+  back_messages:
+    not_found: "%{resource} not found."
+    no_registered: "This %{resource} is not resgistered in your subsidiary."
+    code_scan_uniq: "Code scan must be unique"
+    created: "%{resource} was successfully created."
+    updated: "%{resource} was successfully updated."
+    destroyed: "%{resource} was successfully destroyed."
+    nothing: "Nothing to update"
+    field_updated: "%{field} updated."
+    tools:
+      error_field: "Error trying to update Tool %{field}."
+      responsible_error: "Responsible is required for Assigned status."

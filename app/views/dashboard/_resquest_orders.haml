@@ -1,0 +1,51 @@
+.row.flex-box-center
+  .col.s12.m12force_margin
+    .card.card-cascade.narrower.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-center.align-items-center
+        %h3.center.mt-2
+          %strong{id: "orders"}
+            = t('orders.index.title2')
+      //.card
+      .card-body
+        .orderR-table-dashWrapper
+          %table#orderR-table-dash.table.table-striped.table-bordered.table-hover.table-sm.btn-table{:cellspacing => "0", :width => "100%"}
+            %caption
+              = "#{t('base.forms.list_of')} #{t('orders.index.title2')}"
+            %thead.secondary-color.white-text.align-center
+              %tr
+                %th.center
+                  = t("orders.index.date")
+                %th.center
+                  = t('orders.index.customer')
+                %th.center
+                  = t('orders.index.address')
+                %th.center.order-description
+                  = t('orders.index.description')
+                %th.center
+                  = t("orders.index.status")
+                %th.center
+                  = t('orders.index.sync')
+                %th.center.options.th-sm
+                  =t('orders.index.options')
+            %tbody
+              - @resquest_orders.each do |order|
+                %tr
+                  %td.center
+                    = order.created_at.strftime("%Y-%m-%d")
+                    %br
+                    %small
+                      = order.created_at.strftime("%I:%M %p")
+                  %td.center
+                    = "#{order.customer.first_name} #{order.customer.last_name}"
+                  %td.center
+                    = "#{truncate(order.description, length: 30, omission: '...')}"
+                  %td.center
+                    = order.address
+                  %td.align-center
+                    = order.status.description
+                  %td.align-center
+                    %i.small.material-icons.desync sync_disabled
+                  %td.align-center
+                    = link_to edit_order_path(order.slug), class: 'card__button btn btn-success btn-sm', title: t("base.forms.edit") do
+                      %i.fas.fa-edit
+          = link_to "Show all #{@resquest_orders.count} orders", orders_path(status: 505), class: 'btn btn-primary btn-sm', title: "Info"

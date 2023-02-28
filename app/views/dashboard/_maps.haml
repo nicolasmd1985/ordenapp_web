@@ -1,0 +1,23 @@
+- lat = "4.624335"
+- lng = "-74.063644"
+- if @tecnics.size > 0
+  - if Position.position(@tecnics.first.id).nil? != true
+    - lat = Position.position(@tecnics.first.id).latitude
+    - lng = Position.position(@tecnics.first.id).longitude
+
+
+%table{class: 'coords'}
+  %tbody
+    - @tecnics.each do |p|
+    - @position = Position.position(p.id)
+      %tr
+        %td{id: "coord",
+        "data-lng" => "#{@position ? @position.longitude : 'NA'}",
+        "data-lat" => "#{@position ? @position.latitude : 'NA'}",
+        "data-name" => "#{@position ? "#{@position.user.first_name} #{@position.user.last_name}" : 'NA'}",
+        "data-status" => "#{p.status ? p.status.description : 'NA'}"}
+          = @position ? "lat: #{@position.latitude}, lng: #{@position.longitude}" : ''
+.card.mt-0.p-0
+  .card-body
+    .map-container#map{"data-image" => "#{image_tag "servicio-tecnico.png"}", "data-latitude" => "#{lat}", "data-longitude" => "#{lng}", "data-speed" => "30", "data-time" => "3:30 PM"}
+%script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyC7zkb57kG86b7ddqhrG1hJCmta9aoyIx8&callback=initMap"}

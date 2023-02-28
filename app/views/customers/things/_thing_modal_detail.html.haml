@@ -1,0 +1,45 @@
+.card-deck
+  .card
+    %h5.card-header
+      = t('things.index.main_info')
+    .card-body
+      %ul.list-group.list-group-flush
+        %li.list-group-item
+          %i.fas.fa-calendar-check.mr-3{"aria-hidden" => "true"}
+          %p
+            %b
+              =t("things.index.status:")
+              = thing_status_humanized(thing.status.description)
+        %li.list-group-item
+          %i.fas.fa-signature.mr-3{"aria-hidden" => "true"}
+          %p
+            %b
+              =t("things.index.thing_name:")
+            = thing.name
+        %li.list-group-item
+          %i.fas.fa-info-circle.mr-3{"aria-hidden" => "true"}
+          %p
+            %b
+              =t("things.index.thing_desc:")
+            = thing.description
+    .card-footer.text-muted.text-center
+      = "#{t('base.forms.updated_at')} #{thing.updated_at.strftime("%Y-%m-%d")}"
+  .card
+    %h5.card-header.text-center
+      = t('things.index.aditional_info')
+    .card-body
+      %ul.list-group.list-group-flush
+        %li.list-group-item
+          %i.fas.fa-qrcode.mr-3{"aria-hidden" => "true"}
+          %p
+            %b
+              =t("things.index.code:")
+            = thing.code_scan
+        %li.list-group-item
+          %i.fas.fa-redo.mr-3{"aria-hidden" => "true"}
+          %p
+            %b
+              =t("things.index.freq:")
+            -# = "#{thing.maintenance_frecuency_type} / #{thing.maintenance_quantity}"
+    .card-footer.text-muted.text-center
+      = "#{t('base.forms.updated_at')} #{thing.updated_at.strftime("%Y-%m-%d")}"

@@ -1,0 +1,134 @@
+%li.menu{id: "#{t("base.bar_menu.customers.customers")}"}
+  %a.collapsible-header.waves-effect.arrow-r.material-tooltip-main.no-link{"data-toggle" => "tooltip", "data-placement" => "right", "trigger" => "manual", :title => "#{t("base.bar_menu.customers.customers")}"}
+    %i.fas.fa-users.sv-slim-icon
+    = t("base.bar_menu.customers.customers")
+    %i.fas.fa-angle-down.rotate-icon
+  .collapsible-body
+    %ul
+      %li.submenu{id: "#{t("base.bar_menu.customers.new")}"}
+        = link_to new_user_path(:role => 2), "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.customers.new"), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-user-plus
+          = t("base.bar_menu.customers.new")
+      %li.submenu{id: "#{t("base.bar_menu.customers.list")}"}
+        = link_to users_path(:role => 2), "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.customers.list"), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-clipboard-list
+          = t("base.bar_menu.customers.list")
+      %li.submenu{id: "#{t("base.bar_menu.customers.upload")}"}
+        = link_to users_import_csv_form_path(:role => 2), "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.customers.upload"), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-th-list
+          = t("base.bar_menu.customers.upload")
+%li.menu{id: "#{t("base.bar_menu.tecnics.tecnics")}"}
+  %a.collapsible-header.waves-effect.arrow-r.material-tooltip-main.no-link{"data-toggle" => "tooltip", "data-placement" => "right", :title => "#{t("base.bar_menu.tecnics.tecnics")}"}
+    %i.fas.fa-users-cog.sv-slim-icon
+    = t("base.bar_menu.tecnics.tecnics")
+    %i.fas.fa-angle-down.rotate-icon
+  .collapsible-body
+    %ul
+      %li.submenu{id: "#{t("base.bar_menu.tecnics.new")}"}
+        = link_to new_user_path(:role => 0), "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.tecnics.new"), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-user-plus
+          = t("base.bar_menu.tecnics.new")
+      %li.submenu{id: "#{t("base.bar_menu.tecnics.list")}"}
+        = link_to users_path(:role => 0), "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.tecnics.list"), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-clipboard-list
+          = t("base.bar_menu.tecnics.list")
+%li.menu{id: "#{t("base.bar_menu.orders.orders")}"}
+  %a.collapsible-header.waves-effect.arrow-r.material-tooltip-main.no-link{"data-toggle" => "tooltip", "data-placement" => "right", :title => "#{t("base.bar_menu.orders.orders")}"}
+    %i.fas.fa-clipboard-check.sv-slim-icon
+    = t("base.bar_menu.orders.orders")
+    %i.fas.fa-angle-down.rotate-icon
+  .collapsible-body
+    %ul
+      %li.submenu{id: "#{t("base.bar_menu.orders.new")}"}
+        = link_to new_order_path, "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.orders.new"), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-file-medical
+          = t("base.bar_menu.orders.new")
+      %li.submenu{id: "#{t("base.bar_menu.orders.list")}"}
+        = link_to orders_path, "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.orders.list"), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-file-alt
+          = t("base.bar_menu.orders.list")
+      %li.submenu{id: "#{t("substatus.index.new")}"}
+        = link_to new_substatus_path(:order), "data-toggle" => "tooltip", "data-placement" => "right", title: t('substatus.index.new'), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-plus-square
+          = t("substatus.index.new")
+      %li.submenu{id: "#{t("substatus.index.caption")}"}
+        = link_to substatuses_path(:order), "data-toggle" => "tooltip", "data-placement" => "right", title: t('substatus.index.caption'), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-list-ul
+          = t('substatus.index.caption')
+      %li.submenu{id: "#{t("base.bar_menu.categories.new")}"}
+        = link_to new_category_path(:order), "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.categories.new"), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-plus-square
+          = t("base.bar_menu.categories.new")
+      %li.submenu{id: "#{t("base.bar_menu.categories.list")}"}
+        = link_to categories_path(:order), "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.categories.list"), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-list-ul
+          = t("base.bar_menu.categories.list")
+%li.menu{id: "#{t("base.bar_menu.things.things")}"}
+  %a.collapsible-header.waves-effect.arrow-r.material-tooltip-main.no-link{"data-toggle" => "tooltip", "data-placement" => "right", :title => "#{t("base.bar_menu.things.things")}"}
+    %i.fas.fa-box-open.sv-slim-icon
+    = t("base.bar_menu.things.things")
+    %i.fas.fa-angle-down.rotate-icon
+  .collapsible-body
+    %ul
+      %li.submenu{id: "#{t("base.bar_menu.things.new")}"}
+        = link_to new_thing_path, "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.things.new"), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-plus-square
+          = t("base.bar_menu.things.new")
+      %li.submenu{id: "#{t("base.bar_menu.things.list")}"}
+        = link_to things_path, "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.things.list"), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-th-list
+          = t("base.bar_menu.things.list")
+      %li.submenu{id: "#{t("qr.generator")}"}
+        = link_to qr_index_path, "data-toggle" => "tooltip", "data-placement" => "right", title: t("qr.generator"), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-qrcode
+          = t("qr.generator")
+      %li.submenu{id: "#{t("substatus.index.new")}"}
+        = link_to new_substatus_path(:thing), "data-toggle" => "tooltip", "data-placement" => "right", title: t('substatus.index.new'), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-plus-square
+          = t("substatus.index.new")
+      %li.submenu{id: "#{t("substatus.index.caption")}"}
+        = link_to substatuses_path(:thing), "data-toggle" => "tooltip", "data-placement" => "right", title: t('substatus.index.caption'), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-list-ul
+          = t('substatus.index.caption')
+      %li.submenu{id: "#{t("base.bar_menu.categories.new")}"}
+        = link_to new_category_path(:thing), "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.categories.new"), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-plus-square
+          = t("base.bar_menu.categories.new")
+      %li.submenu{id: "#{t("base.bar_menu.categories.list")}"}
+        = link_to categories_path(:thing), "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.categories.list"), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-list-ul
+          = t("base.bar_menu.categories.list")
+%li.menu{id: "#{t("base.bar_menu.tools.tools")}"}
+  %a.collapsible-header.waves-effect.arrow-r.material-tooltip-main.no-link{"data-toggle" => "tooltip", "data-placement" => "right", :title => "#{t("base.bar_menu.tools.tools")}"}
+    %i.fas.fa-tools.sv-slim-icon
+    = t("base.bar_menu.tools.tools")
+    %i.fas.fa-angle-down.rotate-icon
+  .collapsible-body
+    %ul
+      %li.submenu{id: "#{t("base.bar_menu.tools.new")}"}
+        = link_to new_tool_path, "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.tools.new"), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-plus-square
+          = t("base.bar_menu.tools.new")
+      %li.submenu{id: "#{t("base.bar_menu.tools.list")}"}
+        = link_to tools_path, "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.tools.list"), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-th-list
+          = t("base.bar_menu.tools.list")
+%li.menu{id: "#{t('reports.reports')}"}
+  %a.collapsible-header.waves-effect.arrow-r.material-tooltip-main.no-link{"data-toggle" => "tooltip", "data-placement" => "right", :title => "#{t("reports.reports")}"}
+    %i.fas.fa-chart-pie.sv-slim-icon
+    = t('reports.reports')
+    %i.fas.fa-angle-down.rotate-icon
+  .collapsible-body
+    %ul
+      %li.submenu{id: "#{t('reports.orders')}"}
+        = link_to order_reports_path, "data-toggle" => "tooltip", "data-placement" => "right", title: t('reports.orders'), class: "waves-effect material-tooltip-main" do
+          %i.fas.fa-clipboard-check
+          = t('reports.orders')
+-# %li.menu{id: "order_rates"}
+-#   = link_to order_rates_path, "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.poll.poll"), class: "submenu collapsible-header waves-effect material-tooltip-main" do
+-#     %i.fas.fa-clipboard-list.sv-slim-icon
+-#     = t("base.bar_menu.poll.poll")
+%li
+  %a#toggle.collapsible-header.waves-effect.material-tooltip-main{"data-toggle" => "tooltip", "data-placement" => "right", :title => "#{t("base.bar_menu.toggle.expand")}"}
+    %i.sv-slim-icon.fas.fa-angle-double-left
+    = t("base.bar_menu.toggle.collapse")

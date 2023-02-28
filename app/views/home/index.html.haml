@@ -1,0 +1,12 @@
+= save_heatmap
+%h1
+  - if request.query_parameters.include?("see_heatmap")
+    = show_heatmap(nil)
+= render "page_intro"
+= render "first_section"
+= render "second_section"
+-# = render "third_section"
+= render "feature_section"
+= render "section_request"
+= render "footer"
+= render "whatsapp_button"

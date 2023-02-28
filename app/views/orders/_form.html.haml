@@ -1,0 +1,127 @@
+.invisible#breadcrumb
+  = render_breadcrumbs
+= form_with(model: order, local: true, html: { autocomplete: "off", novalidate: "true" }, id: "order_form", :class => "order_form needs-validation") do |form|
+  .row
+    .col-sm-6
+      .form__field--select.md-form.required
+        = form.label t("orders.index.customer"), {"data-error" => "wrong", "data-success" => "right"}, class: "active"
+        = form.select :customer_id, options_for_select_customers_info(current_user.subsidiary_id, @order.customer_id ? @order.customer_id : ''), {}, {:class => "mdb-select md-form mb-2 colorful-select dropdown-primary validate customer-sel", style: "margin-bottom: 0.5rem;", searchable: t('base.filters.search')}
+        -# .invalid-feedback
+        -#   =t("base.forms.err_2")
+      .form__field--input.md-form
+        = form.label t("orders.index.address"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.text_field :address, required: true, minlength: 8, autocomplete: "nope", :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          =t("base.forms.err_2")
+      .form__field--input.md-form
+        = form.label t("orders.index.contact"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.text_field :contact, autocomplete: "nope", :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          =t("base.forms.err_2")
+      .form__field--input.md-form
+        = form.label t("orders.index.phone_contact"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.number_field :phone_contact, autocomplete: "nope", type: "tel", maxlength: 10, onkeypress:"if ( isNaN( String.fromCharCode(event.keyCode) )) return false;", :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          =t("base.forms.err_2")
+      .form__field--select.md-form
+        = form.label t("category.index.category"), {"data-error" => "wrong", "data-success" => "right"}, class: "mdb-main-label active"
+        = form.select :category_id, options_for_select_category(current_user.subsidiary_id, @order.category_id ? @order.category_id : ''), {}, {:class => "mdb-select md-form mb-2 colorful-select dropdown-primary validate", style: "margin-bottom: 0.5rem;", searchable: t('base.filters.search')}
+        .invalid-feedback
+          =t("base.forms.err_2")
+      .form__field--input.md-form
+        = form.label t("orders.index.customer_id_order"), {"data-error" => "wrong", "data-success" => "right"}, class: "active"
+        = form.text_field :customer_id_order, required: false, minlength: 2, autocomplete: "nope", :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          =t("base.forms.err_2")
+      - if @thing
+        %label
+          = "#{@thing.try(:name)} - #{@thing.try(:code_scan)}"
+      -# .form__field--input.md-form
+      -#   = form.label t("orders.index.things_ids"), class: "mdb-main-label active"
+      -#   = form.select :things_ids, options_for_select_things(current_user.subsidiary_id, @order.things_ids ? @order.things_ids : ''), {include_blank: "Seleccione dispositivos"}, {multiple: true, :class => "mdb-select md-form colorful-select dropdown-primary", searchable: "Search here.."}
+      -#   .invalid-feedback
+      -#     =t("base.forms.err_2")
+    .col-sm-6
+      .row
+        .col-sm-6
+          .form__field--input.md-form.input-with-post-icon.datepicker
+            = form.label t("orders.index.install_date"), {"data-error" => "wrong", "data-success" => "right"}, :class => "mdb-main-label"
+            = form.text_field :install_date, class: "form-control validate", value: @order.install_date ? @order.install_date.strftime("%d %B, %Y") : "",required: true, placeholder: t('base.forms.select_date'), style: "margin-bottom: 0.5rem;", readonly: true
+            %i.fas.fa-calendar.input-prefix
+            .invalid-feedback
+              =t("base.forms.err_3")
+        .col-sm-6
+          .form__field--input.md-form.input-with-post-icon.timepicker{:twelvehour => "true", :default => "now", :closetext => t('base.forms.cancel'), :cleartext => t('base.forms.clear'), :donetext => t('base.forms.save')}
+            = form.label t("orders.index.install_time"), {"data-error" => "wrong", "data-success" => "right"}, :class => "mdb-main-label"
+            = form.text_field :install_time, class: "form-control validate", value: @order.install_time ? @order.install_time.strftime("%I:%M%p") : "", required: true, placeholder: t('base.forms.select_hour'), style: "margin-bottom: 0.5rem;", readonly: true
+            %i.fas.fa-clock.input-prefix
+            .invalid-feedback
+              =t("base.forms.err_4")
+      .row
+        .col
+          .field.md-form.mt-0
+            = form.label t("orders.index.limit_time"), {"data-error" => "wrong", "data-success" => "right"}, :class => "mdb-main-label"
+            = form.text_field :time_number, required: true, minlength: 1, maxlength: 2, value: @seg, onkeypress: "if(isNaN(String.fromCharCode(event.keyCode))) return false;", :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+            .invalid-feedback
+              =t("base.forms.err_2")
+        .col
+          .field.md-form.mt-0
+            = form.label t("orders.index.unit_time"), {"data-error" => "wrong", "data-success" => "right"}, :class => "mdb-main-label active"
+            = form.select :time_data, select_time_data(@data), {}, {:class => "mdb-select md-form colorful-select dropdown-primary mt-0 mb-2 validate", style: "margin-bottom: 0.5rem;"}
+            .invalid-feedback
+              =t("base.forms.err_2")
+      .form__field--input.md-form.input-field.city-field.field.md-form.mt-0
+        = form.label t("orders.index.city"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.search_field :city_value, id: "autocompleteCityInput", class: "form-control mdb-autocomplete autocompleteCity validate", autocomplete: "nope", value: @city_name, required: true, style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          =t("base.forms.err_2")
+        %button.mdb-autocomplete-clear
+          %svg{:fill => "#000000", :height => "24", :viewBox => "0 0 24 24", :width => "24", :xmlns => "https://www.w3.org/2000/svg"}
+            %path{:d => "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"}
+            %path{:d => "M0 0h24v24H0z", :fill => "none"}
+        = form.hidden_field :place_id, id: "placeId", value: @place_id
+        = form.hidden_field :country_id, id: "countryId", value: @country_id
+      .field.md-form
+        = form.label t("orders.index.assign_to"), {"data-error" => "wrong", "data-success" => "right"}, :class => "mdb-main-label active"
+        -# = form.select :tecnic_id , options_for_select_order_active_tecnics(current_user.subsidiary_id, @order.tecnic_id ? @order.tecnic_id : ''), {}, { style: "margin-bottom: 0.5rem;", :searchable => t('base.filters.search')}
+        = form.select :tecnic_id , options_for_select_order_active_tecnics(current_user.subsidiary_id, @order.tecnic_id ? @order.tecnic_id : ''), {}, {multiple: true, :class => "mdb-select md-form mb-2 colorful-select dropdown-primary validate", style: "margin-bottom: 0.5rem;", searchable: t('base.filters.search')}
+        .invalid-feedback
+          =t("base.forms.err_2")
+
+      .btn-group-vertical{id: 'val_technic_availability', class: "btn-primary btn-sm", style: "z-index: 0", "data-target" => "#modal_available", "data-toggle" => "modal", type: "button", title: t('things.index.details')}
+        = t('orders.tec_avai.check')
+
+      -# Modal technic Availability
+      .modal{id: "modal_available", "aria-hidden" => "true", "aria-labelledby" => "modal_thing", role: "dialog", tabindex: "-1"}
+        .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.modal-notify.modal-primary.modal-lg{role: "document"}
+          .modal-content
+            .modal-header
+              %h5.modal-title.white-text{style: "margin-left: auto;"}
+                = t('orders.tec_avai.available')
+              %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+                %span.white-text{"aria-hidden" => "true"} ×
+            .modal-body.thing-modal
+              = render 'tecnic_modal_availability', @nro_orders
+
+            .modal-footer.justify-content-center
+              %button.btn.btn-primary.btn-lg{"data-dismiss" => "modal", type: "button"}
+                = t('things.index.modal_close')
+
+      .field.md-form
+        = form.hidden_field :locale, id: "idioma", value: @locale
+        = form.hidden_field :order_id, id: "order_id", value: @order.id ? @order.id : ""
+    .col-sm-12
+      .card.mt-0
+        .form__field--input.md-form
+          = form.label t("orders.index.description"), {"data-error" => "wrong", "data-success" => "right"}, class: "active"
+          = form.text_field :description, required: true, minlength: 10, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+          .invalid-feedback
+            =t("base.forms.err_2")
+        .form__field--input.md-form
+          = form.label t("orders.index.comment"), {"data-error" => "wrong", "data-success" => "right"}, class: "active"
+          = form.text_area :comment, autocomplete: "nope", rows: 4, class: "form-control validate", style: "margin-bottom: 0.5rem; border-style: none;"
+
+  - if (@order && !@order.sync) || [506, 507, 508].include?(@order.status_id)
+    .row.justify-content-center
+      %button.btn.secondary-color.btn-rounded.form__submit.not_continue{id: 'create_action', type: 'submit'}
+        = t('orders.index.new')

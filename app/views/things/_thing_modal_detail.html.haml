@@ -1,0 +1,114 @@
+.card.card-cascade.narrower.pt-0.light-1
+  .view.view-cascade.gradient-card-header.indigo.narrower.py-3.mx-4.d-flex.justify-content-center.align-items-center
+    %h5.center.mt-2
+      %strong
+        =t("things.index.summary")
+    -# %ul#thingModalDetail.nav.nav-tabs.nav-justified.md-tabs.indigo{:role => "tablist"}
+    -#   %li.nav-item
+    -#     %a#thing-details-nav.nav-link{"aria-controls" => "thing-details-tab", "aria-selected" => "true", "data-toggle" => "tab", :href => "#thing-details-tab", :role => "tab"}
+          =t("things.index.summary")
+      -# %li.nav-item
+      -#   %a#thing-images-nav.nav-link{"aria-controls" => "thing-images-tab", "aria-selected" => "false", "data-toggle" => "tab", :href => "#thing-images-tab", :role => "tab"}
+      -#     =t("things.index.imgs")
+    -# #thingTabContent.tab-content.card
+    -#   #thing-details-tab.tab-pane.fade.show.active{"aria-labelledby" => "thing-details-nav", :role => "tabpanel"}
+  .card-body
+    .row
+      .col-12.col-lg-6
+        %ul.list-group.list-group-flush
+          %li.list-group-item
+            %i.fas.fa-signature.mr-3{"aria-hidden" => "true"}
+            %p
+              %b
+                =t("things.index.thing_name")
+              = thing.name
+          %li.list-group-item
+            %i.fas.fa-info-circle.mr-3{"aria-hidden" => "true"}
+            %p
+              %b
+                =t("things.index.thing_desc")
+              = thing.description
+          %li.list-group-item
+            %i.fab.fa-buffer.mr-3{"aria-hidden" => "true"}
+            %p
+              %b
+                = "#{t("things.index.stock")}:"
+              = thing.stock
+          %li.list-group-item
+            %i.fas.fa-qrcode.mr-3{"aria-hidden" => "true"}
+            %p
+              %b
+                =t("things.index.code")
+              = thing.code_scan
+      .col-12.col-lg-6
+        %ul.list-group.list-group-flush
+          %li.list-group-item
+            %i.fas.fa-object-group.mr-3{"aria-hidden" => "true"}
+            %p
+              %b
+                = "#{t("things.index.category")}:"
+              - if thing.category
+                = thing.category.name
+          %li.list-group-item
+            %i.fas.fa-subscript.mr-3{"aria-hidden" => "true"}
+            %p
+              %b
+                = "#{t("things.index.substatus")}:"
+              - if thing.substatus
+                = thing.substatus.description #Cambiar por el nombre del subestado
+          -# %li.list-group-item
+          -#   %i.far.fa-calendar-alt.mr-3{"aria-hidden" => "true"}
+          -#   %p
+          -#     %b
+          -#       =t("things.index.maint_date")
+          -#     = thing.maintenance_date ? thing.maintenance_date.strftime("%Y-%m-%d") : 'NA'
+          -# %li.list-group-item
+          -#   %i.fas.fa-redo.mr-3{"aria-hidden" => "true"}
+          -#   %p
+          -#     %b
+          -#       =t("things.index.freq")
+          -#     = "#{thing.maintenance_quantity} / #{thing.maintenance_frecuency_type}"
+  .card-footer.text-muted.text-center
+    = "#{t('base.forms.updated_at')} #{thing.updated_at.strftime("%Y-%m-%d")}"
+  -# #thing-images-tab.tab-pane.fade{"aria-labelledby" => "thing-images-nav", :role => "tabpanel"}
+  -#   .view.overlay.ovf-visible
+  -#     -if !@thing.try(:photos).present?
+  -#       = image_tag "device.png", {class: "img-thumbnail z-depth-1 avatar-pic", alt: "Default image"}
+  -#       //%a{:href => "#!"}
+  -#       .mask.flex-center.rgba-white-slight
+  -#     -else
+  -#       %img{:src => @thing.try(:photos), class: "img-thumbnail z-depth-1 avatar-pic", alt: "Ítem image"}
+  -#       //%a{:href => "#!"}
+  -#       .mask.flex-center.rgba-white-slight
+
+-# .row.flex-box-center.thing-detail
+-#   .col.s12.m10.force_margin
+-#     .card.card-cascade.narrower.mt-5.pt-0.light-1
+-#       .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-center.align-items-center
+-#         %h3.center.mt-2
+-#           %strong
+-#             = "#{thing.name}#{t('things.index.images')}"
+-#       .card
+-#         .card-body
+-#           .view.overlay
+-#             .carousel.slide.carousel-fade.carousel-full{"data-ride" => "carousel", "data-interval" => "5000", :id => "carousel#{thing.id}" }
+-#               .carousel-inner
+-#                 - thing.photos.each do |photo|
+-#                   .carousel-item
+-#                     .view
+-#                       %img.img-fluid.card-img-top.d-block.w-100{:alt => "Device image#{thing.id}", :src => "https://ordenappbucket.s3.amazonaws.com/#{photo}", style: "margin: 0 auto;"}
+-#                       -#%a.carousel-item{:href => "#one!"}
+-#                     .carousel-caption
+-#                       %h3.h3-responsive
+-#                         = thing.name
+
+-#               %a.carousel-control-prev{"data-slide" => "prev", :href => "#carousel#{thing.id}", :role => "button"}
+-#                 %span.carousel-control-prev-icon{"aria-hidden" => "true"}
+-#                 %span.sr-only
+-#                   = t('things.index.prev_image')
+-#               %a.carousel-control-next{"data-slide" => "next", :href => "#carousel#{thing.id}", :role => "button"}
+-#                 %span.carousel-control-next-icon{"aria-hidden" => "true"}
+-#                 %span.sr-only
+-#                   = t('things.index.next_image')
+-#         .card-footer.text-muted.text-center
+-#           = "#{t('base.forms.updated_at')} #{thing.updated_at.strftime("%Y-%m-%d")}"

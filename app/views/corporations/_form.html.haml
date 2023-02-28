@@ -1,0 +1,32 @@
+= form_with(model: corporation, local: true) do |form|
+  - if corporation.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(corporation.errors.count, "error")
+        prohibited this corporation from being saved:
+      %ul
+        - corporation.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = form.label t('corporation.index.name')
+    = form.text_field :name
+  .field
+    = form.label t('corporation.index.phone')
+    = form.text_field :phone
+  .field
+    = form.label t('corporation.index.address')
+    = form.text_field :address
+  .field
+    = form.label t('corporation.index.email')
+    = form.text_field :email
+  .field
+    = form.label t('corporation.index.identification')
+    = form.text_field :identification
+  .field
+    = form.label t('corporation.index.initials')
+    = form.text_field :corporate_initials
+  .field
+    = form.label :status_id
+    = form.text_field :status_id
+  .actions
+    = form.submit

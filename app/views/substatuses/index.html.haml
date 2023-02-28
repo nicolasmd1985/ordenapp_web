@@ -1,0 +1,55 @@
+.invisible#breadcrumb
+  = render_breadcrumbs
+= content_for :page_scripts do
+  = javascript_include_tag "substatuses"
+
+.row.flex-box-center
+  .col.s12.m10.force_margin
+    .card.card-cascade.narrower.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-between.align-items-center
+        = link_to dashboard_path, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t("base.forms.back") do
+          %i.fas.fa-chevron-left
+        %h3.center.mt-2
+          %strong
+            = t("substatus.index.substatuses")
+        = link_to new_substatus_path, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t('substatus.index.new') do
+          %i.fas.fa-plus
+      //.card.py-0
+      - if @substatus == "order"
+        .card-body
+          %ul#substatusTab.nav.nav-tabs.nav-justified.md-tabs.indigo{:role => "tablist"}
+            %li.nav-item
+              %a#done-tab.nav-link.active{"aria-controls" => "status-done", "aria-selected" => "true", "data-toggle" => "tab", :href => "#status-done", :role => "tab"}
+                =t('substatus.index.504')
+            %li.nav-item
+              %a#pending-tab.nav-link{"aria-controls" => "status-pending", "aria-selected" => "false", "data-toggle" => "tab", :href => "#status-pending", :role => "tab"}
+                =t('substatus.index.506')
+            %li.nav-item
+              %a#receivable-tab.nav-link{"aria-controls" => "status-receivable", "aria-selected" => "false", "data-toggle" => "tab", :href => "#status-receivable", :role => "tab"}
+                =t('substatus.index.507')
+            %li.nav-item
+              %a#service-center-tab.nav-link{"aria-controls" => "status-service-center", "aria-selected" => "false", "data-toggle" => "tab", :href => "#status-service-center", :role => "tab"}
+                =t('substatus.index.508')
+          #SubstatusesTab.tab-content.card.pt-3
+            #status-done.tab-pane.fade.show.active{"aria-labelledby" => "done-tab", :role => "tabpanel"}
+              = render "substatus_panel", substatuses: @substatuses_done
+            #status-pending.tab-pane.fade{"aria-labelledby" => "pending-tab", :role => "tabpanel"}
+              = render "substatus_panel", substatuses: @substatuses_pending
+            #status-receivable.tab-pane.fade{"aria-labelledby" => "receivable-tab", :role => "tabpanel"}
+              = render "substatus_panel", substatuses: @substatuses_receivable
+            #status-service-center.tab-pane.fade{"aria-labelledby" => "service-center-tab", :role => "tabpanel"}
+              = render "substatus_panel", substatuses: @substatuses_service
+      -else
+        .card-body
+          %ul#substatusTab.nav.nav-tabs.nav-justified.md-tabs.indigo{:role => "tablist"}
+            %li.nav-item
+              %a#in-tab.nav-link.active{"aria-controls" => "status-in", "aria-selected" => "true", "data-toggle" => "tab", :href => "#status-in", :role => "tab"}
+                =t('substatus.index.300')
+            %li.nav-item
+              %a#out-tab.nav-link{"aria-controls" => "status-out", "aria-selected" => "false", "data-toggle" => "tab", :href => "#status-out", :role => "tab"}
+                =t('substatus.index.301')
+          #SubstatusesTab.tab-content.card.pt-3
+            #status-in.tab-pane.fade.show.active{"aria-labelledby" => "done-tab", :role => "tabpanel"}
+              = render "substatus_panel", substatuses: @substatuses_in
+            #status-out.tab-pane.fade{"aria-labelledby" => "pending-tab", :role => "tabpanel"}
+              = render "substatus_panel", substatuses: @substatuses_out

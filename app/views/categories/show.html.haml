@@ -1,0 +1,44 @@
+.row.flex-box-center
+  .col.s12.m10.force_margin
+    .card.card-cascade.narrower.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-between.align-items-center
+        = link_to categories_path, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t("base.forms.back") do
+          %i.fas.fa-chevron-left
+        %h3.center.mt-2
+          %strong
+            = @category.name
+        = link_to edit_category_path(@category), role: "button", class: 'btn btn-outline-white btn-rounded btn-sm px-2', title: "Edit" do
+          %i.fas.fa-edit
+      .card
+        .row.justify-content-center
+          .col-6
+            %h5.card-header.text-center
+              = t("category.index.cat_details")
+            .card-body
+              %ul.list-group.list-group-flush
+                %li.list-group-item
+                  %i.fas.fa-signature.mr-3{"aria-hidden" => "true"}
+                  %p
+                    %b
+                      = t("category.index.cat_name")
+                    = @category.name
+                %li.list-group-item
+                  %i.fas.fa-signature.mr-3{"aria-hidden" => "true"}
+                  %p
+                    %b
+                      = t("category.index.category_type")
+
+                    = "#{category_type_humanized(@category.category_type ? @category.category_type : 'Uncategorized')}"
+                %li.list-group-item
+                  %i.fas.fa-calendar-alt.mr-3{"aria-hidden" => "true"}
+                  %p
+                    %b
+                      = t("base.forms.created_at")
+                    = @category.created_at.strftime("%Y-%m-%d")
+                -# .col.s12.m6
+                -#   %p
+                -#     %strong Fecha de creacion:
+                -#     = @category.created_at.strftime("%Y-%m-%d")
+            .card-footer.text-muted.text-center
+              =t("base.forms.updated_at")
+              = @category.updated_at.strftime("%Y-%m-%d")

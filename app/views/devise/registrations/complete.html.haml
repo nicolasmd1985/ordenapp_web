@@ -1,0 +1,33 @@
+.container
+  .row.flex-box-center
+    .col-sm-8.col-md-6.col-lg-6
+      .card.light-1.p-0
+        %h3.card-header.info-color.white-text.text-center.py-4.mb-3
+          = "#{t("session.index.welcome")} #{@user.first_name} #{@user.last_name}"
+        .card-title.px-lg-5.text-center
+          = t("session.index.information")
+        .card-body.px-lg-5
+          = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { autocomplete: "off" }) do |f|
+            = render "devise/shared/error_messages", resource: resource
+            .row
+              .col-sm-12
+                .form__field--input.md-form.field#verify_corporation.validate_field
+                  = f.label t("corporation.index.name")
+                  = f.text_field :corporation_id, {class: "input-field autocomplete form-control validate", id: "autocomplete-corporation",  :autocomplete => :off, minlength: 3, required: "true", style: "margin-bottom: 0.5rem;"}
+                  .invalid-feedback
+                    = t("profile.invalid_corporation")
+                .form__field--input.md-form
+                  = f.label t("users.index.phone_1")
+                  = f.number_field :phone_number_1, type: "tel", maxlength: 20, onkeypress:"if ( isNaN( String.fromCharCode(event.keyCode) )) return false;", class: "form-control", id: "autocomplete-phone_number_1", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+                  .invalid-feedback
+                    = t("profile.invalid_tel")
+                .check-div
+                  %input#acceptCheck.form-check-input.validate_check{type: "checkbox", required: "true", checked: true, name: "acceptCheck"}
+                  %label{:for => "acceptCheck"}
+                    %a{href: "https://ordenapp.co/terminos-y-condiciones", target: "_blank", title: t('home.index.terms') }
+                      = t("home.index.terms")
+                    .invalid-feedback
+                      = t("session.index.terms_service")
+                .row.justify-content-center.flex-column.align-items-center
+                  %button.btn.btn-outline-success.btn-rounded.btn-block.form__submit.my-4{:type => "submit",id: "complete", class: "not_continue"}
+                    = t("session.index.continue")

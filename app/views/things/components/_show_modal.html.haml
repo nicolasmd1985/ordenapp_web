@@ -1,0 +1,31 @@
+.card-deck
+  .card
+    .card-body
+      %ul.list-group.list-group-flush
+        %li.list-group-item
+          %i.fas.fa-signature.mr-3{"aria-hidden" => "true"}
+          %p
+            %b
+              =t("components.index.code")
+            = component.code_scan
+        %li.list-group-item
+          %i.fas.fa-signature.mr-3{"aria-hidden" => "true"}
+          %p
+            %b
+              =t("components.index.name")
+            = component.name
+        %li.list-group-item
+          %i.fas.fa-info-circle.mr-3{"aria-hidden" => "true"}
+          %p
+            %b
+              =t("components.index.description")
+            = component.description
+        - if component.try(:thing)
+          %li.list-group-item
+            %i.far.fa-calendar-alt.mr-3{"aria-hidden" => "true"}
+            %p
+              %b
+                =t("components.index.thing")
+              = link_to component.thing.name, thing_path(component.thing.slug)
+    .card-footer.text-muted.text-center
+      = "#{t('base.forms.updated_at')} #{component.updated_at.strftime("%Y-%m-%d - %T")}"

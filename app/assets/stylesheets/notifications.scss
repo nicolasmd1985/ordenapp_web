@@ -1,0 +1,67 @@
+.unread {
+  background-color: #023D84;
+  color: white;
+  td a {
+    color: white !important;
+  }
+}
+
+// .fa-bell {
+//   color: aliceblue;
+//   font-size: 27px;
+//   position: relative;
+//   top: 4px;
+//   right: 20px;
+// }
+
+.bell-animation {
+  animation: bell 1s 1s both 10
+}
+
+@keyframes bell {
+  0% { transform: rotate(0); }
+  10% { transform: rotate(30deg); }
+  20% { transform: rotate(0); }
+  80% { transform: rotate(0); }
+  90% { transform: rotate(-30deg); }
+  100% { transform: rotate(0); }
+}
+
+.badge-notify {
+  position: absolute;
+  right: 8px;
+  top: -5px;
+  border-radius: 10px !important;
+}
+
+.notification_order {
+  background-color: lavender !important;
+  border-radius: 15px !important;
+  padding: 4px 9px 2px 9px !important;
+}
+
+.notification_link{
+  background-color: skyblue !important;
+  border-radius: 15px !important;
+  padding: 4px 9px 2px 9px !important;
+}
+
+.notify:hover{
+  background-color: gainsboro;
+}
+
+p bold {
+  font-weight: 600;
+}
+
+.notify {
+  font-size: 14px;
+  a {
+    font-size: 14px !important;
+  }
+}
+
+.all_notifications:hover {
+  color: #023D84 !important;
+  font-weight: 600 !important;
+}

@@ -1,0 +1,22 @@
+.content-section.section-padding.second
+  .container
+    .row.align-items-center
+      .col-md-7.order-md-2
+        .content-img.content-img-group-2
+          .image-1.d-none.d-md-block{"data-aos" => "fade-right", "data-aos-duration" => '1500'}
+            = image_tag "pantalla3.png", { style: "height: 250px", class: "valign-wrapper", alt: "Map" }
+          .image-2.d-none.d-md-block{"data-aos" => "fade-left", "data-aos-duration" => '1500'}
+            = image_tag "pantalla4.png", { style: "height: 250px", class: "valign-wrapper", alt: "Users List"}
+          .image-mobile.d-md-none{"data-aos" => "fade-right", "data-aos-duration" => '1500'}
+            = image_tag "pantalla3.png", { class: "valign-wrapper w-100",alt: "Map"}
+          .image-mobile.d-md-none{"data-aos" => "fade-left", "data-aos-duration" => '1500'}
+            = image_tag "pantalla4.png", { class: "valign-wrapper w-100",alt: "Users List"}
+      .col-md-5.order-md-1
+        .content-section-text{"data-aos" => "zoom-in", "data-aos-duration" => '1500'}
+          %h2.title
+            =t("home.index.title_5")
+            %br.d-none.d-xs-block
+            =t("home.index.title_6")
+          %p
+            =t("home.index.title_7")
+          = render "button_request"

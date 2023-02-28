@@ -1,0 +1,35 @@
+.card.card-cascade.narrower.pt-0.light-1
+  .view.view-cascade.gradient-card-header.indigo.narrower.py-3.mx-4.d-flex.justify-content-center.align-items-center
+    %h5.center.mt-2
+      %strong
+        =t("things.index.summary")
+    
+  .card-body
+    .row
+      .col-12
+        %ul.list-group.list-group-flush
+          %li.list-group-item
+            %i.fas.fa-calendar-check.mr-3{"aria-hidden" => "true"}
+            %p
+              %b
+                =t("orders.tec_avai.qty")
+            %p.qty  
+            
+    .row
+      %table.table#tecnic_table{"style" =>"text-align: center"}
+        %thead.info-color.white-text
+          %tr
+            %th
+              = t('orders.pdf.order_client')
+            %th
+              = t('orders.pdf.start_time')
+            %th
+              = t('orders.pdf.end_time')
+            %th
+              = t('orders.pdf.address')  
+            %th
+              = t('orders.tec_avai.overlaps')
+        %tbody.tec_agenda
+          
+  %div 
+  

@@ -1,0 +1,179 @@
+.invisible#breadcrumb
+  = render_breadcrumbs
+= stylesheet_link_tag "users"
+= javascript_include_tag "users"
+= form_with(model: thing, local: true, html: { autocomplete: "off", novalidate: "true" }, id: "thing_form", :class => "thing_form") do |form|
+  - if thing.errors.any?
+    #error_explanation.alert.alert-danger.alert-dismissible.fade.show{:role => "alert"}
+      %h5.alert-heading
+        = pluralize(thing.errors.count, "error")
+        = t("things.index.err_1")
+      %ul
+        - thing.errors.full_messages.each do |message|
+          %li= message
+      %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+        %span{"aria-hidden" => "true"} ×
+
+  .card
+    .card-header
+      %h5.mb-0
+        = "Informacion general"
+      .card-body
+        .row
+          .col-12.col-sm-6.col-md-6.align-self-center
+            .view.overlay.ovf-visible.mb-4.mb-md-auto
+              - if !@thing.try(:urlavatar).present?
+                = image_tag "product.png", class: "img-thumbnail z-depth-1 avatar-pic", id: "thing-image", alt: "Default image"
+                .mask.flex-center.flex-column.rgba-grey-strong.clic-file
+                  %p.file-name.font-weight-bolder
+                  %p
+                    %i.fas.fa-image.mr-2.white-text
+                    %span.white-text
+                      = t("users.index.image")
+              - else
+                %img#thing-image{:src => @thing.try(:urlavatar), class: "img-thumbnail z-depth-1 avatar-pic", alt: "Thing image"}
+                .mask.flex-center.flex-column.rgba-grey-strong.clic-file
+                  %p.file-name.font-weight-bolder
+                  %p
+                    %i.fas.fa-image.mr-2.white-text
+                    %span.white-text
+                      = t("users.index.image")
+            .d-none.justify-content-center
+              = form.file_field :urlavatar, {class: "btn btn-mdb-color btn-rounded btn-sm", accept: 'image/png,image/jpeg'}
+
+          .col-12.col-sm-6.col-md-6
+            .form__field--input.md-form
+              = form.label t("things.index.thing_name"), {"data-error" => "wrong", "data-success" => "right"}
+              = form.text_field :name, required: true, minlength: 3, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+              .invalid-feedback
+                =t("base.forms.err_2")
+            .form__field--input.md-form
+              = form.label t("things.index.thing_desc"), {"data-error" => "wrong", "data-success" => "right"}
+              = form.text_field :description, required: false, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+              .invalid-feedback
+                =t("base.forms.err_2")
+            .form__field--input.md-form
+              = form.label t("things.index.code"), {"data-error" => "wrong", "data-success" => "right"}
+              = form.text_field :code_scan, minlength: 3, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+              .invalid-feedback
+                =t("base.forms.err_2")
+            .form__field--input.md-form
+              = form.label t("things.index.serial_number"), {"data-error" => "wrong", "data-success" => "right"}
+              = form.text_field :serial_number, minlength: 3, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+              .invalid-feedback
+                =t("base.forms.err_2")
+            .form__field--input.md-form
+              = form.label t("things.index.stock"), {"data-error" => "wrong", "data-success" => "right"}
+              = form.number_field :stock, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+              .invalid-feedback
+                =t("base.forms.err_2")
+
+            .form__field--select.md-form.mt-0
+              = form.label t("category.index.category"), {"data-error" => "wrong", "data-success" => "right"}, class: "mdb-main-label active"
+              = form.select :category_id, options_for_select_thing_category(current_user.subsidiary_id, @thing.category_id ? @thing.category_id : ''), {include_blank: true}, {id: "devise-tecnic", :class => "mdb-select md-form mb-2 mt-0 colorful-select dropdown-primary validate", style: "margin-bottom: 0.5rem;", searchable: t('base.filters.search')}
+              .invalid-feedback
+                =t("base.forms.err_2")
+            .form__field--input.md-form
+              = form.label t("things.index.substatus"), {"data-error" => "wrong", "data-success" => "right"} ,class: "mdb-main-label active"
+              = form.select :substatus_id, options_for_select_thing_substatus(current_user.subsidiary_id, @thing.substatus_id ? @thing.substatus_id : ''), {include_blank: true}, {id: "category-thing" , :class => "mdb-select md-form mb-2 colorful-select dropdown-primary validate", style: "margin-bottom: 0.5rem;", searchable: t('base.filters.search')}
+              .invalid-feedback
+                =t("base.forms.err_2")
+
+
+
+  .card
+    .card-header
+      %h5.mb-0
+        = "Ficha Tecnica"
+      .card-body
+        .row
+          .col-12.col-sm-12.col-md-12
+            - @disable_field = ""
+            - if @thing.user_id.present?
+              - @disable_field = "disabled_field"
+            .row
+              .col-lg-6
+                .form__field--input.md-form
+                  = form.label t("things.index.weight"), {"data-error" => "wrong", "data-success" => "right"}
+                  = form.number_field :weight, step: 0.10, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+                  .invalid-feedback
+                    =t("base.forms.err_2")
+              .col-lg-6
+                .form__field--select.md-form
+                  = form.label t("things.index.unit_weight"), {"data-error" => "wrong", "data-success" => "right"}, :class => "mdb-main-label active"
+                  = form.select :unit_weight, options_for_select_thing_weight(@thing.try(:unit_weight)), {include_blank: true}, {id: "unit_category", :class => "mdb-select md-form mt-0 mb-2 colorful-select dropdown-primary validate", style: "margin-bottom: 0.5rem;"}
+
+            .row
+              .col-lg-6
+                .field.md-form.mt-0.input-with-post-icon.datepicker
+                  = form.label t("things.index.start_warranty"), {"data-error" => "wrong", "data-success" => "right"}, :class => "mdb-main-label"
+                  = form.text_field :start_warranty, class: "form-control validate", value: @thing.start_warranty ? @thing.start_warranty.strftime("%d %B, %Y")  : "", style: "margin-bottom: 0.5rem;", placeholder: t('base.forms.select_date')
+                  %i.fas.fa-calendar.input-prefix
+                  .invalid-feedback
+                    =t("base.forms.err_2")
+              .col-lg-6
+                .field.md-form.mt-0.input-with-post-icon.datepicker
+                  = form.label t("things.index.finish_warranty"), {"data-error" => "wrong", "data-success" => "right"}, :class => "mdb-main-label"
+                  = form.text_field :finish_warranty, class: "form-control validate", value: @thing.finish_warranty ? @thing.finish_warranty.strftime("%d %B, %Y")  : "", style: "margin-bottom: 0.5rem;", placeholder: t('base.forms.select_date')
+                  %i.fas.fa-calendar.input-prefix
+                  .invalid-feedback
+                    =t("base.forms.err_2")
+            -# .row
+            -#   .col-lg-3
+            -#     .field.md-form.mt-0.input-with-post-icon.datepicker
+            -#       = form.label t("things.index.maint_date"), {"data-error" => "wrong", "data-success" => "right"}, :class => "mdb-main-label"
+            -#       = form.text_field :maintenance_date, class: "form-control validate", value: @thing.maintenance_date ? @thing.maintenance_date.strftime("%d %B, %Y") : "",required: true, placeholder: t('base.forms.select_date'), style: "margin-bottom: 0.5rem;", readonly: true
+            -#       %i.fas.fa-calendar.input-prefix
+            -#       .invalid-feedback
+            -#         =t("base.forms.err_3")
+            -#   .col-lg-3
+            -#     .field.md-form.mt-0.input-with-post-icon.timepicker{:twelvehour => "true", :default => "now", :closetext => t('base.forms.cancel'), :cleartext => t('base.forms.clear'), :donetext => t('base.forms.save')}
+            -#       = form.label t("things.index.maint_time"), {"data-error" => "wrong", "data-success" => "right"}, :class => "mdb-main-label"
+            -#       = form.text_field :maintenance_time, class: "form-control validate", value: @thing.maintenance_time ? @thing.maintenance_time.strftime("%I:%M%p") : "", required: true, placeholder: t('base.forms.select_hour'), style: "margin-bottom: 0.5rem;", readonly: true
+            -#       %i.fas.fa-clock.input-prefix
+            -#       .invalid-feedback
+            -#         =t("base.forms.err_4")
+            -#   .col-lg-3
+            -#     .field.md-form.mt-0
+            -#       = form.label t("things.index.nro"), {"data-error" => "wrong", "data-success" => "right"}, :class => "mdb-main-label"
+            -#       = form.number_field :maintenance_quantity, minlength: 1, maxlength: 3, onkeypress: "if ( isNaN( String.fromCharCode(event.keyCode) )) return false;", :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+            -#       .invalid-feedback
+            -#         =t("base.forms.err_2")
+            -#   .col-lg-3
+            -#     .field.md-form.mt-0
+            -#       = form.label t("things.index.freq"), {"data-error" => "wrong", "data-success" => "right"}, :class => "mdb-main-label active"
+            -#       = form.select(:maintenance_frecuency_type, options_for_select_frecuency(@thing ? @thing.maintenance_frecuency_type : ''), {}, {:class => "mdb-select colorful-select dropdown-primary my-0 validate", style: "margin-bottom: 0.5rem;"})
+            -# .row
+            -#   .col-lg-6
+            -#     .field.md-form.mt-0
+            -#       = form.label t("things.index.notification"), {"data-error" => "wrong", "data-success" => "right"}, :class => "mdb-main-label"
+            -#       = form.number_field :notification, minlength: 1, maxlength: 2, onkeypress: "if ( isNaN( String.fromCharCode(event.keyCode) )) return false;", :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+            -#       .invalid-feedback
+            -#         =t("base.forms.err_2")
+            -#   .col-lg-6
+            -#     .field.md-form.mt-0
+            -#       = form.label t("things.index.time"), {"data-error" => "wrong", "data-success" => "right"}, :class => "mdb-main-label active"
+            -#       = form.select(:notification_time, options_for_select_notification(@thing ? @thing.notification_time : ''), {}, {:class => "mdb-select colorful-select dropdown-primary my-0 validate", style: "margin-bottom: 0.5rem;"})
+            -#       -# .invalid-feedback
+            -#       -#   =t("base.forms.err_2")
+            .row
+              .col-lg-6
+                .form__field--input.md-form
+                  = form.label t("things.index.final_price"), {"data-error" => "wrong", "data-success" => "right"}
+                  = form.number_field :final_price, step: :any, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+                  .invalid-feedback
+                    =t("base.forms.err_2")
+              .col-lg-6
+                .form__field--input.md-form
+                  = form.label t("things.index.cost_price"), {"data-error" => "wrong", "data-success" => "right"}
+                  = form.number_field :cost_price  ,  step: 0.5, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+                  .invalid-feedback
+                    =t("base.forms.err_2")
+
+
+  .row.justify-content-center
+    %button.btn.secondary-color.btn-rounded.form__submit.my-4.p-0
+      -if @thing.code_scan
+        = form.submit t("things.index.edit")
+      -else
+        = form.submit t("things.index.create")

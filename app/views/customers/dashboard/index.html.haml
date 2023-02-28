@@ -1,0 +1,19 @@
+.invisible#breadcrumb
+  = render_breadcrumbs
+- if current_user.role == "customer"
+  - if current_user.try(:subsidiary).status_id == 101 || current_user.try(:corporation).status_id == 101
+    = render "customers/advise"
+  %nav
+    #nav-tab.nav.nav-tabs{:role => "tablist"}
+      %a#nav-profile-tab.nav-item.nav-link.active{"aria-controls" => "nav-orders", "aria-selected" => "false", "data-toggle" => "tab", :href => "#nav-orders", :role => "tab"}
+        = t("dashboard.customers.orders")
+      %a#nav-contact-tab.nav-item.nav-link{"aria-controls" => "nav-finish-orders", "aria-selected" => "false", "data-toggle" => "tab", :href => "#nav-finish-orders", :role => "tab"}
+        = t("dashboard.customers.finished")
+  #nav-tabContent.tab-content.no-top
+    #nav-orders.tab-pane.fade.show.active{"aria-labelledby" => "nav-orders-tab", :role => "tabpanel"}
+      = render 'orders'
+    #nav-finish-orders.tab-pane.fade{"aria-labelledby" => "nav-finish-orders-tab", :role => "tabpanel"}
+      = render 'orders_finished'
+
+- else
+  =t("dashboard.keep")

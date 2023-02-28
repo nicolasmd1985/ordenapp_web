@@ -1,0 +1,18 @@
+@import "bootstrap";
+@import "mdbootstrap/mdb.min";
+@import "mdbootstrap/datatables.min";
+@import "mdbootstrap/datatables-select.min";
+
+
+.logo-img {
+    height: auto;
+}
+
+table td {
+    font-size: 20px;
+    font-weight: 300;
+}
+table th {
+    font-weight: bold;
+    font-size: 20px;
+}

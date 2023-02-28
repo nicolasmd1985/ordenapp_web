@@ -1,0 +1,189 @@
+.invisible#breadcrumb
+  = render_breadcrumbs
+.row.flex-box-center.thing-detail
+  .col.s12.m10.force_margin
+    .card.card-cascade.narrower.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-between.align-items-center
+        = link_to things_path, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t("base.forms.back") do
+          %i.fas.fa-chevron-left
+        %h3.center.mt-2
+          %strong
+            = "#{t('things.index.device')} #{@thing.name}"
+        = link_to edit_thing_path(@thing.slug), role: "button", class: 'btn btn-outline-white btn-rounded btn-sm px-2', title: t("base.forms.edit") do
+          %i.fas.fa-edit
+      .row{style: "margin-top: 30px"}
+        .col-12.col-md-4.mb-4.mb-md-0
+          .card.mt-0.h-100.justify-content-center
+            .view.overlay.ovf-visible
+              -if !@thing.try(:urlavatar).present?
+                = image_tag "device.png", {class: "img-thumbnail z-depth-1 avatar-pic", alt: "Default image"}
+                //%a{:href => "#!"}
+                .mask.flex-center.rgba-white-slight
+              -else
+                %img{:src => @thing.try(:urlavatar), class: "img-thumbnail z-depth-1 avatar-pic", alt: "Ítem image"}
+                //%a{:href => "#!"}
+                .mask.flex-center.rgba-white-slight
+            .d-flex.justify-content-center.align-items-center
+              = link_to get_qr_code_single_path(@thing.slug, format: :pdf), role: "button", class: 'btn btn-outline-red btn-rounded btn-sm px-2', title: t("components.index.download_qr"), target: "_blank"  do
+                %i.fas.fa-file-download
+              = t('components.index.download_qr')
+        .col-12.col-md-8
+          .card.mt-0.h-100
+            %h5.card-header.text-center
+              = t("things.index.summary")
+            .card-body
+              .row
+                .col-12.col-lg-6
+                  %ul.list-group.list-group-flush
+                    -# %li.list-group-item
+                    -#   %i.fas.fa-calendar-check.mr-3{"aria-hidden" => "true"}
+                    -#   %p
+                    -#     %b
+                    -#       =t("things.index.status")
+                    -#       = thing_status_humanized(@thing.status.description)
+                    %li.list-group-item
+                      %i.fas.fa-signature.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("things.index.thing_name")}:"
+                        = @thing.name
+                    %li.list-group-item
+                      %i.fas.fa-info-circle.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("things.index.thing_desc")}:"
+                        = @thing.description
+                    %li.list-group-item
+                      %i.fas.fa-qrcode.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("things.index.code")}:"
+                        = @thing.code_scan
+                    %li.list-group-item
+                      %i.fas.fa-list-ol.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("things.index.serial_number")}:"
+                        = @thing.serial_number
+                    %li.list-group-item
+                      %i.fab.fa-buffer.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("things.index.stock")}:"
+                        = @thing.stock
+                    %li.list-group-item
+                      %i.fas.fa-dollar-sign.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("things.index.final_price")}:"
+                        = number_to_currency(@thing.final_price, :unit => "$")
+                    %li.list-group-item
+                      %i.fas.fa-hand-holding-usd.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("things.index.cost_price")}:"
+                        = number_to_currency(@thing.cost_price, :unit => "$")
+                    %li.list-group-item
+                      %i.fas.fa-weight.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("things.index.weight")}:"
+                        = "#{(@thing.weight)} #{(@thing.unit_weight)}"
+                .col-12.col-lg-6
+                  %ul.list-group.list-group-flush
+                    %li.list-group-item
+                      %i.fas.fa-object-group.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("things.index.category")}:"
+                        = @thing.category ? @thing.category.name : ""
+                    %li.list-group-item
+                      %i.fas.fa-subscript.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("things.index.substatus")}:"
+                        = @thing.substatus ? @thing.substatus.description : ""
+                    %li.list-group-item
+                      %i.far.fa-edit.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("things.index.start_warranty")}:"
+                        -if @thing.start_warranty.present?
+                          = @thing.start_warranty.strftime("%Y/%m/%d")
+                    %li.list-group-item
+                      %i.fas.fa-edit.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("things.index.finish_warranty")}:"
+                        -if @thing.finish_warranty.present?
+                          = @thing.finish_warranty.strftime("%Y/%m/%d")
+            .card-footer.text-muted.text-center
+              = "#{t('base.forms.updated_at')} #{@thing.updated_at.strftime("%Y/%m/%d")}"
+= render "things/components/index", components: @thing.components
+.card.card-cascade.wider.mt-5.pt-0.light-1
+  .view.view-cascade.gradient-card-header.winter-neva-gradient.wider.py-3.d-flex.justify-content-center.align-items-center
+    %h2.center.mt-2{style: "color: #063d84"}
+      %strong
+        -# = t("things.index.record")
+        = "Salidas"
+.card.py-0
+  .card-body
+    - @out_things = @thing.out_things
+    //.table-responsive
+    .device-tableWrapper
+      %table#device-table.table.table-striped.table-bordered.table-hover.table-sm.btn-table{:cellspacing => "0", :width => "100%"}
+        %caption
+          = "#{t('base.forms.list_of')}#{t('things.index.device')}"
+        %thead.secondary-color.white-text.align-center
+          %tr
+            %th.th-sm
+              =t("user.index.customer")
+            %th.th-sm
+              =t("things.index.histories")
+            %th.th-sm
+              =t("things.index.maintenance")
+            -# %th.th-sm
+            -#   =t("base.forms.options")
+        %tbody
+          -@out_things.each do |ot|
+            %tr
+              %td
+                -if ot.customer
+                  = "#{ot.customer.first_name} #{ot.customer.last_name}"
+              %td.align-center
+                - if histories_limited(ot).size > 0
+                  .btn-group-vertical{class: "card__button btn-floating btn-info btn-sm", style: "z-index: 0", "data-target" => "#histories_thing_#{ot.id}", "data-toggle" => "modal", type: "button", title: t('things.index.record')}
+                    %i.fas.fa-history
+                  .modal{id: "histories_thing_#{ot.id}", "aria-hidden" => "true", "aria-labelledby" => "histories_thing_modal", role: "dialog", tabindex: "-1"}
+                    .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.modal-notify.modal-info.modal-lg{role: "document"}
+                      .modal-content
+                        .modal-header
+                          %h5.modal-title.white-text{style: "margin-left: auto;"}
+                            ="Historial"
+                          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+                            %span.white-text{"aria-hidden" => "true"} ×
+                        .modal-body.history-modal
+                          = render 'histories_thing_modal', thing: ot
+                        .modal-footer.justify-content-center
+                          %button.btn.btn-info.btn-lg{"data-dismiss" => "modal", type: "button"}
+                            = t('things.index.modal_close')
+              %td.align-center
+                .btn-group-vertical{class: "card__button btn-floating btn-success btn-sm", style: "z-index: 0", "data-target" => "#histories_thing_#{ot.id}", "data-toggle" => "modal", type: "button", title: "Historial Mantenimientos"}
+                  %i.fas.fa-toolbox
+                .btn-group-vertical{class: "card__button btn-floating btn-info btn-sm", style: "z-index: 0", "data-target" => "#histories_thing_#{ot.id}", "data-toggle" => "modal", type: "button", title: "Mantenimientos Programados"}
+                  %i.fas.fa-business-time
+                .btn-group-vertical{class: "card__button btn-floating btn-warning btn-sm", style: "z-index: 0", "data-target" => "#maintenance_form_#{ot.id}", "data-toggle" => "modal", type: "button", title: "Programar Mantenimiento"}
+                  %i.fas.fa-cogs
+                .modal{id: "maintenance_form_#{ot.id}", "aria-hidden" => "true", "aria-labelledby" => "maintenances/_form", role: "dialog", tabindex: "-1"}
+                  .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.modal-notify.modal-info.modal-lg{role: "document"}
+                    .modal-content
+                      .modal-header
+                        %h5.modal-title.white-text{style: "margin-left: auto;"}
+                          ="Programar mantenimiento"
+                        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+                          %span.white-text{"aria-hidden" => "true"} ×
+                      .modal-body.history-modal
+                        = render 'maintenances/form', {maintenance: @maintenance, ot_id: ot.id}
+                      .modal-footer.justify-content-center
+                        %button.btn.btn-info.btn-lg{"data-dismiss" => "modal", type: "button"}
+                          = t('things.index.modal_close')

@@ -1,0 +1,377 @@
+.row.flex-box-center
+  .col.s12.m10.force_margin
+    .card.card-cascade.narrower.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mb-4.mx-4.d-flex.justify-content-between.align-items-center
+        = link_to admins_subsidiaries_path, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t('base.forms.back') do
+          %i.fas.fa-chevron-left
+        %h3.center.mt-2
+          %strong
+            = @subsidiary.name
+        = link_to admins_subsidiary_edit_path(@subsidiary), role: "button", class: 'btn btn-outline-white btn-rounded btn-sm px-2', title: t('substatus.index.edit') do
+          %i.fas.fa-edit
+      -# .card.py-0
+      -#   .card-body
+      %ul#subsidiaryTab.nav.nav-tabs.nav-justified.md-tabs.indigo{:role => "tablist"}
+        %li.nav-item
+          %a#sub-details-tab.nav-link.active{"aria-controls" => "sub-contact", "aria-selected" => "true", "data-toggle" => "tab", :href => "#sub-contact", :role => "tab"} Details
+        %li.nav-item
+          %a#sub-users-tab.nav-link{"aria-controls" => "sub-users", "aria-selected" => "false", "data-toggle" => "tab", :href => "#sub-users", :role => "tab"} Users
+        %li.nav-item
+          %a#sub-orders-tab.nav-link{"aria-controls" => "sub-orders", "aria-selected" => "false", "data-toggle" => "tab", :href => "#sub-orders", :role => "tab"} Orders
+        %li.nav-item
+          %a#sub-devices-tab.nav-link{"aria-controls" => "sub-devices", "aria-selected" => "false", "data-toggle" => "tab", :href => "#sub-devices", :role => "tab"} Devices
+      #subsidiaryInfoTab.tab-content.card.pt-5
+        #sub-contact.tab-pane.fade.show.active{"aria-labelledby" => "sub-details-tab", :role => "tabpanel"}
+          .row
+            .col-12.col-md-4.mb-4.mb-md-0
+              .card.mt-0.h-100.justify-content-center
+                .view.overlay.ovf-visible
+                  -if @subsidiary.try(:urlavatar).present?
+                    %img{:src => @subsidiary.try(:urlavatar), class: "img-thumbnail z-depth-1 avatar-pic", alt: "Subsidiary logo"}                        
+                    //%a{:href => "#!"}
+                    .mask.flex-center.rgba-white-slight
+                  -else
+                    = image_tag "logo.jpg", class: "img-thumbnail z-depth-1 avatar-pic", alt: "Default logo"
+                    //%a{:href => "#!"}
+                    .mask.flex-center.rgba-white-slight
+            .col-12.col-md-8
+              .card.mt-0.h-100
+                %h5.card-header.text-center
+                  =t("subsidiary.index.contact")
+                .card-body
+                  .row
+                    .col-12
+                      %ul.list-group.list-group-flush
+                        %li.list-group-item
+                          %i.fas.fa-signature.mr-3{"aria-hidden" => "true"}
+                          %p
+                            %b
+                              = "#{t("subsidiary.index.name")}:"
+                            = @subsidiary.try(:name)
+                        %li.list-group-item
+                          %i.fas.fa-city.mr-3{"aria-hidden" => "true"}
+                          %p
+                            %b
+                              = "#{t("subsidiary.index.address")}:"
+                            = @subsidiary.try(:address)
+                        %li.list-group-item
+                          %i.fas.fa-flag-checkered.mr-3{"aria-hidden" => "true"}
+                          %p
+                            %b
+                              = "#{t("subsidiary.index.status")}:"
+                            - if @subsidiary.status_id == 100
+                              %span.badge.badge-pill.badge-success
+                                = t("subsidiary.index.active")
+                            - else
+                              %span.badge.badge-pill.badge-dark
+                                = t("subsidiary.index.inactive")
+                        %li.list-group-item
+                          %i.fas.fa-mobile-alt.mr-3{"aria-hidden" => "true"}
+                          %p
+                            %b
+                              = "#{t("subsidiary.index.phone")}:"
+                            = @subsidiary.try(:phone)
+                        %li.list-group-item
+                          %i.fas.fa-envelope.mr-3{"aria-hidden" => "true"}
+                          %p
+                            %b
+                              = "#{t("users.index.email")}:"
+                            = link_to @subsidiary.try(:email), "mailto:#{@subsidiary.try(:email)}"                                                
+                .card-footer.text-muted.text-center
+                  = "#{t('base.forms.updated_at')} #{@subsidiary.updated_at.strftime("%Y-%m-%d")}"
+        #sub-users.tab-pane.fade{"aria-labelledby" => "sub-users-tab", :role => "tabpanel"}
+          .row
+            .col-sm-6.col-lg-3.mb-4
+              .card.p-0.m-0
+                .row.mt-3
+                  .col-md-5.col-5.text-left.pl-4
+                    %a.btn-floating.btn-lg.primary-color.ml-4.waves-effect.waves-light{:type => "button"}
+                      %i.fas.fa-users.secondary-color{"aria-hidden" => "true"}
+                  .col-md-7.col-7.text-right.pr-5
+                    %h5.ml-4.mt-4.mb-2.font-weight-bold
+                      =@users
+                    %p.font-small.grey-text{style: "line-height: 1.5;"}
+                      Personal
+                .row.my-3
+                  .col-md-7.col-7.text-left.pl-4
+                    %p.font-small.dark-grey-text.font-up.ml-4.font-weight-bold{style: "line-height: 1.5;"}
+                      Last month
+                  .col-md-5.col-5.text-right.pr-5
+                    %p.font-small.grey-text{style: "line-height: 1.5;"}
+                      10
+            .col-sm-6.col-lg-3.mb-4
+              .card.p-0.m-0
+                .row.mt-3
+                  .col-md-5.col-5.text-left.pl-4
+                    %a.btn-floating.btn-lg.primary-color.ml-4.waves-effect.waves-light{:type => "button"}
+                      %i.fas.fa-user-tie.warning-color{"aria-hidden" => "true"}
+                  .col-md-7.col-7.text-right.pr-5
+                    %h5.ml-4.mt-4.mb-2.font-weight-bold
+                      =@supervisors
+                    %p.font-small.grey-text{style: "line-height: 1.5;"}
+                      Supervisores
+                .row.my-3
+                  .col-md-7.col-7.text-left.pl-4
+                    %p.font-small.dark-grey-text.font-up.ml-4.font-weight-bold{style: "line-height: 1.5;"}
+                      Last month
+                  .col-md-5.col-5.text-right.pr-5
+                    %p.font-small.grey-text{style: "line-height: 1.5;"}
+                      10
+            .col-sm-6.col-lg-3.mb-4
+              .card.p-0.m-0
+                .row.mt-3
+                  .col-md-5.col-5.text-left.pl-4
+                    %a.btn-floating.btn-lg.primary-color.ml-4.waves-effect.waves-light{:type => "button"}
+                      %i.fas.fa-user-cog.primary-color{"aria-hidden" => "true"}
+                  .col-md-7.col-7.text-right.pr-5
+                    %h5.ml-4.mt-4.mb-2.font-weight-bold
+                      =@tecnics
+                    %p.font-small.grey-text{style: "line-height: 1.5;"}
+                      Técnicos
+                .row.my-3
+                  .col-md-7.col-7.text-left.pl-4
+                    %p.font-small.dark-grey-text.font-up.ml-4.font-weight-bold{style: "line-height: 1.5;"}
+                      Last month
+                  .col-md-5.col-5.text-right.pr-5
+                    %p.font-small.grey-text{style: "line-height: 1.5;"}
+                      10
+            .col-sm-6.col-lg-3.mb-4
+              .card.p-0.m-0
+                .row.mt-3
+                  .col-md-5.col-5.text-left.pl-4
+                    %a.btn-floating.btn-lg.primary-color.ml-4.waves-effect.waves-light{:type => "button"}
+                      %i.fas.fa-user.red.accent-2{"aria-hidden" => "true"}
+                  .col-md-7.col-7.text-right.pr-5
+                    %h5.ml-4.mt-4.mb-2.font-weight-bold
+                      =@customers
+                    %p.font-small.grey-text{style: "line-height: 1.5;"}
+                      Clientes
+                .row.my-3
+                  .col-md-7.col-7.text-left.pl-4
+                    %p.font-small.dark-grey-text.font-up.ml-4.font-weight-bold{style: "line-height: 1.5;"}
+                      Last month
+                  .col-md-5.col-5.text-right.pr-5
+                    %p.font-small.grey-text{style: "line-height: 1.5;"}
+                      10
+        #sub-orders.tab-pane.fade{"aria-labelledby" => "sub-orders-tab", :role => "tabpanel"}
+          .row
+            .col-sm-6.col-lg-3.mb-4
+              .card.card-cascade.cascading-admin-card.p-0
+                .admin-up
+                  %i.fas.fa-tasks.secondary-color.mr-3.z-depth-2
+                  .data
+                    %p.text-uppercase
+                      Órdenes
+                    %h4.font-weight-bold.dark-grey-text
+                      =@orders
+                .card-body.card-body-cascade
+                  .progress.mb-3
+                    .progress-bar.red.accent-2{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "25", :role => "progressbar", :style => "width: 25%"}
+                  .card-text
+                    Better than last week (25%)
+            .col-sm-6.col-lg-3.mb-4
+              .card.card-cascade.cascading-admin-card.p-0
+                .admin-up
+                  %i.fas.fa-user-edit.warning-color.mr-3.z-depth-2
+                  .data
+                    %p.text-uppercase
+                      Solicitadas
+                    %h4.font-weight-bold.dark-grey-text
+                      =@requests
+                .card-body.card-body-cascade
+                  .progress.mb-3
+                    .progress-bar.red.accent-2{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "25", :role => "progressbar", :style => "width: 25%"}
+                  .card-text
+                    Better than last week (25%)
+            .col-sm-6.col-lg-3.mb-4
+              .card.card-cascade.cascading-admin-card.p-0
+                .admin-up
+                  %i.fas.fa-user-check.primary-color.mr-3.z-depth-2
+                  .data
+                    %p.text-uppercase
+                      Asignadas
+                    %h4.font-weight-bold.dark-grey-text
+                      =@assigneds
+                .card-body.card-body-cascade
+                  .progress.mb-3
+                    .progress-bar.red.accent-2{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "25", :role => "progressbar", :style => "width: 25%"}
+                  .card-text
+                    Better than last week (25%)
+            .col-sm-6.col-lg-3.mb-4
+              .card.card-cascade.cascading-admin-card.p-0
+                .admin-up
+                  %i.fas.fa-spinner.red.accent-2.mr-3.z-depth-2
+                  .data
+                    %p.text-uppercase
+                      En progreso
+                    %h4.font-weight-bold.dark-grey-text
+                      =@progress
+                .card-body.card-body-cascade
+                  .progress.mb-3
+                    .progress-bar.red.accent-2{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "25", :role => "progressbar", :style => "width: 25%"}
+                  .card-text
+                    Better than last week (25%)
+            .col-sm-6.col-lg-3.mb-4
+              .card.card-cascade.cascading-admin-card.p-0
+                .admin-up
+                  %i.fas.fa-ban.secondary-color.mr-3.z-depth-2
+                  .data
+                    %p.text-uppercase
+                      Rechazadas
+                    %h4.font-weight-bold.dark-grey-text
+                      =@rejecteds
+                .card-body.card-body-cascade
+                  .progress.mb-3
+                    .progress-bar.red.accent-2{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "25", :role => "progressbar", :style => "width: 25%"}
+                  .card-text
+                    Better than last week (25%)
+            .col-sm-6.col-lg-3.mb-4
+              .card.card-cascade.cascading-admin-card.p-0
+                .admin-up
+                  %i.fas.fa-check-circle.warning-color.mr-3.z-depth-2
+                  .data
+                    %p.text-uppercase
+                      Finalizadas
+                    %h4.font-weight-bold.dark-grey-text
+                      =@done
+                .card-body.card-body-cascade
+                  .progress.mb-3
+                    .progress-bar.red.accent-2{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "25", :role => "progressbar", :style => "width: 25%"}
+                  .card-text
+                    Better than last week (25%)
+            .col-sm-6.col-lg-3.mb-4
+              .card.card-cascade.cascading-admin-card.p-0
+                .admin-up
+                  %i.fas.fa-headset.primary-color.mr-3.z-depth-2
+                  .data
+                    %p.text-uppercase
+                      Soporte
+                    %h4.font-weight-bold.dark-grey-text
+                      =@pre_requests
+                .card-body.card-body-cascade
+                  .progress.mb-3
+                    .progress-bar.red.accent-2{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "25", :role => "progressbar", :style => "width: 25%"}
+                  .card-text
+                    Better than last week (25%)
+        #sub-devices.tab-pane.fade{"aria-labelledby" => "sub-devices-tab", :role => "tabpanel"}
+          .row
+            .col-sm-6.col-lg-3.mb-4
+              .card.p-0.m-0
+                .card-header.white-text.secondary-color
+                  %h5.font-weight-500.my-1
+                    Dispositivos
+                %h6.ml-4.mb-0.pt-4.dark-grey-text.font-weight-bold
+                  %i.fas.fa-arrow-up.blue-text.mr-3{"aria-hidden" => "true"}
+                  =@things
+                .card-body
+                  .progress
+                    .progress-bar.bg-primary{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "25", :role => "progressbar", :style => "width: 25%"}
+                  %p.font-small.grey-text.mt-3.mb-0 Better than last week (25%)
+            .col-sm-6.col-lg-3.mb-4
+              .card.p-0.m-0
+                .card-header.white-text.warning-color
+                  %h5.font-weight-500.my-1
+                    Activos
+                %h6.ml-4.mb-0.pt-4.dark-grey-text.font-weight-bold
+                  %i.fas.fa-arrow-up.blue-text.mr-3{"aria-hidden" => "true"}
+                  = @actives
+                .card-body
+                  .progress
+                    .progress-bar.bg-primary{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "65", :role => "progressbar", :style => "width: 65%"}
+                  %p.font-small.grey-text.mt-3.mb-0 Better than last week (25%)
+            .col-sm-6.col-lg-3.mb-4
+              .card.p-0.m-0
+                .card-header.white-text.primary-color
+                  %h5.font-weight-500.my-1
+                    Inactivos
+                %h6.ml-4.mb-0.pt-4.dark-grey-text.font-weight-bold
+                  %i.fas.fa-arrow-up.blue-text.mr-3{"aria-hidden" => "true"}
+                  =@inactives
+                .card-body
+                  .progress
+                    .progress-bar.bg-primary{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "25", :role => "progressbar", :style => "width: 25%"}
+                  %p.font-small.grey-text.mt-3.mb-0 Better than last week (25%)
+            .col-sm-6.col-lg-3.mb-4
+              .card.p-0.m-0
+                .card-header.white-text.red.accent-2
+                  %h5.font-weight-500.my-1
+                    En Stock
+                %h6.ml-4.mb-0.pt-4.dark-grey-text.font-weight-bold
+                  %i.fas.fa-arrow-up.blue-text.mr-3{"aria-hidden" => "true"}
+                  = @stock
+                .card-body
+                  .progress
+                    .progress-bar.bg-primary{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "65", :role => "progressbar", :style => "width: 65%"}
+                  %p.font-small.grey-text.mt-3.mb-0 Better than last week (25%)
+            .col-sm-6.col-lg-3.mb-4
+              .card.p-0.m-0
+                .card-header.white-text.secondary-color
+                  %h5.font-weight-500.my-1
+                    Instalados
+                %h6.ml-4.mb-0.pt-4.dark-grey-text.font-weight-bold
+                  %i.fas.fa-arrow-up.blue-text.mr-3{"aria-hidden" => "true"}
+                  =@installeds
+                .card-body
+                  .progress
+                    .progress-bar.bg-primary{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "25", :role => "progressbar", :style => "width: 25%"}
+                  %p.font-small.grey-text.mt-3.mb-0 Better than last week (25%)
+            .col-sm-6.col-lg-3.mb-4
+              .card.p-0.m-0
+                .card-header.white-text.warning-color
+                  %h5.font-weight-500.my-1
+                    En instalación
+                %h6.ml-4.mb-0.pt-4.dark-grey-text.font-weight-bold
+                  %i.fas.fa-arrow-up.blue-text.mr-3{"aria-hidden" => "true"}
+                  = @installing
+                .card-body
+                  .progress
+                    .progress-bar.bg-primary{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "65", :role => "progressbar", :style => "width: 65%"}
+                  %p.font-small.grey-text.mt-3.mb-0 Better than last week (25%)
+            .col-sm-6.col-lg-3.mb-4
+              .card.p-0.m-0
+                .card-header.white-text.primary-color
+                  %h5.font-weight-500.my-1
+                    Reemplazo
+                %h6.ml-4.mb-0.pt-4.dark-grey-text.font-weight-bold
+                  %i.fas.fa-arrow-up.blue-text.mr-3{"aria-hidden" => "true"}
+                  =@replacement
+                .card-body
+                  .progress
+                    .progress-bar.bg-primary{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "25", :role => "progressbar", :style => "width: 25%"}
+                  %p.font-small.grey-text.mt-3.mb-0 Better than last week (25%)
+            .col-sm-6.col-lg-3.mb-4
+              .card.p-0.m-0
+                .card-header.white-text.red.accent-2
+                  %h5.font-weight-500.my-1
+                    En camino
+                %h6.ml-4.mb-0.pt-4.dark-grey-text.font-weight-bold
+                  %i.fas.fa-arrow-up.blue-text.mr-3{"aria-hidden" => "true"}
+                  = @on_the_way
+                .card-body
+                  .progress
+                    .progress-bar.bg-primary{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "65", :role => "progressbar", :style => "width: 65%"}
+                  %p.font-small.grey-text.mt-3.mb-0 Better than last week (25%)
+            .col-sm-6.col-lg-3.mb-4
+              .card.p-0.m-0
+                .card-header.white-text.grey.darken-1
+                  %h5.font-weight-500.my-1
+                    Mant. Correctivo
+                %h6.ml-4.mb-0.pt-4.dark-grey-text.font-weight-bold
+                  %i.fas.fa-arrow-up.blue-text.mr-3{"aria-hidden" => "true"}
+                  =@corrective
+                .card-body
+                  .progress
+                    .progress-bar.bg-primary{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "25", :role => "progressbar", :style => "width: 25%"}
+                  %p.font-small.grey-text.mt-3.mb-0 Better than last week (25%)
+            .col-sm-6.col-lg-3.mb-4
+              .card.p-0.m-0
+                .card-header.white-text.grey.darken-1
+                  %h5.font-weight-500.my-1
+                    Mant. Preventivo
+                %h6.ml-4.mb-0.pt-4.dark-grey-text.font-weight-bold
+                  %i.fas.fa-arrow-up.blue-text.mr-3{"aria-hidden" => "true"}
+                  = @preventive
+                .card-body
+                  .progress
+                    .progress-bar.bg-primary{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "65", :role => "progressbar", :style => "width: 65%"}
+                  %p.font-small.grey-text.mt-3.mb-0 Better than last week (25%)

@@ -1,0 +1,99 @@
+-# <!-- Footer -->
+%footer.page-footer.font-small
+
+  -# <!-- Footer Links -->
+  .container.text-center.text-md-left.mt-5
+    -# <!-- Grid row -->
+    .row.mt-3.justify-content-around
+      -# <!-- Grid column -->
+      .col-md-4
+        %h6.text-uppercase.font-weight-bold
+          Legal
+        %hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto{:style => "width: 60px;"}
+        %ul.list-group
+          %li.list-group-item
+            %i.fa.fa-file.mr-3.mr-3{"aria-hidden" => "true"}
+            %p
+              %a{:href => "https://ordenapp.co/terminos-y-condiciones", target: "_blank"}
+                = t('home.index.terms_and')
+          %li.list-group-item
+            %i.fa.fa-file.mr-3.mr-3{"aria-hidden" => "true"}
+            %p
+              %a{:href => "https://ordenapp.co/habeas_data", target: "_blank"}
+                = t('home.index.habeas')
+      .col-md-4.mb-5
+        -# <!-- Content -->
+        %h6.text-uppercase.font-weight-bold
+          =t('home.index.sponsors')
+        %hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto{:style => "width: 60px;"}
+        -# %p
+        -#     =t("home.index.sub_title")
+        .view.overlay.h-auto
+          = image_tag "logo-fondo-emprender.png", {class: "d-inline", alt: "Fondo Emprender SENA"}
+          %a{:href => "http://www.fondoemprender.com/SitePages/Home.aspx", target: "_blank"}
+            .mask.rgba-white-slight
+        .view.overlay.h-auto.mt-4
+          = image_tag "logo-presidencia-republica.png", {class: "d-inline logo-presi", alt: "Presidencia de la República de Colombia"}
+          %a{:href => "https://id.presidencia.gov.co/Paginas/presidenciaco.aspx", target: "_blank"}
+            .mask.rgba-white-slight
+      .col-md-4
+        -# <!-- Links -->
+        %h6.text-uppercase.font-weight-bold
+          =t("home.index.contact")
+        %hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto{:style => "width: 60px;"}
+        %ul.list-group
+          %li.list-group-item
+            %i.fa.fa-home.mr-3.mr-3{"aria-hidden" => "true"}
+            %p
+              Cll 106 N 56 - 62 Of. 304, Bogotá, Colombia
+          %li.list-group-item
+            %i.fa.fa-envelope.mr-3.mr-3{"aria-hidden" => "true"}
+            %p
+              contacto@ordenapp.co
+          %li.list-group-item
+            %i.fa.fa-phone.mr-3
+            %p
+              +57 311 5728390
+  -# <!-- Copyright -->
+  .footer-copyright.text-center.py-3
+    © 2021 Copyright:
+    %a{:href => "https://ordenapp.co/"}
+      OrdenApp.co
+
+
+-# <!-- Full Height Modal Right -->
+.modal.fade.bottom#videoModal{:tabindex => "-1", :role => "dialog", "aria-labelledby" => "myModalLabel", "aria-hidden" => "true"}
+  -# <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+  .modal-dialog.modal-dialog.modal-lg{:role => "document"}
+    .modal-content
+      -# <!--Body-->
+      .modal-body.mb-0.p-0
+        .embed-responsive.embed-responsive-16by9.z-depth-1-half
+          %iframe{:allow => "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture", :allowfullscreen => "", :frameborder => "0", :src => "https://www.youtube.com/embed/UuJgdjkiMOY?rel=0&controls=0", :autoplay => true, :id => "youtube_video"}
+
+-# %button.btn.btn-primary{:type => "button", :id => "launchModal", :onClick => "openModal('emailSuccessModal')"}
+-#     Launch demo modal
+-# <!-- Central Modal Medium Success -->
+.modal.fade#emailSuccessModal{:tabindex => "-1", :role => "dialog", "aria-labelledby" => "emailSuccessModal", "aria-hidden" => "true"}
+  .modal-dialog.modal-notify.modal-success.modal-side.modal-top-right{:role => "document"}
+    -# <!--Content-->
+    .modal-content
+      -# <!--Header-->
+      .modal-header
+        %p.heading.lead
+          Solicitud enviada con éxito
+
+        %button.close{:type => "button", "data-dismiss" => "modal", "aria-label" => "Close"}
+        %span.white-text{"aria-hidden" => "true"}
+          &times;
+
+      -# <!--Body-->
+      .modal-body
+        .text-center
+          %i.fas.fa-check.fa-4x.mb-3.animated.rotateIn
+          %p
+            Uno de nuestros agentes se comunicará contigo en el menos tiempo posible al correo que nos compartiste y atenderá todas tus dudas e inquietudes.
+
+- if notice == "sendDemoRequest"
+  %script
+    openModal('emailSuccessModal');

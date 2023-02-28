@@ -1,0 +1,131 @@
+.invisible#breadcrumb
+  = render_breadcrumbs
+.row.flex-box-center.user-detail
+  .col.s12.m10.force_margin
+    .card.card-cascade.narrower.pt-0.light-1{ :style => "margin-bottom: 1.75rem !important;" }
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-between.align-items-center
+        = link_to :back, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t("base.forms.back") do
+          %i.fas.fa-chevron-left
+        %h3.center.mt-2
+          %b
+            #{@user.first_name ? @user.first_name : ""} #{@user.last_name ? @user.last_name : ""}
+        .right
+          = link_to edit_user_path(@user), role: "button", class: 'btn btn-outline-white btn-rounded btn-sm px-2', title: t("base.forms.edit") do
+            %i.fas.fa-edit
+      .row{style: "margin-top: 30px"}
+        .col-12.col-md-4.mb-4.mb-md-0
+          .card.mt-0.h-100.justify-content-center
+            .view.overlay.ovf-visible
+              -if !@user.try(:urlavatar).present?
+                = image_tag "servicio-tecnico.png", {class: "img-thumbnail z-depth-1 avatar-pic", alt: "Default image"}
+                //%a{:href => "#!"}
+                .mask.flex-center.rgba-white-slight
+              -else
+                %img{:src => @user.try(:urlavatar), class: "img-thumbnail z-depth-1 avatar-pic", alt: "User image"}
+                //%a{:href => "#!"}
+                .mask.flex-center.rgba-white-slight
+        .col-12.col-md-8
+          .card.mt-0.h-100
+            %h5.card-header.text-center
+              =t("base.forms.details")
+            .card-body
+              .row
+                .col-12.col-lg-6
+                  %ul.list-group.list-group-flush
+                    %li.list-group-item
+                      %i.fas.fa-signature.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("users.index.name")}:"
+                        = @user.first_name
+                    %li.list-group-item
+                      %i.fas.fa-signature.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("users.index.last_name")}:"
+                        = @user.last_name
+                    %li.list-group-item
+                      %i.fas.fa-address-card.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("users.index.id")}:"
+                        = "#{@user.try(:document_type)} #{@user.document_number}"
+                    %li.list-group-item
+                      %i.fas.fa-chalkboard-teacher.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("users.index.role")}:"
+                        = @user.role
+                    %li.list-group-item
+                      %i.fas.fa-city.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("users.index.city")}:"
+                        = @user.city_id ? @user.city.name : ''
+                    %li.list-group-item
+                      %i.fas.fa-envelope.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("users.index.email")}:"
+                        = @user.email
+                    %li.list-group-item
+                      %i.fas.fa-building.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("users.index.subsidiary")}:"
+                        = @user.subsidiary ? @user.subsidiary.name : ''
+                .col-12.col-lg-6
+                  %ul.list-group.list-group-flush
+                    %li.list-group-item
+                      %i.fas.fa-mobile-alt.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("users.index.phone_1")}:"
+                        = @user.phone_number_1
+                    %li.list-group-item
+                      %i.fas.fa-mobile-alt.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("users.index.phone_2")}:"
+                        = @user.phone_number_2
+                    %li.list-group-item
+                      %i.fas.fa-city.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("users.index.address_1")}:"
+                        = @user.address_1
+                    %li.list-group-item
+                      %i.fas.fa-city.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("users.index.address_2")}:"
+                        = @user.address_2
+                    %li.list-group-item
+                      %i.fas.fa-building.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t("users.index.company_name")}:"
+                        = @user.company_name
+                    - if @user.role == "customer"
+                      %li.list-group-item
+                        %i.fas.fa-temperature-high.mr-3{"aria-hidden" => "true"}
+                        %p
+                          %b
+                            = "#{t("users.index.priority_user")}:"
+                          = @user.priority_user
+                      %li.list-group-item
+                        %i.fas.fa-globe.mr-3{"aria-hidden" => "true"}
+                        %p
+                          %b
+                            = "#{t("users.index.web_page")}:"
+                          = @user.web_page
+                      %li.list-group-item
+                        %i.fas.fa-chart-line.mr-3{"aria-hidden" => "true"}
+                        %p
+                          %b
+                            = "#{t("users.index.principal_activity")}:"
+                          = @user.principal_activity
+            .card-footer.text-muted.text-center
+              = "#{t('base.forms.updated_at')} #{@user.updated_at.strftime("%Y-%m-%d")}"
+- if @user.role == "tecnic"
+  = render template: "orders/index"

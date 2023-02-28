@@ -1,0 +1,34 @@
+%li{class: "menu"}
+  %a.collapsible-header.waves-effect.arrow-r.material-tooltip-main.no-link{"data-toggle" => "tooltip", "data-placement" => "right", "trigger" => "manual", :title => "#{t("base.bar_menu.admins.subsidiaries")}"}
+    %i.fab.fas.fa-warehouse.sv-slim-icon
+    = t("base.bar_menu.admins.subsidiaries")
+    %i.fas.fa-angle-down.rotate-icon
+  .collapsible-body
+    %ul
+      %li
+        = link_to admins_subsidiary_new_path, "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.admins.new"), class: "submenu waves-effect material-tooltip-main" do
+          %i.fas.fa-th-list
+          = t("base.bar_menu.admins.new")
+      %li
+        = link_to admins_subsidiaries_path, "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.admins.list"), class: "submenu waves-effect material-tooltip-main" do
+          %i.fas.fa-clipboard-list
+          = t("base.bar_menu.admins.list")
+%li{class: "menu"}
+  %a.collapsible-header.waves-effect.arrow-r.material-tooltip-main.no-link{"data-toggle" => "tooltip", "data-placement" => "right", "trigger" => "manual", :title => "#{t("base.bar_menu.admins.supervisor")}"}
+    %i.fas.fa-users.sv-slim-icon
+    = t("base.bar_menu.admins.supervisor")
+    %i.fas.fa-angle-down.rotate-icon
+  .collapsible-body
+    %ul
+      %li
+        = link_to new_user_path(:role => 1), "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.admins.new_s"), class: "submenu waves-effect material-tooltip-main" do
+          %i.fas.fa-user-plus.span
+          = t("base.bar_menu.admins.new_s")
+      %li
+        = link_to admins_users_path(:role => 1), "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.admins.list"), class: "submenu waves-effect material-tooltip-main" do
+          %i.fas.fa-clipboard-list
+          = t("base.bar_menu.admins.list")
+%li
+  %a#toggle.collapsible-header.waves-effect.material-tooltip-main{"data-toggle" => "tooltip", "data-placement" => "right", :title => "#{t("base.bar_menu.toggle.expand")}"}
+    %i.sv-slim-icon.fas.fa-angle-double-left
+    = t("base.bar_menu.toggle.collapse")

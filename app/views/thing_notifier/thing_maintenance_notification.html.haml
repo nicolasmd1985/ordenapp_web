@@ -1,0 +1,48 @@
+%head
+  :css
+    * { margin: 0; padding: 0; font-size: 100%; font-family: 'Avenir Next', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; line-height: 1.65; }
+    body, .body-wrap { width: 100% !important; height: 100%; background: #f8f8f8; }
+    a { color: #71bc37; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .text-center { text-align: center; }
+    .text-right { text-align: right; }
+    .text-left { text-align: left; }
+    .button { display: inline-block; color: white; background: #71bc37; border: solid #71bc37; border-width: 10px 20px 8px; font-weight: bold; border-radius: 4px; }
+    .button:hover { text-decoration: none; }
+    h1, h2, h3, h4, h5, h6 { margin-bottom: 20px; line-height: 1.25; }
+    h1 { font-size: 32px; }
+    h2 { font-size: 28px; }
+    h3 { font-size: 24px; }
+    h4 { font-size: 20px; }
+    h5 { font-size: 16px; }
+    img { max-width: 200px; }
+    p, ul, ol { font-size: 16px; font-weight: normal; margin-bottom: 20px; }
+    .container { display: block !important; clear: both !important; margin: 0 auto !important; max-width: 580px !important; }
+    .container table { width: 100% !important; border-collapse: collapse; }.container .content { background: white; padding: 30px 35px; }
+    .datagrid table { border-collapse: collapse; text-align: left; width: 100%; } .datagrid {font: normal 12px/150% Arial, Helvetica, sans-serif; background: #fff; overflow: hidden; border: 1px solid #006699; -webkit-border-radius: 11px; -moz-border-radius: 11px; border-radius: 11px; }.datagrid table td, .datagrid table th { padding: 3px 10px; }.datagrid table thead th {background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #006699), color-stop(1, #00557F) );background:-moz-linear-gradient( center top, #006699 5%, #00557F 100% );filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#006699', endColorstr='#00557F');background-color:#006699; color:#FFFFFF; font-size: 15px; font-weight: bold; border-left: 1px solid #0070A8; } .datagrid table thead th:first-child { border: none; }.datagrid table tbody td { color: #00496B; border-left: 1px solid #E1EEF4;font-size: 12px;font-weight: normal; }.datagrid table tbody .alt td { background: #E1EEF4; color: #00496B; }.datagrid table tbody td:first-child { border-left: none; }.datagrid table tbody tr:last-child td { border-bottom: none; }
+%body
+  %table.body-wrap
+    %tr
+      %td.container
+        %table
+          %tr
+            %td.content
+              %h2
+                = "¡Mantenimientos Programados!"
+              %p
+                = "Fecha Mantenimiento: #{Date.today + 1.days}"
+              %p
+                = "Compañia: #{@user.subsidiary_id}"
+              .datagrid
+                %table{:align => "center"}
+                  %thead
+                    %tr
+                      %th Nombre
+                      %th Hora
+                      %th Descripción
+                  %tbody
+                    -# - @thing.each do |rowthing|
+                    %tr
+                      %td #{@thing.name}
+                      %td #{@thing.maintenance_time.strftime("%I:%M %p")}
+                      %td #{@thing.description}

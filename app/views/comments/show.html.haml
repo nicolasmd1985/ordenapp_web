@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %strong Order:
+  = @comment.order
+%p
+  %strong User:
+  = @comment.user
+%p
+  %strong Description:
+  = @comment.description
+= link_to 'Edit', edit_comment_path(@comment)
+|
+\#{link_to 'Back', comments_path}

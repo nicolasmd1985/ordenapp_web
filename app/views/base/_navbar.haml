@@ -1,0 +1,82 @@
+-if user_signed_in?
+  -# %a.btn-floating.blue-gradient.button-collapse.btn-lg{:href => "#", "data-activates" => "slide-out"}
+  -#   %i.fas.fa-bars
+  -# <!-- Sidebar navigation -->
+  #slide-out.side-nav.wide.slim.fixed
+    //%div
+    %ul.custom-scrollbar.ps.ps--active-y
+      -# <!-- Logo -->
+      %li
+        .logo-wrapper.sn-ad-avatar-wrapper
+          - if user_signed_in?
+            - case current_user.role
+            - when 'admin'
+              - if current_user.as_supervisor
+                - url = dashboard_path
+              - else
+                - url = admins_subsidiaries_path
+              - source = current_user.corporation.urlavatar
+              - nameToShow = Corporation.corporation_name(current_user.corporation_id)
+            - when 'supervisor'
+              - url = dashboard_path
+              - source = current_user.subsidiary.urlavatar
+              - nameToShow = Subsidiary.subsidiary_name(current_user.subsidiary_id)
+            - when 'tecnic'
+              - url = root_path
+              - source = current_user.subsidiary.urlavatar
+              - nameToShow = Subsidiary.subsidiary_name(current_user.subsidiary_id)
+            - when 'customer'
+              - url = customers_dashboard_path
+              - source = current_user.subsidiary.urlavatar
+              - nameToShow = "#{current_user.first_name} #{current_user.last_name}"
+          %a{:href => "#{user_signed_in? ? url : root_path}", title: (user_signed_in? && (!current_user.try(:subsidiary_id).nil? || !current_user.try(:corporation_id).nil?)) ? nameToShow : "", class: "mb-2"}
+            - if source.blank?
+              = image_tag "logo.jpg", class: "img-fluid flex-center rounded-circle", :alt => "main logo", id: "main-logo"
+            - else
+              %img#main-logo.rounded-circle{:src => source, class: "img-fluid flex-center", alt: "main logo"}
+            - if user_signed_in? && (!current_user.try(:subsidiary_id).nil? || !current_user.try(:corporation_id).nil?)
+              %span
+                = nameToShow
+      -# <!--/. Logo -->
+
+      -# <!-- Side navigation links -->
+      %li
+        %ul.collapsible.collapsible-accordion
+          - if user_signed_in?
+            - case current_user.role
+            - when 'supervisor'
+              = render "base/supervisors_menu"
+            - when 'admin'              
+              - if current_user.as_supervisor
+                = render "base/supervisors_menu"
+              - else
+                = render "base/admins_menu"
+            - else
+              = render "base/customers_menu"
+-# <!-- Navbar -->
+%nav.navbar.fixed-top.navbar-toggleable-md.navbar-expand-lg.scrolling-navbar.double-nav.secondary-color
+  -# <!-- SideNav slide-out button -->
+  -if user_signed_in?
+    .float-left
+      %a.button-collapse{:href => "#", "data-activates" => "slide-out"}
+        %i.fas.fa-bars
+    - case current_user.role
+    - when 'supervisor'
+      = render "base/supervisors_navbar"
+    - when 'admin'
+      = render "base/admins_navbar"
+    - else
+      = render "base/customers_navbar"
+  - else
+    -# link to registration
+    %li.nav-item
+      = link_to new_user_registration_path, title: t("base.navbar.create_account"), class: "nav-link" do
+        %i.fab.fas.fa-user-circle
+        %span.clearfix.d-none.d-sm-inline-block
+          = t("base.navbar.create_account")
+    -# link to registration
+    %li.nav-item
+      = link_to new_user_session_path, title: t("base.navbar.sign_in"), class: "nav-link" do
+        %i.fab.fas.fa-sign-in-alt
+        %span.clearfix.d-none.d-sm-inline-block
+          = t("base.navbar.sign_in")

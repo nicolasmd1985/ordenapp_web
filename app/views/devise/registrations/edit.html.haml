@@ -1,0 +1,142 @@
+.row.flex-box-center
+  .col.s12.m6.force_margin
+    .card.card-cascade.narrower.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-between.align-items-center
+        = link_to :back, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t("base.forms.back") do
+          %i.fas.fa-chevron-left
+        %h3.center.mt-2
+          = @user.first_name ? "Hello #{@user.first_name.humanize} #{@user.last_name.humanize}" : "Hello #{@user.email}"
+        = link_to registration_path(resource_name), role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2 disabled hidden", data: { confirm: "Are you sure?" }, method: :delete, title: "Cancel My account" do
+          %i.fas.fa-trash
+      .card.py-0
+        .card-body
+          = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { autocomplete: "off", novalidate: "true", method: :put }) do |f|
+            = render "devise/shared/error_messages", resource: resource
+            .row
+              .col-12.col-md-4.d-flex
+                .view.overlay.ovf-visible.mb-4.mb-md-auto
+                  - if !@user.try(:urlavatar).present?
+                    = image_tag "servicio-tecnico.png", class: "img-thumbnail z-depth-1 avatar-pic", id: "user-image", alt: "Default image"
+                    .mask.flex-center.flex-column.rgba-grey-strong.clic-file
+                      %p.file-name.font-weight-bolder
+                      %p
+                        %i.fas.fa-image.mr-2.white-text
+                        %span.white-text
+                          = t("users.index.image")
+                  - else
+                    %img#user-image{:src => @user.try(:urlavatar), class: "img-thumbnail z-depth-1 avatar-pic", alt: "User image"}
+                    //%a{:href => "#!"}
+                    .mask.flex-center.flex-column.rgba-grey-strong.clic-file
+                      %p.file-name.font-weight-bolder
+                      %p
+                        %i.fas.fa-image.mr-2.white-text
+                        %span.white-text
+                          = t("users.index.image")
+                .d-none.justify-content-center
+                  = f.file_field :urlavatar, {class: "btn btn-mdb-color btn-rounded btn-sm", accept: 'image/png,image/jpeg'}
+              .col-12.col-sm-6.col-md-4
+                .form__field--input.md-form
+                  = f.label t("users.index.name"), {"data-error" => "wrong", "data-success" => "right"}
+                  = f.text_field :first_name, autofocus: true, required: true, minlength: 3, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+                  .invalid-feedback
+                    = t("session.index.field_required")
+                .form__field--input.md-form
+                  = f.label t("users.index.last_name"), {"data-error" => "wrong", "data-success" => "right"}
+                  = f.text_field :last_name, required: true, minlength: 3, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+                  .invalid-feedback
+                    = t("session.index.field_required")
+                .form__field--input.md-form
+                  - if current_user.role == 'tecnic'
+                    - control_email = 'disabled'
+                  = f.label t("users.index.email"), {"data-error" => "wrong", "data-success" => "right"}, class: control_email
+                  = f.email_field :email, required: true, autocomplete: "email", class: "form-control validate #{control_email}", style: "margin-bottom: 0.5rem;"
+                  .invalid-feedback
+                    = t("session.index.invalid_email")
+                - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+                  %small.form-text.text-muted
+                    Currently waiting confirmation for: #{resource.unconfirmed_email}
+                .form__field--select.md-form
+                  = f.label t('users.index.document_type'), {"data-error" => "wrong", "data-success" => "right"}, class: "active"
+                  = f.select(:document_type, options_for_select_document_type(@user.try(:document_type)), {}, {class: "mdb-select md-form colorful-select dropdown-primary"})
+                .form__field--input.md-form
+                  = f.label t("users.index.document_number"), {"data-error" => "wrong", "data-success" => "right"}
+                  = f.text_field :document_number, required: true, minlength: 8, maxlength: 10, onkeypress:"if ( isNaN( String.fromCharCode(event.keyCode) )) return false;", :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+                  .invalid-feedback
+                    = t("profile.invalid_doc")
+                .form__field--input.md-form
+                  = f.label t("users.index.role"), {"data-error" => "wrong", "data-success" => "right"}, :class => "disabled"
+                  = f.text_field :role, :class => "form-control disabled validate"
+
+              .col-12.col-sm-6.col-md-4
+                .form__field--input.md-form
+                  = f.label t("users.index.phone_1"), {"data-error" => "wrong", "data-success" => "right"}
+                  = f.text_field :phone_number_1, type: "tel", required: true, minlength: 10, maxlength: 10, onkeypress:"if ( isNaN( String.fromCharCode(event.keyCode) )) return false;", :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+                  .invalid-feedback
+                    = t("profile.invalid_tel")
+                .form__field--input.md-form
+                  = f.label t("users.index.phone_2"), {"data-error" => "wrong", "data-success" => "right"}
+                  = f.number_field :phone_number_2, type: "tel", minlength: 10, maxlength: 10, onkeypress:"if ( isNaN( String.fromCharCode(event.keyCode) )) return false;", :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+                  .invalid-feedback
+                    =t("profile.invalid_tel")
+                .form__field--input.md-form
+                  = f.label t("users.index.address_1"), {"data-error" => "wrong", "data-success" => "right"}
+                  = f.text_field :address_1, required: false, minlength: 10, :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+                  .invalid-feedback
+                    =t("profile.invalid_address")
+                .form__field--input.md-form
+                  = f.label t("users.index.address_2"), {"data-error" => "wrong", "data-success" => "right"}
+                  = f.text_field :address_2, required: false, minlength: 10, :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+                  .invalid-feedback
+                    =t("profile.invalid_address")
+                - if @user.role == 'customer'
+                  .form__field--input.md-form
+                    = f.label t("users.index.company_name"), {"data-error" => "wrong", "data-success" => "right"}
+                    = f.text_field :company_name, required: false, minlength: 3, :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+                    .invalid-feedback
+                      =t("base.forms.err_2")
+                  .form__field--input.md-form
+                    = f.label t("users.index.web_page"), {"data-error" => "wrong", "data-success" => "right"}
+                    = f.text_field :web_page, required: false, minlength: 3, :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+                    .invalid-feedback
+                      =t("base.forms.err_2")
+                - if @user.role == 'customer' || @user.role == "admin"
+                  .form__field--input.md-form
+                    = f.label t("users.index.principal_activity"), {"data-error" => "wrong", "data-success" => "right"}
+                    = f.text_field :principal_activity, required: false, minlength: 3, :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+                    .invalid-feedback
+                      =t("base.forms.err_2")
+
+
+            .row.justify-content-center.mt-md-4
+              .col-12.col-md-8
+                %p{:style => "color: #007bff;"}
+                  = t("profile.change_password")
+              .w-100.d-none.d-md-block
+              .col-12.col-sm-6.col-md-4
+                .form__field--input.md-form.mt-0.mb-sm-0#verify_pass
+                  = f.label t('profile.new_password'), {"data-error" => "wrong", "data-success" => "right"}
+                  = f.password_field :password, autocomplete: "new-password", :class => "form-control validate", :style => "position: relative; margin-bottom: 0.5rem;"
+                  %span{toggle: "#user_password", class: "fa fa-fw fa-eye-slash field-icon toggle-password"}
+                  %small.form-text.text-muted
+                    = t("profile.password_length")
+                  .invalid-feedback
+                    = t("profile.invalid_pattern_password")
+              .col-12.col-sm-6.col-md-4
+                .form__field--input.md-form.my-0#verify_pass_confirm
+                  = f.label t('profile.confirm_new_password'), {"data-error" => "wrong", "data-success" => "right"}
+                  = f.password_field :password_confirmation, autocomplete: "new-password", :class => "form-control validate", :style => "position: relative; margin-bottom: 0.5rem;"
+                  %span{toggle: "#user_password_confirmation", class: "fa fa-fw fa-eye-slash field-icon toggle-password"}
+                  .invalid-feedback
+                    = t("profile.mismatched_password")
+              .w-100.d-none.d-md-block
+              .col-12.col-sm-6.col-md-4
+                .form__field--input.md-form
+                  = f.label t('profile.current_password'), {"data-error" => "wrong", "data-success" => "right"}
+                  = f.password_field :current_password, required: true, autocomplete: "current-password", :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+                  %span{toggle: "#user_current_password", class: "fa fa-fw fa-eye-slash field-icon toggle-password"}
+                  %small.form-text.text-muted{style: "color: #dc3545 !important;"}
+                    = t("profile.current_password")
+              .col-12.col-sm-6.col-md-4.d-flex.justify-content-center.align-items-center
+                .btn.secondary-color.btn-rounded.form__submit.my-4.p-0.edit_account
+                  = f.submit "Update user", { class: "edit_account"}
+= render "home/whatsapp_button"

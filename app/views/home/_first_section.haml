@@ -1,0 +1,22 @@
+.content-section.section-padding.first
+  .container
+    .row.align-items-center
+      .col-md-7
+        .content-img.content-img-group-1
+          .image-1.d-none.d-md-block{"data-aos" => "fade-left", "data-aos-duration" => '1500'}
+            = image_tag "pantalla1.png", { style: "height: 250px", class: "valign-wrapper", alt:"Orders List"}
+          .image-2.d-none.d-md-block{"data-aos" => "fade-right", "data-aos-duration" => "1500"}
+            = image_tag "pantalla2.png", { style: "height: 250px", class: "valign-wrapper", alt:"Order details"}
+          .image-mobile.d-md-none{"data-aos" => "fade-left", "data-aos-duration" => '1500'}
+            = image_tag "pantalla1.png", { class: "valign-wrapper w-100",alt:"Orders List"}
+          .image-mobile.d-md-none{"data-aos" => "fade-right", "data-aos-duration" => "1500"}
+            = image_tag "pantalla2.png", { class: "valign-wrapper w-100", alt:"Order details"}
+      .col-md-5
+        .content-section-text{"data-aos" => "zoom-in", "data-aos-duration" => '1500'}
+          %h2.title
+            =t("home.index.title_2")
+            %br.d-none.d-xs-block
+            =t("home.index.title_3")
+          %p
+            =t("home.index.title_4")
+          = render "button_request"

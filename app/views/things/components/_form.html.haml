@@ -1,0 +1,43 @@
+-# = hidden_field_tag "user_email", current_user.email
+= form_tag({controller: controller, action: action}, { autocomplete: "off", novalidate: "true" , id: "component_form", :class => "component_form", method: method}) do |form|
+  - if component.errors.any?
+    #error_explanation.alert.alert-danger.alert-dismissible.fade.show{:role => "alert"}
+      %h5.alert-heading
+        = pluralize(component.errors.count, "error")
+        = t("components.index.err_1")
+      %ul
+        - component.errors.full_messages.each do |message|
+          %li= message
+      %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+        %span{"aria-hidden" => "true"} ×
+  .row
+    .col-sm-6
+      .form__field--input.md-form
+        %label{"data-error" => "wrong", "data-success" => "right"}
+          = t("components.index.name")
+        = text_field_tag :name, component.name, required: true, minlength: 3, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          =t("base.forms.err_2")
+      .form__field--input.md-form
+        %label{"data-error" => "wrong", "data-success" => "right"}
+          = t("components.index.code")
+        = text_field_tag :code_scan, component.code_scan, minlength: 3, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          =t("base.forms.err_2")
+    .col-sm-6
+      .form__field--input.md-form
+        %label{"data-error" => "wrong", "data-success" => "right"}
+          = t("components.index.description")
+        = text_field_tag :description, component.description, required: true, minlength: 3, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          =t("base.forms.err_2")
+      -# .form__field--select.md-form
+        = form.label t("components.index.search"), {"data-error" => "wrong", "data-success" => "right"}
+        = text_field_tag "search_component_thing", component.thing ? component.thing.name : '', { maxlength: 80, class:'form-control validate', style: "margin-bottom: 0.5rem;", required: true}
+        .invalid-feedback
+          =t("base.forms.err_2")
+      -# .form__field--select.md-form
+        %select{id: "component_thing_id", name: "component[thing_id]", style: "display: none;", class: "custom-select"}
+  .row.justify-content-center
+    %button.btn.secondary-color.btn-rounded.my-4.p-0.text-white{style: "padding: .84rem 2.14rem !important;", type: "submit"}
+      = "save"

@@ -1,0 +1,48 @@
+.invisible#breadcrumb
+  = render_breadcrumbs
+.row.flex-box-center
+  .col.s12.m12.force_margin
+    .card.no-top
+      .card-body
+        %h4.align-center.no-top
+          = t("dashboard.customers.finished")
+        .orderf-table-dashWrapper
+          %table#orderf-table-dash.table.table-striped.table-bordered.table-hover.table-sm.btn-table{:cellspacing => "0", :width => "100%"}
+            %thead.secondary-color.white-text.align-center
+              %tr
+                %th.center
+                  = t('orders.index.finished_date')
+                %th.center
+                  = t('orders.index.person_in_charge')
+                %th.center.order-description
+                  = t('orders.index.description')
+                %th.center
+                  = t('dashboard.orders.address')
+                %th.center
+                  = t("orders.index.status")
+                %th.center.options.th-sm
+                  =t('orders.index.options')
+            %tbody
+              - @finished_orders.each do |order|
+                %tr
+                  %td.align-center
+                    = order.updated_at.strftime("%Y-%m-%d")
+                    %br
+                    %small
+                      = order.updated_at.strftime("%I:%M %p")
+                  %td.align-center
+                    = "#{order.tecnic.first_name} #{order.tecnic.last_name}"
+                  %td.align-center
+                    = order.description
+                  %td.align-center
+                    = order.address
+                  %td.align-center
+                    %b.badge.badge-pill.badge-success
+                      = t('orders.status.done')
+                  %td.align-center
+                    = link_to customer_order_path(order.slug, format: :pdf), class: 'card__button btn btn-primary btn-sm btn-space', title: t("orders.index.download") , target: "_blank" do
+                      %i.fas.fa-file-download
+                    = link_to customer_order_path(order.slug), class: 'card__button btn btn-info btn-sm btn-space', title: t("base.forms.details") do
+                      %i.fas.fa-info-circle
+          %br
+            = link_to "Show all #{@finished_orders.count} orders", customers_orders_path(status: 504), class: 'btn btn-info btn-sm', title: "Info"

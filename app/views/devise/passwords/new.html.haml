@@ -1,0 +1,29 @@
+.row.flex-box-center
+  .col-sm-8.col-md-6.col-lg-5.force_margin
+    .card.light-1.p-0
+      %h3.card-header.info-color.white-text.text-center.py-4.mb-3
+        = t("profile.reset_password")
+      .card-body.px-lg-5
+        = form_for(resource, as: resource_name, url: password_path(resource_name), html: { novalidate: "true", method: :post }) do |f|
+          = render "devise/shared/error_messages", resource: resource
+          .row
+            .col
+              .form__field--input.md-form
+                = f.label :email, {"data-error" => "wrong", "data-success" => "right"}
+                = f.email_field :email, required: true, autofocus: true, autocomplete: "email", :class => "form-control validate", style: "margin-bottom: 0.5rem;", placeholder: "example@mail.com"
+                .invalid-feedback
+                  = t("session.index.invalid_email")
+              .row.justify-content-around 
+                %button.btn.btn-outline-success.btn-rounded.btn-block.form__submit.my-4{type: "submit"}
+                  = t("session.index.send_instru")
+          .row.justify-content-center.sign-options              
+            %p.mb-0
+              = t("session.index.member")
+              %a.form-link{:href => "/en/users/sign_in"}
+                = t("session.index.sign_in")
+            %p.mb-0
+              = t("session.index.or")
+            %p
+              = t("session.index.not_member")
+              %a.form-link{:href => "/en/users/sign_up"}
+                = t("session.index.register")

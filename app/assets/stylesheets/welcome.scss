@@ -1,0 +1,109 @@
+.video_description{
+}
+
+.video_description iframe{
+  width: 100%;
+  height: -webkit-fill-available;
+}
+
+.start_botton{
+  right: 60px;
+  position: absolute;
+  bottom: 30px;
+  color: white;
+}
+
+.welcome_title{
+  position: relative;
+  top: -21px;
+  color: white;
+}
+
+.background_video{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.background_video video{
+  margin: auto;
+  max-width: 100vw;
+  object-fit: cover;
+}
+
+.demo{
+  color: #d6d6e7;
+  right: 154px;
+  position: absolute;
+  top: 226px;
+}
+
+.button_close{
+  position: absolute !important;
+  top: -28px;
+  right: -30px;;
+}
+
+#modal2{
+  overflow: visible;
+}
+
+#email_mailchimp{
+  background-color: #D2D6D9;
+  position: absolute;
+  right: -23px;
+  text-indent: 10px;
+  width: auto;
+}
+
+#email_mailchimp::placeholder {
+  color: #999;
+}
+
+.button_mailchipm{
+  width: 190px;
+  right: 226px;
+  line-height: 45px !important;
+  height: 46px !important;
+  position: absolute !important;
+}
+
+#atlwdg-trigger{
+  right: 0px;
+  bottom: 0px;
+  top: auto;
+  left: auto;
+}
+
+nav ul .color_li {
+  margin-right: 40px;
+}
+nav ul .color_li a {
+  color: white !important;
+}
+
+nav {
+    .left.hide-on-med-and-down{
+      margin-left: 210px;
+      a{
+        color: black;
+      }
+  }
+}
+
+#youtube_video_web{
+  width: 100%;
+  height: 20em;
+}
+
+#features .section{
+  .material-icons{
+    color: #4E83A6;
+  }
+  h5{
+    color:#B38242;
+    }
+}

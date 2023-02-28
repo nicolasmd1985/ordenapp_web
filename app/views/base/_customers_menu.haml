@@ -1,0 +1,21 @@
+- if current_user.role == 'customer'
+  %li{class: "menu"}
+    = link_to new_customer_order_path, "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.orders.support"), class: "submenu waves-effect material-tooltip-main" do
+      %i.fas.fa-file-medical
+      = t("base.bar_menu.orders.support")
+  %li{class: "menu"}
+    = link_to customers_orders_path, "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.orders.list"), class: "submenu waves-effect material-tooltip-main" do
+      %i.fas.fa-file-alt
+      = t("base.bar_menu.orders.list")
+  %li{class: "menu"}
+    = link_to customers_orders_path(status: 504), "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.orders.finish_list"), class: "submenu waves-effect material-tooltip-main" do
+      %i.fas.fa-file-invoice
+      = t("base.bar_menu.orders.finish_list")
+  %li{class: "menu"}
+    = link_to customers_things_path, "data-toggle" => "tooltip", "data-placement" => "right", title: t("base.bar_menu.things.things"), class: "submenu waves-effect material-tooltip-main" do
+      %i.fas.fa-th-list
+      = t("base.bar_menu.things.things")
+  %li
+    %a#toggle.collapsible-header.waves-effect.material-tooltip-main{"data-toggle" => "tooltip", "data-placement" => "right", :title => "#{t("base.bar_menu.toggle.expand")}"}
+      %i.sv-slim-icon.fas.fa-angle-double-left
+      = t("base.bar_menu.toggle.collapse")

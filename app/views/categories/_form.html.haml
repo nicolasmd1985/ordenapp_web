@@ -1,0 +1,32 @@
+.invisible#breadcrumb
+  = render_breadcrumbs
+= form_with(model: category, local: true, html: { autocomplete: "off", novalidate: "true" }, id: "category_form", :class => "category_form") do |form|
+  - if category.errors.any?
+    #error_explanation.alert.alert-danger.alert-dismissible.fade.show{:role => "alert"}
+      %h5.alert-heading
+        = pluralize(category.errors.count, "error")
+        prohibited this category from being saved:
+      %ul
+        - category.errors.full_messages.each do |message|
+          %li= message
+      %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+        %span{"aria-hidden" => "true"} ×
+  .row.justify-content-center
+    .col-sm-8
+      .card
+        .card-body
+          .form__field--input.md-form
+            = form.label t('category.index.cat_name'), {"data-error" => "wrong", "data-success" => "right"}
+            = form.text_field :name, autofocus: true, required: true, minlength: 3, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+            .invalid-feedback
+              =t("base.forms.err_2")
+        -# .col-sm-6
+        -#   .form__field--input.md-form
+        -#     = form.label t('category.index.category_type'), {"data-error" => "wrong", "data-success" => "right"}, :class => "active"
+        -#     = form.select :category_type, options_for_select_category_type(@category.category_type ? @category.category_type : ''), {include_blank: false}, {autofocus: true, :class => "mdb-select md-form colorful-select dropdown-primary validate", style: "margin-bottom: 0.5rem;"}
+        -#     .invalid-feedback
+        -#       =t("base.forms.err_2")
+        = form.hidden_field :category_type, value: @category.category_type
+        .row.justify-content-center
+          %button.btn.secondary-color.btn-rounded{type: 'submit'}
+            =t('category.index.create')

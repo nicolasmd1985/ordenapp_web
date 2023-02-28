@@ -1,0 +1,57 @@
+- if @count >= 1
+  - animation = "bell-animation"
+  - badge = "badge-danger rounded-circle z-depth-1"
+- else
+  - animation = ""
+  - badge = ""
+
+%li.nav-item.dropdown.mr-2
+  %a#navbarNotification.nav-link.dropdown-toggle.hidden-arrow{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", "alt" => "Notifications", class: animation}
+    %i.fas.fa-bell{"alt" => "Notifications"}
+    %span.badge.badge-notify{id: 'orders_count', "alt" => "Notifications", class: badge}
+      - if @count >= 1
+        = @count
+  #notifications_menu_dropdown.dropdown-menu.dropdown-menu-right.dropdown-secondary{"aria-labelledby" => "navbarNotification"}
+    %h4.align-center.mt-2{id: 'notifications_menu'}
+      = t('notifications.notifications')
+      %hr
+    - @unread.each do |notification|
+      .notify.container-fluid{id: "notify_#{notification.id}"}
+        .notify_order
+          %p
+            = t('notifications.text', user: notification.user_name, order:notification.order_internal_id, status: notification.order_status).html_safe
+        .notify_link
+          = link_to t('notifications.link_order', order: notification.order_internal_id), show_order_path(notification.order_slug), id: "notify-#{notification.id}", class: "notification_order"
+          = link_to t('notifications.notification'), show_notification_path(notification.slug), id: "notify-#{notification.id}", class: "notification_link"
+        .notify_time
+          = distance_of_time_in_words_translation(notification.created_at)
+    - if @count >= 1
+      %hr
+      %h6.align-center.mt-2
+        %strong
+          = link_to t('notifications.show_all'), notifications_path, class: "all_notifications"
+
+-# .btn-group
+-#   %i.fas.fa-bell{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button", class: animation}
+-#   %span.badge.badge-notify{id: 'orders_count', class: badge}
+-#     - if @count >= 1
+-#       = @count
+-#   .dropdown-menu{id: "notifications_menu_dropdown", class: "", style: "min-width: 500px; margin-left: -424px; height: 565px; overflow-y: scroll;"}
+-#     %h4.align-center.mt-2{id: 'notifications_menu'}
+-#       = t('notifications.notifications')
+-#       %hr
+-#     - @unread.each do |notification|
+-#       .notify.container-fluid{id: "notify_#{notification.id}"}
+-#         .notify_order
+-#           %p
+-#             = t('notifications.text', user: notification.user_name, order:notification.order_internal_id, status: notification.order_status).html_safe
+-#         .notify_link
+-#           = link_to t('notifications.link_order', order: notification.order_internal_id), show_order_path(notification.order_slug), id: "notify-#{notification.id}", class: "notification_order"
+-#           = link_to t('notifications.notification'), show_notification_path(notification.slug), id: "notify-#{notification.id}", class: "notification_link"
+-#         .notify_time
+-#           = distance_of_time_in_words_translation(notification.created_at)
+-#     - if @count >= 1
+-#       %hr
+-#       %h6.align-center.mt-2
+-#         %strong
+-#           = link_to t('notifications.show_all'), notifications_path, class: "all_notifications"

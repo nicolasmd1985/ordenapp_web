@@ -1,0 +1,48 @@
+// Place all the styles related to the Categories controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/*********TABLES*********/
+.align-center {
+    text-align: center;
+}
+#category-table_wrapper .dataTables_scrollHead thead .sorting:before,
+#category-table_wrapper .dataTables_scrollHead thead .sorting:after,
+#category-table_wrapper .dataTables_scrollHead thead .sorting_asc:before,
+#category-table_wrapper .dataTables_scrollHead thead .sorting_asc:after,
+#category-table_wrapper .dataTables_scrollHead thead .sorting_desc:before,
+#category-table_wrapper .dataTables_scrollHead thead .sorting_desc:after,
+#category-table_wrapper .dataTables_scrollHead thead .sorting_asc_disabled:before,
+#category-table_wrapper .dataTables_scrollHead thead .sorting_asc_disabled:after,
+#category-table_wrapper .dataTables_scrollHead thead .sorting_desc_disabled:before,
+#category-table_wrapper .dataTables_scrollHead thead .sorting_desc_disabled:after {
+    bottom: 0.4em;
+}
+#category-table_length {
+    margin-top: 0.55rem;
+}
+#category-table_length .form-control {
+    width: 50px;
+}
+#category-table_length .dropdown-content {    
+    min-width: 3.25rem;
+}
+#category-table.table-hover tbody tr:hover {
+    background-color: #e2eaff;
+    transition: .5s;
+}
+// #category-table_wrapper .dataTables_scrollHeadInner {
+//     width: auto !important;
+// }
+// .my-custom-scrollbar {
+//     position: relative;
+//     height: 80vh;
+//     overflow: auto;
+// }
+//     .table-wrapper-scroll-y {
+//     display: block;
+// }
+.category-tableWrapper {
+    max-width: 400px;
+    margin: 0 auto;
+}

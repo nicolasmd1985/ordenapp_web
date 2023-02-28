@@ -1,0 +1,36 @@
+- if @answers
+  - @answers.each do |answer|
+    %ul.list-group
+      %button.list-group-item.list-group-item-action.active{:type => "button"}
+        = "#{month_names(answer.month)} - #{answer.year} | Encuestas: #{answer.quantity}"
+      %li.list-group-item.d-flex.justify-content-between.align-items-center.list-group-item-action
+        = @question_1
+        %span.badge.badge-info.badge-pill.badge-round
+          = "Total: #{answer.answer_1_total}"
+          %br
+          = "#{answer.answer_1_percentage} %"
+      %li.list-group-item.d-flex.justify-content-between.align-items-center.list-group-item-action
+        = @question_2
+        %span.badge.badge-info.badge-pill.badge-round
+          = "Total: #{answer.answer_2_total}"
+          %br
+          = "#{answer.answer_2_percentage} %"
+      %li.list-group-item.d-flex.justify-content-between.align-items-center.list-group-item-action
+        = @question_3
+        %span.badge.badge-info.badge-pill.badge-round
+          = "Total: #{answer.answer_3_total}"
+          %br
+          = "#{answer.answer_3_percentage} %"
+      %li.list-group-item.d-flex.justify-content-between.align-items-center.list-group-item-action
+        = @question_4
+        %span.badge.badge-info.badge-pill.badge-round
+          = "Total: #{answer.answer_4_total}"
+          %br
+          = "#{answer.answer_4_percentage} %"
+      %li.list-group-item.d-flex.justify-content-between.align-items-center.list-group-item-action
+        = @question_5
+        %span.badge.badge-info.badge-pill.badge-round
+          = "Total: #{answer.answer_5_total}"
+          %br
+          = "#{answer.answer_5_percentage} %"
+      %br

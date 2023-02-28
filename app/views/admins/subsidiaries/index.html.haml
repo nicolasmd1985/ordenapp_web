@@ -1,0 +1,85 @@
+.invisible#breadcrumb
+  = render_breadcrumbs
+.row.flex-box-center
+  .col.s12.m10.force_margin
+    .card.card-cascade.narrower.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-between.align-items-center
+        = link_to :back, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t("base.forms.back") do
+          %i.fas.fa-chevron-left
+        %h3.center.mt-2
+          %strong
+            = t("base.bar_menu.admins.subsidiaries")
+        = link_to admins_subsidiary_new_path, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: "Nueva sucursal" do
+          %i.fas.fa-plus
+      .card.py-0
+        .card-body
+          .corporation-tableWrapper
+            %table#corporation-table.table.table-striped.table-bordered.table-hover.table-sm.btn-table{:cellspacing => "0", :width => "100%"}
+              %caption
+                = t("subsidiary.index.list")
+              %thead.secondary-color.white-text.align-center
+                %tr
+                  %th.center
+                    = t("subsidiary.index.name")
+                  %th.center
+                    = t("subsidiary.index.phone")
+                  %th.center
+                    = t("subsidiary.index.address")
+                  %th.center
+                    = t("subsidiary.index.email")
+                  %th.center
+                    -# = t("subsidiary.index.identification")
+                  %th.center
+                    = t("subsidiary.index.subsidiary_initials")
+                  %th.center
+                    = t("subsidiary.index.status")
+                  %th.center
+                    = t("base.forms.options")
+              %tbody
+                - @subsidiaries.each do |subsidiary|
+                  %tr
+                    %td.align-center
+                      = subsidiary.name
+                    %td.align-center
+                      = subsidiary.phone
+                    %td.align-center
+                      = subsidiary.address
+                    %td.align-center
+                      = subsidiary.email
+                    %td.align-center
+                      -# = subsidiary.identification
+                    %td.align-center
+                      = subsidiary.subsidiary_initials
+                    %td.align-center
+                      = subsidiary.status.description
+                    %td.align-center
+                      //.btn-group-vertical{"aria-label" => "button group", :role => "group"}
+                      = link_to admins_subsidiary_show_path(subsidiary), class: 'card__button btn-floating btn btn-info btn-sm', style: "z-index: 0; padding: 0", title: "Detalles" do
+                        %i.fas.fa-info
+                      = link_to admins_subsidiary_edit_path(subsidiary), class: 'card__button btn-floating btn btn-success btn-sm', style: "z-index: 0; padding: 0", title: t("base.forms.edit") do
+                        %i.fas.fa-edit
+                      - if subsidiary.status_id == 100
+                        - if current_user.subsidiary_id == subsidiary.id
+                          - managed = "inactive_admin"
+                        -else
+                          - managed = "btn-primary"
+                        = link_to act_as_supervisor_path(subsidiary_id: subsidiary.id), method: :patch, class: "card__button btn-floating btn btn-sm #{managed}", style: "z-index: 0; padding: 0", title: t('users.index.as_supervisor') do
+                          %i.fab.fas.fa-user-circle
+                      .btn-group-vertical{class: "#{(subsidiary.status_id == 100) ? "card__button btn-floating btn btn-success btn-sm" : "card__button btn-floating btn btn-danger btn-sm"}", "data-target" => "#modal_subsidiary_activation_#{subsidiary.id}", "data-toggle" => "modal", type: "button", style: "z-index: 0; padding: 0", title: subsidiary.status_id == 100 ? t("subsidiary.index.active") : t("subsidiary.index.inactive")}
+                        - if subsidiary.status_id == 100
+                          %i.fas.fa-check
+                        - else
+                          %i.fas.fa-times
+                      .modal{id: "modal_subsidiary_activation_#{subsidiary.id}", "aria-hidden" => "true", "aria-labelledby" => "modal_subsidiary_activation", role: "dialog", tabindex: "-1"}
+                        .modal-dialog.modal-dialog-centered.modal{role: "document"}
+                          .modal-content
+                            .modal-header
+                              %h5.modal-title{style: "margin-left: auto;"}
+                                = subsidiary.name
+                              %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+                                %span{"aria-hidden" => "true"} ×
+                            .modal-body
+                              = "#{(subsidiary.status_id == 100) ? "Inactive #{subsidiary.name} subsidiary?" : "Active #{subsidiary.name} subsidiary?"}"
+                            .modal-footer
+                              = link_to "Ok", subsidiary, method: :put, class: 'btn btn-success', style: "margin-left: auto; margin-right: auto;", href: "subsidiaries/status/#{subsidiary.id}", title: "Ok"
+                              %button.btn.btn-danger{"data-dismiss" => "modal", type: "button", style: "margin-left: auto; margin-right: auto;", title: "Cancel"} Cancel

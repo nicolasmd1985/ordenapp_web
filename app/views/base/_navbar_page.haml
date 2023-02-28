@@ -1,0 +1,82 @@
+-if user_signed_in?
+  #slide-out.side-nav.fixed
+    %div
+      %ul.custom-scrollbar
+        -# <!-- Logo -->
+        %li
+          .logo-wrapper.waves-light
+            - if user_signed_in?
+              - case current_user.role
+              - when 'admin'
+                - url = admins_subsidiaries_path
+                - subsidiary = Corporation.corporation_name(current_user.corporation_id)
+              - when 'supervisor'
+                - url = dashboard_path
+                - subsidiary = Subsidiary.subsidiary_name(current_user.subsidiary_id)
+                //- logo = Subsidiary.subsidiary_name(current_user.subsidiary_id)
+              - when 'customer'
+                - url = customers_dashboard_path
+                - subsidiary = "#{current_user.first_name} #{current_user.last_name}"
+              - when 'tecnic'
+                - subsidiary = Subsidiary.subsidiary_name(current_user.subsidiary_id)
+            %a{:href => "#{user_signed_in? ? url : root_path}", title: (user_signed_in? && (!current_user.try(:subsidiary_id).nil? || !current_user.try(:corporation_id).nil?)) ? subsidiary : ""}
+              - if user_signed_in? && (!current_user.try(:subsidiary_id).nil? || !current_user.try(:corporation_id).nil?)
+                = subsidiary
+                //%img#subsidiary-logo{:src => subsidiary_id.try(:urlavatar), class: "img-fluid flex-center", alt: "Subsidiary logo"}
+        -# <!--/. Logo -->
+
+        -# <!-- Side navigation links -->
+        %li
+          %ul.collapsible.collapsible-accordion
+            - if user_signed_in?
+              - case current_user.role
+              - when 'supervisor'
+                = render "base/supervisors_menu"
+              - when 'admin'
+                = render "base/admins_menu"
+                - if current_user.as_supervisor
+                  = render "base/supervisors_menu"
+              - else
+                = render "base/customers_menu"
+
+-# <!-- Navbar -->
+%nav.navbar.fixed-top.navbar-toggleable-md.navbar-expand-lg.scrolling-navbar.double-nav.primary-color
+  -# <!-- SideNav slide-out button -->
+  -if user_signed_in?
+    .float-left
+      %a.button-collapse{:href => "#", "data-activates" => "slide-out"}
+        %i.fas.fa-bars
+  -# <!-- Logo -->
+  .mr-auto.d-none.d-md-block
+    = link_to image_tag("logo-03.png"), root_path, class: "logo-img", title: "Home"
+  .mr-auto.d-md-none
+    = link_to image_tag("logo-mobile-05.png"), root_path, class: "logo-img", title: "Home"
+
+  %ul.nav.navbar-nav.nav-flex-icons.ml-auto
+    - if user_signed_in?
+      - case current_user.role
+      - when 'supervisor'
+        = render "base/supervisors_navbar"
+      - when 'admin'
+        = render "base/admins_navbar"
+      - else
+        = render "base/customers_navbar"
+    - else
+      -# link to plans
+      %li.nav-item
+        = link_to prices_path, title: t("base.navbar.plans"), class: "nav-link" do
+          %i.fab.fas.fa-tasks
+          %span.clearfix.d-none.d-sm-inline-block
+            = t("base.navbar.plans")
+      -# link to registration
+      %li.nav-item
+        = link_to new_user_registration_path, title: t("base.navbar.create_account"), class: "nav-link" do
+          %i.fab.fas.fa-user-circle
+          %span.clearfix.d-none.d-sm-inline-block
+            = t("base.navbar.create_account")
+      -# link to registration
+      %li.nav-item
+        = link_to new_user_session_path, title: t("base.navbar.sign_in"), class: "nav-link" do
+          %i.fab.fas.fa-sign-in-alt
+          %span.clearfix.d-none.d-sm-inline-block
+            = t("base.navbar.sign_in")

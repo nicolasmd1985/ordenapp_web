@@ -1,0 +1,17 @@
+.full-page-intro.banner.rgba-black-light
+    .mask.d-flex.justify-content-center.align-items-center
+        .container
+            .row.slider
+                .col-md-8
+                .col-md-4.mb-4#account_button{"data-aos" => "zoom-out", "data-aos-duration" => '2500', "data-aos-delay" => "2500", "data-aos-once" => "true"}
+                    .card.mt-0
+                        .card-body
+                            -# <!-- Heading -->
+                            %h4.text-center
+                                %strong
+                                    =t("home.index.demo")
+                            %hr
+                                .text-center
+                                    = render "button_request"
+    .background_video
+        = video_tag "https://ordenappbucket.s3.amazonaws.com/ordenapp_main_page+liviano.mp4", :playsinline => true, :controls => false, :autoplay => true, :width => "100%", :id => "video_presentation", :preload => "auto", :muted => true, :loop => false

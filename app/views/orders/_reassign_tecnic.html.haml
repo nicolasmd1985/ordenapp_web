@@ -1,0 +1,51 @@
+%button.btn.btn-info{style: "margin-left: auto; margin-right: auto;", "data-target" => "#modal_reassign", "data-toggle" => "modal", type: "button", title: t('orders.index.reassign')}
+  = "reasignar"
+.modal{id: "modal_reassign", "aria-hidden" => "true", "aria-labelledby" => "modal_reassign", role: "dialog", tabindex: "-1"}
+  .modal-dialog.modal-dialog-centered.modal{role: "document"}
+    = hidden_field_tag :locale, @locale, id: "idioma"
+    = form_tag(reassign_tecnic_path(@order.slug), method: :put, class: "form-horizontal") do |form|
+      .modal-content{style: "min-width: 500px;"}
+        .modal-header
+          %h5.modal-title{style: "margin-left: auto;"}
+            = t('orders.index.reassign_tecnic')
+          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+            %span{"aria-hidden" => "true"} ×
+        .modal-body.align-center
+          .form__field--input.md-form.input-with-post-icon.datepicker
+            %label.mdb-main-label{"data-error" => "wrong", "data-success" => "right"}
+              = t("orders.index.install_date")
+            = text_field_tag :install_date, @order.install_date, class: "form-control validate", required: true, placeholder: t('base.forms.select_date'), style: "margin-bottom: 0.5rem;", readonly: true
+            %i.fas.fa-calendar.input-prefix
+            .invalid-feedback
+              =t("base.forms.err_3")
+          .form__field--input.md-form.input-with-post-icon.timepicker{:twelvehour => "true", :default => "now", :closetext => t('base.forms.cancel'), :cleartext => t('base.forms.clear'), :donetext => t('base.forms.save')}
+            %label.mdb-main-label{"data-error" => "wrong", "data-success" => "right"}
+              = t("orders.index.install_time")
+            = text_field_tag :install_time, @order.install_time ? @order.install_time.strftime("%I:%M %p") : "", class: "form-control validate", required: true, placeholder: t('base.forms.select_hour'), style: "margin-bottom: 0.5rem;", readonly: true
+            %i.fas.fa-clock.input-prefix
+            .invalid-feedback
+              =t("base.forms.err_4")
+          .row
+            .col
+              .field.md-form.mt-0
+                %label.mdb-main-label{"data-error" => "wrong", "data-success" => "right"}
+                  = t("orders.index.limit_time")
+                = text_field_tag :time_number, @seg, required: true, minlength: 1, maxlength: 2, onkeypress: "if(isNaN(String.fromCharCode(event.keyCode))) return false;", class: "form-control validate", style: "margin-bottom: 0.5rem;"
+                .invalid-feedback
+                  =t("base.forms.err_2")
+            .col
+              .field.md-form.mt-0
+                %label.mdb-main-label.active{"data-error" => "wrong", "data-success" => "right"}
+                  = t("orders.index.unit_time")
+                = select_tag :time_data, select_time_data(@data), {class: "mdb-select md-form colorful-select dropdown-primary mt-0 mb-2 validate", style: "margin-bottom: 0.5rem;"}
+                .invalid-feedback
+                  =t("base.forms.err_2")
+          .form__field--input.md-form
+            %label.mdb-main-label.active{"data-error" => "wrong", "data-success" => "right"}
+              = t("orders.index.assign_to")
+            = select_tag :tecnic_id , options_for_select_order_active_tecnics(current_user.subsidiary_id, @order.tecnic_id ? @order.tecnic_id : ''), {class: "mdb-select md-form mb-2 colorful-select dropdown-primary validate", style: "margin-bottom: 0.5rem;", :searchable => t('base.filters.search')}
+            .invalid-feedback
+              =t("base.forms.err_2")
+          %button.btn.btn-primary{:type => "submit"}
+            = t('orders.index.reassign')
+          %button.btn.btn-dark{"data-dismiss" => "modal", type: "button", style: "", title: "Cancel"} Cancel

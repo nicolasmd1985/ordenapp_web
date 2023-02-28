@@ -1,0 +1,49 @@
+.card
+  .card-header
+    .row
+      .col-12.col-md-9.mb-4.mb-md-0
+        .card.mt-0.h-100
+          = hidden_field_tag "current_substatus", @order.substatus_id
+          = form_tag(update_status_order_path(@order.slug), method: :put, class: "form-horizontal") do |form|
+            .row
+              .col-6.col-md-6
+                .form-group.row
+                  %label.col-sm-6.col-form-label{:for => "status_id"}
+                    = t('orders.index.change')
+                  .col-sm-6
+                    = select_tag :status_id, options_for_update_status(@order.status_id), required: true, class:'custom-select'
+              .col-6.col-md-6
+                .form-group.row
+                  .col-sm-12
+                    = text_area_tag :comment, "", required: true, minlength: 10, class:'form-control', placeholder: t('orders.index.comment'), rows: 4
+            .row{id: "substatus_row"}
+              .col-12.col-md-12
+                .form-group.row
+                  %label.col-sm-3.col-form-label{:for => "substatus_id"}
+                    = t('orders.index.change_sub')
+                  .col-sm-9{id: "select_substatus"}
+                    %select{id: "substatus_id", name: "substatus_id", class: "custom-select"}
+
+            .form-group.row
+              .col-sm-8
+                - if @order.status_id == 507
+                  %button.btn.btn-success{class: "", style: "margin-left: auto; margin-right: auto;", "data-target" => "#modal_finish", "data-toggle" => "modal", type: "button", title: t('orders.index.finish')}
+                    = t('orders.index.finish')
+                  .modal{id: "modal_finish", "aria-hidden" => "true", "aria-labelledby" => "modal_finish", role: "dialog", tabindex: "-1"}
+                    .modal-dialog.modal-dialog-centered.modal{role: "document"}
+                      .modal-content
+                        .modal-header
+                          %h5.modal-title{style: "margin-left: auto;"}
+                            = t('orders.index.title_confirm', order: @order.internal_id)
+                          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+                            %span{"aria-hidden" => "true"} ×
+                        .modal-body.align-center
+                          = t('orders.index.body_confirm').html_safe
+                        .modal-footer
+                          = link_to t('orders.index.finish'), @order, method: :put, class: 'btn btn-success', style: "margin-left: auto; margin-right: auto;", href: "/orders/close/#{@order.slug}", title: t('orders.index.finish')
+                          %button.btn.btn-dark{"data-dismiss" => "modal", type: "button", style: "margin-left: auto; margin-right: auto;", title: "Cancel"} Cancel
+                %button.btn.btn-primary{:type => "submit"}
+                  = t('orders.index.update')
+      .col-12.col-md-3
+        .card.mt-0.h-100
+          = render "reassign_tecnic"

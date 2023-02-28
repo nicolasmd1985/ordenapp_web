@@ -1,0 +1,60 @@
+= content_for :page_scripts do
+  = javascript_include_tag "components"
+.row.flex-box-center
+  .col.s12.m10.force_margin
+    .card.card-cascade.narrower.mt-5.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-between.align-items-center
+        = link_to new_things_component_path, role: "button", class: 'btn btn-outline-white btn-rounded btn-sm px-2 disabled hidden', title: t("components.index.new") do
+          %i.fas.fa-plus
+        %h3.center.mt-2
+          %strong
+            =t("components.index.components")
+        %div
+          = link_to new_things_component_path, role: "button", class: 'btn btn-outline-white btn-rounded btn-sm px-2', title: t("components.index.new") do
+            %i.fas.fa-plus
+          = link_to components_import_csv_form_path, role: "button", class: 'btn btn-outline-white btn-rounded btn-sm px-2', title: t("components.index.load_components") do
+            %i.fas.fa-cloud-upload-alt
+      .card.py-0
+        .card-body
+          .device-tableWrapper
+            %table#device-table.table.table-striped.table-bordered.table-hover.table-sm.btn-table{:cellspacing => "0", :width => "100%"}
+              %caption
+                = "#{t('base.forms.list_of')}#{t('components.index.components')}"
+              %thead.secondary-color.white-text.align-center
+                %tr
+                  %th.th-sm
+                    = t("components.index.code")
+                  %th.th-sm
+                    = t("components.index.name")
+                  %th
+                    = t("components.index.description")
+                  %th
+                    =t("components.index.thing")
+                  %th.th-sm
+                    =t("base.forms.options")
+              %tbody
+                - if components.size > 0
+                  - components.each do |component|
+                    %tr
+                      %td= component.code_scan
+                      %td= component.name
+                      %td= component.description
+                      %td= component.try(:thing).try(:name)
+                      %td.align-center
+                        = link_to things_edit_component_path(component.slug), class: 'card__button btn btn-success btn-sm', title: 'Update' do
+                          %i.fas.fa-edit
+                        .btn-group-vertical{class: "card__button btn btn-primary btn-sm", "data-target" => "#modal_component_#{component.slug}", "data-toggle" => "modal", type: "button", title: t('components.index.details')}
+                          %i.fas.fa-info
+                        .modal{id: "modal_component_#{component.slug}", "aria-hidden" => "true", "aria-labelledby" => "modal_component", role: "dialog", tabindex: "-1"}
+                          .modal-dialog.modal-dialog-centered.modal-lg{role: "document"}
+                            .modal-content
+                              .modal-header
+                                %h5.modal-title{style: "margin-left: auto;"}
+                                  = component.name
+                                %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+                                  %span{"aria-hidden" => "true"} ×
+                              .modal-body
+                                = render 'things/components/show_modal', component: component
+                              .modal-footer
+                                %button.btn.btn-success{"data-dismiss" => "modal", type: "button", style: "margin-left: auto; margin-right: auto;"}
+                                  = t('components.index.modal_close')

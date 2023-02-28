@@ -1,0 +1,149 @@
+// Place all the styles related to the Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.new {
+  float: right;
+}
+form .input-field label.error {
+  position: relative;
+  font-size: 0.8rem;
+}
+#userForm #autocompleteCityInput {
+  position: relative;
+}
+
+/*********FILTER FORM ***************/
+.filter-form {
+  justify-content: center;
+}
+
+/*********NEW USER FORM MOBILE***************/
+@media (max-width: 575px) {
+    #userForm > .row > div:last-child > div:first-child.md-form {
+    margin-top: 0;
+  }
+}
+
+/*********TABLES*********/
+.align-center {
+  text-align: center;
+}
+#user-table_wrapper .dataTables_scrollHead thead .sorting:before,
+#user-table_wrapper .dataTables_scrollHead thead .sorting:after,
+#user-table_wrapper .dataTables_scrollHead thead .sorting_asc:before,
+#user-table_wrapper .dataTables_scrollHead thead .sorting_asc:after,
+#user-table_wrapper .dataTables_scrollHead thead .sorting_desc:before,
+#user-table_wrapper .dataTables_scrollHead thead .sorting_desc:after,
+#user-table_wrapper .dataTables_scrollHead thead .sorting_asc_disabled:before,
+#user-table_wrapper .dataTables_scrollHead thead .sorting_asc_disabled:after,
+#user-table_wrapper .dataTables_scrollHead thead .sorting_desc_disabled:before,
+#user-table_wrapper .dataTables_scrollHead thead .sorting_desc_disabled:after {
+  bottom: 0.4em;
+}
+#user-table_length {
+  margin-top: 0.55rem;
+}
+#user-table_length .form-control {
+  width: 50px;
+}
+#user-table_length .dropdown-content {
+  min-width: 3.25rem;
+}
+#user-table.table-hover tbody tr:hover {
+  background-color: #e2eaff;
+  transition: .5s;
+}
+// #user-table_wrapper .dataTables_scrollHeadInner {
+//     width: auto !important;
+// }
+// .my-custom-scrollbar {
+//     position: relative;
+//     height: 80vh;
+//     overflow: auto;
+// }
+//     .table-wrapper-scroll-y {
+//     display: block;
+// }
+.user-tableWrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/**********USER DETAILS*************/
+.user-detail .view.overlay .card-img-top {
+  border-radius: .25rem;
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+  //margin: 1.25rem auto 1rem;
+  width: 50%;
+}
+.user-detail .card-body {
+  padding: 1.25rem 0;
+
+  @media (max-width: 992px) {
+    .row > div:first-child .list-group-flush > .list-group-item:last-child {
+      border-bottom-width: 1px;
+    }
+  }
+}
+//#userForm,
+#edit_user {
+  // max-width: 600px;
+  // margin: 0 auto;
+
+  label.error {
+    display: none !important;
+  }  
+}
+#userForm label.error {
+  display: none !important;
+} 
+.ovf-visible {
+  overflow: visible !important;
+}
+.avatar-pic {
+  height: 100% !important;
+  max-height: 18rem;
+  object-fit: contain;
+  width: 100%;
+}
+#user_urlavatar {
+  max-width: 100%;
+}
+.clic-file:hover {
+  cursor: pointer;
+}
+#userForm .ovf-visible,
+#edit_user .ovf-visible {
+  margin: auto;
+  //height: 18rem;
+  width: 18rem;
+}
+.user-detail .ovf-visible {
+  margin: auto;
+}
+@media (min-width: 360px) and (max-width: 767px) {
+  .user-detail .ovf-visible {
+    width: 18rem;
+  }
+}
+
+/*********VIEW PASSWORD************/
+
+span.field-icon {
+  position: absolute;
+  display: inline-block;
+  cursor: pointer;
+  right: 0rem;
+  top: 0.7rem;
+  color: black;
+  z-index: 2;
+}
+
+/*********UPLOAD USERS FORM MOBILE***************/
+@media (max-width: 440px) {
+  #up_users_form .file-field {
+      display: flex;
+      flex-direction: column-reverse;
+  }
+}

@@ -1,0 +1,78 @@
+= form_with(model: order_rate, local: true, html: { autocomplete: "off", novalidate: "true" }, id: "order_rate_form") do |form|
+  - if order_rate.errors.any?
+    #error_explanation.alert.alert-danger.alert-dismissible.fade.show{:role => "alert"}
+      %h5.alert-heading
+        = pluralize(order_rate.errors.count, "error")
+        prohibited this order_rate from being saved:
+      %ul
+        - order_rate.errors.full_messages.each do |message|
+          %li= message
+      %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+        %span{"aria-hidden" => "true"} ×
+  .row
+    .col-sm-12
+      .form__field--input.md-form
+        %h5= "#{order_rate.question_1.capitalize}"
+      .custom-control.custom-radio.custom-control-inline
+        %input#order_rate_answer_1_1.custom-control-input{:name => "order_rate[answer_1]", :type => "radio", value: 1, required: true}/
+        %label.custom-control-label{:for => "order_rate_answer_1_1"} Pesíma
+      .custom-control.custom-radio.custom-control-inline
+        %input#order_rate_answer_1_2.custom-control-input{:name => "order_rate[answer_1]", :type => "radio", value: 2}/
+        %label.custom-control-label{:for => "order_rate_answer_1_2"} Mala
+      .custom-control.custom-radio.custom-control-inline
+        %input#order_rate_answer_1_3.custom-control-input{:name => "order_rate[answer_1]", :type => "radio", value: 3}/
+        %label.custom-control-label{:for => "order_rate_answer_1_3"} Regular
+      .custom-control.custom-radio.custom-control-inline
+        %input#order_rate_answer_1_4.custom-control-input{:name => "order_rate[answer_1]", :type => "radio", value: 4}/
+        %label.custom-control-label{:for => "order_rate_answer_1_4"} Buena
+      .custom-control.custom-radio.custom-control-inline
+        %input#order_rate_answer_1_5.custom-control-input{:name => "order_rate[answer_1]", :type => "radio", value: 5}/
+        %label.custom-control-label{:for => "order_rate_answer_1_5"} Excelente
+    .col-sm-12
+      .form__field--input.md-form
+        %h5= "#{order_rate.question_2.capitalize}"
+      .custom-control.custom-radio.custom-control-inline
+        %input#order_rate_answer_2_1.custom-control-input{:name => "order_rate[answer_2]", :type => "radio", value: 1}/
+        %label.custom-control-label{:for => "order_rate_answer_2_1"} Pesímo
+      .custom-control.custom-radio.custom-control-inline
+        %input#order_rate_answer_2_2.custom-control-input{:name => "order_rate[answer_2]", :type => "radio", value: 2}/
+        %label.custom-control-label{:for => "order_rate_answer_2_2"} Malo
+      .custom-control.custom-radio.custom-control-inline
+        %input#order_rate_answer_2_3.custom-control-input{:name => "order_rate[answer_2]", :type => "radio", value: 3}/
+        %label.custom-control-label{:for => "order_rate_answer_2_3"} Regular
+      .custom-control.custom-radio.custom-control-inline
+        %input#order_rate_answer_2_4.custom-control-input{:name => "order_rate[answer_2]", :type => "radio", value: 4}/
+        %label.custom-control-label{:for => "order_rate_answer_2_4"} Bueno
+      .custom-control.custom-radio.custom-control-inline
+        %input#order_rate_answer_2_5.custom-control-input{:name => "order_rate[answer_2]", :type => "radio", value: 5}/
+        %label.custom-control-label{:for => "order_rate_answer_2_5"} Excelente
+    .col-sm-12
+      .form__field--input.md-form
+        %h5= "#{order_rate.question_3.capitalize}"
+      .custom-control.custom-radio
+        %input#order_rate_answer_3_1.custom-control-input{name: "order_rate[answer_3]", type: "radio", value: 1}/
+        %label.custom-control-label{for: "order_rate_answer_3_1"} Si
+      .custom-control.custom-radio
+        %input#order_rate_answer_3_0.custom-control-input{name: "order_rate[answer_3]", type: "radio", value: 0}/
+        %label.custom-control-label{for: "order_rate_answer_3_0"} No
+    .col-sm-12
+      .form__field--input.md-form
+        %h5= "#{order_rate.question_4.capitalize}"
+      .custom-control.custom-radio
+        %input#order_rate_answer_4_1.custom-control-input{name: "order_rate[answer_4]", type: "radio", value: 1}/
+        %label.custom-control-label{for: "order_rate_answer_4_1"} Si
+      .custom-control.custom-radio
+        %input#order_rate_answer_4_0.custom-control-input{name: "order_rate[answer_4]", type: "radio", value: 0}/
+        %label.custom-control-label{for: "order_rate_answer_4_0"} No
+    .col-sm-12
+      .form__field--input.md-form
+        %h5= "#{order_rate.question_5.capitalize}"
+      .custom-control.custom-radio
+        %input#order_rate_answer_5_1.custom-control-input{name: "order_rate[answer_5]", type: "radio", value: 1}/
+        %label.custom-control-label{for: "order_rate_answer_5_1"} Si
+      .custom-control.custom-radio
+        %input#order_rate_answer_5_0.custom-control-input{name: "order_rate[answer_5]", type: "radio", value: 0}/
+        %label.custom-control-label{for: "order_rate_answer_5_0"} No
+  .row.justify-content-center
+    %button.btn.secondary-color.btn-space.btn-rounded.not_continue#send_data
+      = "Enviar respuestas"

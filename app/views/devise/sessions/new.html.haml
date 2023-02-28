@@ -1,0 +1,44 @@
+.row.flex-box-center
+  .col-sm-8.col-md-6.col-lg-5.force_margin
+    .card.light-1.p-0
+      %h3.card-header.info-color.white-text.text-center.py-4.mb-3
+        = t("session.index.sign_in")
+      .card-body.px-lg-5.text-center
+        = link_to user_facebook_omniauth_authorize_path, class: "btn btn-primary", style: "background-color: #3b5998 !important" do
+          %i.fab.fa-facebook-f
+        = link_to user_google_oauth2_omniauth_authorize_path, class: "btn btn-primary", style: "background-color: #dd4b39 !important" do
+          %i.fab.fa-google
+        %br
+        %br
+          = t("session.index.or")
+        = form_for(resource, as: resource_name, url: session_path(resource_name), html: { novalidate: "true"}) do |f|
+          .row
+            .col
+              .form__field--input.md-form
+                = f.label t("users.index.email"), {"data-error" => "wrong", "data-success" => "right"}
+                = f.email_field :email, required: true, autofocus: true, autocomplete: "email", class: 'form-control validate', style: "margin-bottom: 0.5rem;", placeholder: "example@mail.com"
+                .invalid-feedback
+                  = t("session.index.invalid_email")
+              .form__field--input.md-form
+                = f.label t("profile.password"), {"data-error" => "wrong", "data-success" => "right"}
+                = f.password_field :password, required: true, autocomplete: "current-password", class: 'form-control validate', style: "margin-bottom: 0.5rem;"
+                %span{toggle: "#user_password", class: "fa fa-fw fa-eye-slash field-icon toggle-password"}
+                .invalid-feedback
+                  = t("session.index.field_required")
+              - if devise_mapping.rememberable?
+                .d-flex.justify-content-around
+                  %div
+                    .field.form-check
+                      = f.check_box :remember_me, :class => "form-check-input"
+                      = f.label :remember_me, :class => "form-check-label"
+                  %div
+                    =link_to t("session.index.forgot_pwd"), new_user_password_path , :class => "mdb-main-label"
+              .row.justify-content-center.flex-column.align-items-center
+                %button.btn.btn-outline-success.btn-rounded.btn-block.form__submit.my-4{type: "submit"}
+                  = t("session.index.log_in")
+                %p
+                  = t("session.index.not_member")
+                  = link_to t("session.index.register"), new_user_registration_path , class: "form-link"
+                  // %a.form-link{:href => "/users/sign_up"}
+                //%a.btn.secondary-color{:href => "/en/users/sign_up", :role => "button"} Sign up
+      //.modal-footer

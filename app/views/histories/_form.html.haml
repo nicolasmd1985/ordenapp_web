@@ -1,0 +1,20 @@
+= form_with(model: history, local: true) do |form|
+  - if history.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(history.errors.count, "error")
+        prohibited this history from being saved:
+      %ul
+        - history.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = form.label :thing_id
+    = form.text_field :thing_id
+  .field
+    = form.label :description
+    = form.text_field :description
+  .field
+    = form.label :text
+    = form.text_field :text
+  .actions
+    = form.submit

@@ -1,0 +1,12 @@
+.row.flex-box-center
+  .col.s12.m10.force_margin
+    .card
+      .card-header.card-header-primary
+        %p#notice= notice
+        = link_to customers_orders_path, class: "card__button btn btn-primary btn-sm btn-space", title: t('base.forms.back') do
+          %i.fas.fa-arrow-alt-circle-left
+        = link_to customer_order_path(@order.slug), class: "card__button btn btn-info btn-sm btn-space", title: t('base.forms.details') do
+          %i.fas.fa-info-circle
+      .card
+        .card-body
+          = render 'form', controller: 'orders', order: @order, action: 'update', method: :put

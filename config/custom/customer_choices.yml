@@ -1,0 +1,12 @@
+document_type_colombia:
+  Cédula de ciudadania: CC
+  Cedula de extranjería: CE
+  Pasaporte: PA
+  NIT: NIT
+  RUT: RUT
+  Otro: OTRO
+
+customer_priority:
+  High: High
+  Medium: Medium
+  Low: Low

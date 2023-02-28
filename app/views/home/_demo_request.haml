@@ -1,0 +1,41 @@
+-# <!-- Form -->
+%form{:action => demo_request_path, :method => "POST", novalidate: "true", class: "demo_request"}
+    -# <!-- Heading -->
+    %h4.text-center
+        %strong
+            =t("home.index.demo")
+    %hr
+
+    .md-form.validate_demo#name
+        %i.fa.fa-user.prefix
+        %input#name_check.form-control{:type => "text", :name => "name", minlength: 3, required: "true", class: "validate", style: "margin-bottom: 0.5rem;"}
+        %label{:for => "name_check", "data-error" => "wrong", "data-success" => "right"}
+            =t("home.index.name")
+        .invalid-feedback{style: "margin-left: 2.5rem;"}
+            = t("session.index.field_required")
+    .md-form.validate_demo#email
+        %i.fa.fa-envelope.prefix
+        %input.form-control#email_check{:type => "email", :name => "email", required: "true", class: "validate", style: "margin-bottom: 0.5rem;"}
+        %label{:for => "email_check", "data-error" => "wrong", "data-success" => "right"}
+            =t("home.index.email")
+        .invalid-feedback{style: "margin-left: 2.5rem;"}
+            = t("session.index.invalid_email")
+    .md-form.validate_demo#phone
+        %i.fa.fa-mobile.prefix
+        %input.form-control#phone_check{:type => "tel", :name => "phone", minlength: 10, maxlength: 10, required: "true", class: "validate", style: "margin-bottom: 0.5rem;"}
+        %label{:for => "phone_check", "data-error" => "wrong", "data-success" => "right"}
+            =t("home.index.phone")
+        .invalid-feedback{style: "margin-left: 2.5rem;"}
+            = t("profile.invalid_tel")
+    .text-center
+        -# = link_to 'enviar', demo_request_path, method: :post, class: 'btn btn-primary--opacity hvr-bounce-to-right', title: 'Enviar'
+        %button#send-form1.btn.btn-primary--opacity.hvr-bounce-to-right#register{:type => "submit"}
+            =t("home.index.send")
+        %hr
+        %fieldset.form-check
+            %input#checkbox1.form-check-input.validate_check{:type => "checkbox", required: "true"}
+            %label.form-check-label.dark-grey-text{:for => "checkbox1"}
+                %a{ :href => "https://ordenapp.co/terminos-y-condiciones", :target => "_blank", :title => t('home.index.terms') }
+                    =t("home.index.terms")
+            .invalid-feedback
+                = t("session.index.terms_service")

@@ -1,0 +1,152 @@
+!!!
+%html
+  %head
+    %meta{:charset => "UTF-8"}
+    = wicked_pdf_stylesheet_link_tag 'pdf.css'
+    = wicked_pdf_stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css", :rel => "stylesheet", :type => "text/css"
+  %body
+    .container
+      .row
+        .col-md-3{style: "display: block, text-align: center"}
+          %img{:src => @order.subsidiary.corporation.urlavatar, class: "logo-img", alt: "main logo"}
+        .col-md-6
+          %h1.text-center{style: "font-weight: bold;"}
+            = @order.subsidiary.corporation.name
+          %h2.text-center
+            = @order.subsidiary.name
+          %h3.text-center
+            = "#{@order.subsidiary.corporation.document_type}: #{@order.subsidiary.corporation.identification}"
+          %h3.text-center
+            ="#{t('orders.pdf.address')} #{@order.subsidiary.address}"
+          %h3.text-center
+            = "Email: #{@order.subsidiary.email}"
+          - if @order.subsidiary.web_page.present?
+            %h3.text-center
+              = "#{t('orders.pdf.website')}#{@order.subsidiary.web_page}"
+        .col-md-3
+          %h3.text-center
+            - if @referral
+              = @referral.final_time ? @referral.final_time.strftime("%B, %d, %Y") : nil
+            - else
+              = "N/A"
+          %h3.text-center{style: "font-weight: bold;"}
+            =t('orders.pdf.order_id')
+            .br
+            = "#{@order.internal_id.present? ? @order.internal_id : @order.id}"
+          %h3.text-center{style: "font-weight: bold;"}
+            =t('orders.pdf.order_client')
+            .br
+            = "#{@order.customer_id_order.present? ? @order.customer_id_order : @order.id}"
+
+      %hr/
+      %h4{style: "font-weight: bold;"}
+        =t('orders.pdf.client_info')
+      %table.table.table-bordered
+        %tbody
+          %tr
+            %td{:scope => "col-xs-9"}
+              = "#{t('orders.pdf.client_name')} #{@order.customer.first_name} #{@order.customer.last_name}"
+            %td{:scope => "col"}
+              = "#{t('orders.pdf.id')} #{@order.customer.document_number}"
+            %td{:scope => "col"}
+              ="#{t('orders.pdf.type_id')} #{@order.customer.document_type}"
+          %tr
+            %td
+              = "#{t('orders.pdf.address')} #{@order.address}"
+            %td{:colspan => "2"}
+              = "#{t('orders.pdf.phone')} #{@order.customer.phone_number_1}"
+
+      %hr/
+      %h4{style: "font-weight: bold;"}
+        =t('orders.pdf.technician_info')
+      %table.table.table-bordered
+        %tbody
+          %tr
+            %td{:scope => "col"}
+              = "#{t('orders.pdf.t_name')} #{@order.tecnic.first_name} #{@order.tecnic.last_name}"
+            %td{:scope => "col"}
+              = "#{t('orders.pdf.t_id')} #{@order.tecnic.document_number}"
+            %td{:scope => "col"}
+              ="#{t('orders.pdf.type_id')} #{@order.tecnic.document_type}"
+
+
+
+      %hr/
+      %h4{style: "font-weight: bold;"}
+        =t('orders.pdf.order_sumary')
+      - @suma = 0
+      - if @histories.count > 0
+        - history_start = @histories.first.time_install.present? ? @histories.first.time_install : @referral ? @referral.final_time : nil
+      - else
+        - history_start = @referral ? (@referral.final_time ? @referral.final_time : nil) : nil
+      - history_finish = @referral ? (@referral.final_time ? @referral.final_time : nil) : nil
+
+      %table.table.table-bordered
+        %thead
+          %tr
+            %td
+              = "#{t('orders.pdf.start_time')} #{history_start ? history_start.strftime("%I:%M %p") : "N/A"}"
+            %td
+              = "#{t('orders.pdf.end_time')} #{history_finish ? history_finish.strftime("%I:%M %p") : "N/A"}"
+            %td
+              - if history_finish && history_start
+                - time = (history_finish.to_i - history_start.to_i)/60
+                = "#{t('orders.pdf.duration')}"
+                - if time < 60
+                  = "#{time} Minutos"
+                - else
+                  = "#{time/60} Horas"
+              - else
+                = "N/A"
+
+          %tr
+            %td.text-center{:colspan => "1"}
+              = "#{t('orders.pdf.order_type')} #{@order_type}"
+
+            %td.text-center{:colspan => "2"}
+              = "#{t('orders.pdf.description')} #{(@order.description.nil? ? "" : @order.description)}"
+          %tr
+            %td.text-center{:colspan => "3"}
+              = "#{t('orders.pdf.comment')} #{(@order.comment.nil? ? "" : @order.comment)}"
+      %table.table.table-bordered
+        %thead
+          %tr
+            %th{:scope => "col"} #{t('orders.pdf.imagen')}
+            %th{:scope => "col"} #{t('orders.pdf.dev_code')}
+            %th{:scope => "col"} #{t('orders.pdf.item')}
+            %th{:scope => "col"} #{t('orders.pdf.description')}
+            %th{:scope => "col"} #{t('orders.pdf.warranty')}
+            %th{:scope => "col"} #{t('orders.pdf.price')}
+        %tbody
+          -if @histories.count > 0
+            -@histories.each do |history|
+              %tr
+                %td
+                  - history.photos.each do |photo|
+                    %img{:alt => "Device image#{history.id}", :src => "https://ordenappbucket.s3.amazonaws.com/#{photo}", style: "width: 200px;"}
+                    %p
+                %td
+                  =history.out_thing.thing.code_scan
+                %td
+                  =history.out_thing.thing.name
+                %td
+                  =history.out_thing.thing.description
+                %td
+                  =history.warranty
+                %td
+                  - history_price =  history.price.nil? ? 0 : history.price
+                  - @suma = @suma + history_price
+                  = history_price
+
+        %tbody
+          %tr
+            %td{:colspan => "4", style: "font-weight: bold; text-align: right"}
+              =t('orders.pdf.total')
+            %td{style: "font-weight: bold;"}
+              = @suma
+
+      -unless @referral.nil?
+        .row
+          .col-8
+            %img{:src => "data:image/png;base64,#{@referral.signature}", :style => "padding-top:40px;"}/
+            %h5.text-left{:style => "padding-top:10px;"} #{t('orders.pdf.signature')}

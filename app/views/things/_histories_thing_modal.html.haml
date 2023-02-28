@@ -1,0 +1,112 @@
+- @histories = histories_limited(thing)
+
+#accordion.accordion.md-accordion.accordion-blocks{"role" => "tablist"}
+  - @histories.each do |history|
+    .card.mt-0
+      .card-header{id: "heading_#{history.id}", "role" => "tab"}
+        %a{"aria-controls" => "collapse_#{history.id}", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapse_#{history.id}"}
+          %h5.mb-0
+            %span
+              -if history.substatus
+                = "#{history.substatus.description}: #{history.created_at.strftime("%Y/%m/%d - %T")}"
+              -elsif history.order
+                = "#{history.order.category.name}: #{history.created_at.strftime("%Y/%m/%d - %T")}"
+            %i.fas.fa-angle-down.rotate-icon.black-text
+      .collapse.mt-4{id: "collapse_#{history.id}", "role" => "tabpanel", "aria-labelledby" => "heading_#{history.id}", "data-parent" => "#accordion", style: "border-top: 1px solid #eee"}
+        .card.card-cascade.narrower.pt-0.light-1
+          .view.view-cascade.gradient-card-header.indigo.narrower.py-3.mx-4.d-flex.justify-content-center.align-items-center
+            %h5.center.mt-2
+              %strong
+                =t("things.index.summary")
+              -# %ul#historyModalDetail.nav.nav-tabs.nav-justified.md-tabs.indigo{:role => "tablist"}
+              -#   %li.nav-item
+              -#     %a#history-details-nav.nav-link{"aria-controls" => "history-details-tab", "aria-selected" => "true", "data-toggle" => "tab", :href => "#history-details-tab", :role => "tab"}
+              -#       =t("things.index.summary")
+                -# %li.nav-item
+                -#   %a#history-images-nav.nav-link{"aria-controls" => "history-images-tab", "aria-selected" => "false", "data-toggle" => "tab", :href => "#history-images-tab", :role => "tab"}
+                -#     =t("things.index.imgs")
+            -# #historyTabContent.tab-content.card
+            -#   #history-details-tab.tab-pane.fade.show.active{"aria-labelledby" => "history-details-nav", :role => "tabpanel"}
+          .card-body
+            .row
+              .col-12.col-lg-6
+                %ul.list-group.list-group-flush
+                  %li.list-group-item
+                    %i.far.fa-newspaper.mr-3{"aria-hidden" => "true"}
+                    %p
+                      %b
+                        = "#{t("things.index.order")}:"
+                      -if history.order
+                        = history.order.internal_id
+                  -# %li.list-group-item
+                  -#   %i.fas.fa-info-circle.mr-3{"aria-hidden" => "true"}
+                  -#   %p
+                  -#     %b
+                  -#       = t("things.index.thing_desc")
+                  -#     = history.description
+
+                  %li.list-group-item
+                    %i.fas.fa-info-circle.mr-3{"aria-hidden" => "true"}
+                    %p
+                      %b
+                        = "#{t("things.index.quantity")}:"
+                      = history.quantity
+
+                  %li.list-group-item
+                    %i.fas.fa-info-circle.mr-3{"aria-hidden" => "true"}
+                    %p
+                      %b
+                        = "#{t("things.index.discount")}: %"
+                      = history.discount
+
+                  %li.list-group-item
+                    %i.fas.fa-info-circle.mr-3{"aria-hidden" => "true"}
+                    %p
+                      %b
+                        = "#{t("things.index.price")}: $"
+                      = number_to_currency(history.price,  :unit => "")
+
+              .col-12.col-lg-6
+                %ul.list-group.list-group-flush
+                  %li.list-group-item
+                    %i.fas.fa-user-cog.mr-3{"aria-hidden" => "true"}
+                    %p
+                      %b
+                        = "#{t("mailers.orders.technic")}:"
+                      -if history.tecnic
+                        = "#{history.tecnic.first_name} #{history.tecnic.last_name}"
+                  %li.list-group-item
+                    %i.fas.fa-user.mr-3{"aria-hidden" => "true"}
+                    %p
+                      %b
+                        = "#{t("things.index.customer")}:"
+                      -if history.out_thing.customer.present?
+                        = "#{history.out_thing.customer.first_name} #{history.out_thing.customer.last_name}"
+            -# #history-images-tab.tab-pane.fade{"aria-labelledby" => "history-images-nav", :role => "tabpanel"}
+            -#   / Carousel Wrapper
+            -#   .carousel.slide.carousel-fade.carousel-thumbnails{"data-ride" => "carousel", "data-interval" => "5000", :id => "history-carousel-thumb#{history.id}"}
+            -#     / Slides
+            -#     .carousel-inner{:role => "listbox"}
+            -#       - history.photos.each do |photo|
+            -#         .carousel-item
+            -#           .view
+            -#             %img.img-fluid.card-img-top.d-block.w-100{:alt => "Device image#{history.id}", :src => "https://ordenappbucket.s3.amazonaws.com/#{photo}", style: "margin: 0 auto;"}
+            -#     / /.Slides
+            -#     / Controls
+            -#     %a.carousel-control-prev{"data-slide" => "prev", :href => "#history-carousel-thumb#{history.id}", :role => "button"}
+            -#       %span.carousel-control-prev-icon{"aria-hidden" => "true"}
+            -#       %span.sr-only Previous
+            -#     %a.carousel-control-next{"data-slide" => "next", :href => "#history-carousel-thumb#{history.id}", :role => "button"}
+            -#       %span.carousel-control-next-icon{"aria-hidden" => "true"}
+            -#       %span.sr-only Next
+            -#     / /.Controls
+            -#     %ol.carousel-indicators
+            -#       - i = 0
+            -#       - history.photos.each do |photo|
+            -#         %li{"data-slide-to" => "#{i}", "data-target" => "#history-carousel-thumb#{history.id}"}
+            -#           %img{:alt => "Device image#{history.id}", :src => "https://ordenappbucket.s3.amazonaws.com/#{photo}", :width => "100"}/
+            -#         - i +=  1
+              / /.Carousel Wrapper
+          -# .row
+          -#   %h6
+          -#     = link_to t('things.index.h6_text', tecnic: history.tecnic_name, order: history.order.internal_id).html_safe, show_order_path(history.order.slug)

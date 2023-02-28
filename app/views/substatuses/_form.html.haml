@@ -1,0 +1,36 @@
+.invisible#breadcrumb
+  = render_breadcrumbs
+= content_for :page_scripts do
+  = javascript_include_tag "substatuses"
+= form_with(model: substatus, local: true, html: { autocomplete: "off", novalidate: "true" }, id: "substatus_form", :class => "substatus_form") do |form|
+  - if substatus.errors.any?
+    #error_explanation.alert.alert-danger.alert-dismissible.fade.show{:role => "alert"}
+      %h5.alert-heading
+        = pluralize(substatus.errors.count, "error")
+        prohibited this substatus from being saved:
+      %ul
+        - substatus.errors.full_messages.each do |message|
+          %li= message
+      %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+        %span{"aria-hidden" => "true"} ×
+  .row
+    .col-sm-6
+      .form__field--input.md-form
+        = form.label t('substatus.index.description'), {"data-error" => "wrong", "data-success" => "right"}
+        = form.text_field :description, autofocus: true, required: true, minlength: 3, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          =t("base.forms.err_2")
+    .col-sm-6
+      .form__field--input.md-form
+        = form.label t('substatus.index.status_id'), {"data-error" => "wrong", "data-success" => "right"}, :class => "active"
+        -if @substatus.substatus_type == "order_status"
+          = form.select :status_id, options_for_select_parent_status_order(@substatus.status_id ? @substatus.status_id : ''), {include_blank: false}, {autofocus: true, :class => "mdb-select md-form colorful-select dropdown-primary validate", style: "margin-bottom: 0.5rem;"}
+          .invalid-feedback
+            =t("base.forms.err_2")
+        -else
+          = form.select :status_id, options_for_select_parent_status_thing(@substatus.status_id ? @substatus.status_id : ''), {include_blank: false}, {autofocus: true, :class => "mdb-select md-form colorful-select dropdown-primary validate", style: "margin-bottom: 0.5rem;"}
+          .invalid-feedback
+            =t("base.forms.err_2")
+  .row.justify-content-center
+    .btn.secondary-color.btn-rounded.form__submit.my-4.p-0
+      = form.submit

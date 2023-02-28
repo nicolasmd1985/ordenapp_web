@@ -1,0 +1,26 @@
+.row
+  - cache(substatuses) do
+    - substatuses.each do |substatus|
+      .col-12.col-sm-6
+        .card
+          .card-header{style: "display: flex; justify-content: space-between; align-items: center;"}
+            = substatus_desc_humanized(substatus.description)
+            - unless substatus.visible
+              = link_to edit_substatus_path(substatus.slug), class: 'card__button btn btn-success btn-sm', title: t('substatus.index.edit') do
+                %i.fas.fa-edit
+              = link_to destroy_substatuses_path(substatus.slug), method: :delete, class: 'card__button btn btn-danger btn-sm', title: t('substatus.index.destroy') do
+                %i.fas.fa-trash-alt
+          .card-body
+            %ul.list-group.list-group-flush
+              %li.list-group-item
+                %i.fas.fa-newspaper.mr-3{"aria-hidden" => "true"}
+                %p
+                  %b
+                    =t("substatus.index.status_id")
+                  = "#{substatus.status_id} - #{substatus_type_humanized(substatus.status.description)}"
+              %li.list-group-item
+                %i.fas.fa-info-circle.mr-3{"aria-hidden" => "true"}
+                %p
+                  %b
+                    =t("substatus.index.description")
+                  = substatus_desc_humanized(substatus.description)

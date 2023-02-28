@@ -1,0 +1,88 @@
+= form_with(model: subsidiary, local: true, id: "subsidiary_form", class: "subsidiary_form", html: { autocomplete: "off", novalidate: "true" }) do |form|
+  - if subsidiary.errors.any?
+    #error_explanation.alert.alert-danger.alert-dismissible.fade.show{:role => "alert"}
+      %h5.alert-heading
+        = pluralize(subsidiary.errors.count, "error")
+        = t("subsidiary.index.err_1")
+      %ul
+        - subsidiary.errors.full_messages.each do |message|
+          %li= message
+      %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+        %span{"aria-hidden" => "true"} ×
+  .row
+    .col-12.col-md-4.d-flex
+      .view.overlay.ovf-visible.mb-4.mb-md-auto
+        - if !@subsidiary.try(:urlavatar).present?
+          = image_tag "logo.jpg", class: "img-thumbnail z-depth-1 avatar-pic", id: "subsidiary-logo", alt: "Default logo"
+          //%a{:href => "#!"}
+          .mask.flex-center.flex-column.rgba-grey-strong.clic-file
+            %p.file-name.font-weight-bolder
+            %p
+              %i.fas.fa-image.mr-2.white-text
+              %span.white-text
+                = t("subsidiary.index.logo")
+        - else
+          %img#subsidiary-logo{:src => @subsidiary.try(:urlavatar), class: "img-thumbnail z-depth-1 avatar-pic", alt: "Subsidiary logo"}
+          //%a{:href => "#!"}
+          .mask.flex-center.flex-column.rgba-grey-strong.clic-file
+            %p.file-name.font-weight-bolder
+            %p
+              %i.fas.fa-image.mr-2.white-text
+              %span.white-text
+                = t("subsidiary.index.logo")
+      .d-none.justify-content-center
+        = form.file_field :urlavatar, {class: "btn btn-mdb-color btn-rounded btn-sm", accept: 'image/png,image/jpeg'}
+    .col-12.col-sm-6.col-md-4
+      .form__field--input.md-form
+        = form.label t('subsidiary.index.name'), {"data-error" => "wrong", "data-success" => "right"}
+        = form.text_field :name, :class => "form-control validate", required: true, autofocus: true, minlength: 3, style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          = t("subsidiary.index.err_2")
+      .form__field--select.md-form
+        = form.label t('users.index.document_type'), {"data-error" => "wrong", "data-success" => "right"}, class: "active"
+        = form.select(:document_type, options_for_select_document_type(@subsidiary.try(:document_type)), {}, {class: "mdb-select md-form colorful-select dropdown-primary"})
+      .form__field--input.md-form
+        = form.label t('subsidiary.index.identification'), {"data-error" => "wrong", "data-success" => "right"}
+        = form.text_field :identification, onkeypress: "if ( isNaN ( String.fromCharCode(event.keyCode) )) return false;", :class => "form-control validate", required: true, minlength: 9, maxlength: 9, style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          = t("subsidiary.index.err_2")
+      .form__field--input.md-form
+        = form.label t("subsidiary.index.address"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.text_field :address, :class => "form-control validate", required: true, minlength: 8, style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          = t("subsidiary.index.err_2")
+      .form__field--input.md-form
+        = form.label t("users.index.web_page"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.text_field :web_page, required: false, minlength: 3, :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          =t("base.forms.err_2")
+    .col-12.col-sm-6.col-md-4
+      .form__field--input.md-form
+        = form.label t("subsidiary.index.email"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.email_field :email, :class => "form-control validate", required: true, style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          = t("profile.invalid_email")
+      .form__field--input.md-form
+        = form.label t("subsidiary.index.phone"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.text_field :phone, onkeypress: "if ( isNaN ( String.fromCharCode(event.keyCode) )) return false;", :class => "form-control validate", required: true, minlength: 7, maxlength: 10, style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          = t("profile.invalid_tel")
+      .form__field--input.md-form
+        = form.label t("subsidiary.index.subsidiary_initials"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.text_field :subsidiary_initials, :class => "form-control validate", minlength: 3, maxlength: 5, required: true, style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          = t("subsidiary.index.err_2")
+      .form__field--input.md-form
+        = form.label t("corporation.index.corporate"), {"data-error" => "wrong", "data-success" => "right"}, :class => "disabled"
+        = form.text_field :corporation_id, :class => "form-control disabled validate", value: @subsidiary.corporation.try(:name), style: "margin-bottom: 0.5rem;"
+      .form__field--input.md-form
+        = form.label t("subsidiary.index.status"), :class => "disabled active"
+        - if subsidiary.status_id == 100
+          %span.badge.badge-pill.badge-success
+            = t("subsidiary.index.active")
+        - else
+          %span.badge.badge-pill.badge-dark
+            = t("subsidiary.index.inactive")
+  .row.justify-content-center
+    .btn.secondary-color.btn-rounded.form__submit.my-4.p-0
+      = form.submit t("subsidiary.index.upd_subsidiary")

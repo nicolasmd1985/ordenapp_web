@@ -1,0 +1,36 @@
+.invisible#breadcrumb
+  = render_breadcrumbs
+- if current_user.try(:subsidiary).status_id == 101 || current_user.try(:corporation).status_id == 101
+  = render "customers/advise"
+- else
+  = form_tag({controller: controller, action: action}, {class: 'form-horizontal', method: method}) do |form|
+    - if order.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(order.errors.count, "error")
+          =t('orders.index.err_1')
+        %ul
+          - order.errors.full_messages.each do |message|
+            %li= message
+    %h3.align-center
+      = "#{t('orders.index.order')} #{@order.internal_id ? @order.internal_id : @order.id}"
+    .row
+      .col-sm-6
+        .form__field--input.md-form
+          = label_tag t("orders.index.description")
+          = text_field_tag :description, order.description, required: true, class: "form-control"
+        .form__field--input.md-form
+          = label_tag t("orders.index.address")
+          = text_field_tag :address, order.address, required: true, class: "form-control"
+        .form__field--select.md-form
+          = select_tag :category_id, customer_options_for_select_category(@order.category_id ? @order.category_id : ''), {class: "mdb-select md-form mb-2 colorful-select dropdown-primary validate", style: "margin-bottom: 0.5rem;", searchable: t('base.filters.search')}
+      .col-sm-6
+        .form__field--input.md-form
+          = select_tag :city_id, order_city_options(order.city_id),required: true, class: "mdb-select md-form colorful-select dropdown-primary mt-0", :searchable => t('base.filters.search')
+        .form__field--input.md-form
+          = select_tag :things_ids, customer_options_for_select_things(current_user.id, @order.things_ids ? @order.things_ids : ''), {multiple: false, :class => "mdb-select md-form colorful-select dropdown-primary", searchable: "Search here.."}
+          .invalid-feedback
+            =t("base.forms.err_2")
+    .row.justify-content-center
+      %button.btn.secondary-color.btn-space.far.fa-save
+        = t('base.forms.save')

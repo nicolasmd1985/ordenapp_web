@@ -1,0 +1,18 @@
+.card
+  .card-body
+    %ul.list-group.list-group-flush
+      %li.list-group-item
+        %i.fas.fa-newspaper.mr-3{"aria-hidden" => "true"}
+        %p
+          %b
+            =t("substatus.index.status_id")
+          = "#{substatus.status_id} - #{substatus_type_humanized(substatus.status.description)}"
+      %li.list-group-item
+        %i.fas.fa-info-circle.mr-3{"aria-hidden" => "true"}
+        %p
+          %b
+            =t("substatus.index.description")
+          = substatus_desc_humanized(substatus.description)
+  - unless substatus.visible
+    .card-footer.text-muted.text-center
+    = "#{t('base.forms.updated_at')} #{substatus.updated_at.strftime("%Y-%m-%d - %T")}"

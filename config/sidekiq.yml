@@ -1,0 +1,9 @@
+---
+production:
+  :logfile: ./log/sidekiq_production.log
+  :verbose: true
+  # :pidfile: ./log/tmp/pids/sidekiq.pid
+  :concurrency: 1
+  :queues:
+    - default
+    - mailers

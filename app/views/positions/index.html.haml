@@ -1,0 +1,22 @@
+%p#notice= notice
+%h1 Positions
+%table
+  %thead
+    %tr
+      %th User
+      %th Thing
+      %th Latitude
+      %th Longitude
+      %th{:colspan => "3"}
+  %tbody
+    - @positions.each do |position|
+      %tr
+        %td= position.user ? position.user.email : 'NA'
+        %td= position.thing
+        %td= position.latitude
+        %td= position.longitude
+        %td= link_to 'Show', position
+        %td= link_to 'Edit', edit_position_path(position)
+        %td= link_to 'Destroy', position, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Position', new_position_path

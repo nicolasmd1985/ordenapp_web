@@ -1,0 +1,113 @@
+.invisible#breadcrumb
+  = render_breadcrumbs
+.row.flex-box-center
+  .col.s12.m10.force_margin
+    .card.card-cascade.narrower.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-between.align-items-center
+        = link_to dashboard_path, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t("base.forms.back") do
+          %i.fas.fa-chevron-left
+        %h3.center.mt-2
+          %strong
+            =t('reports.order')
+        = link_to dashboard_path, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2 disabled hidden", title: t("base.forms.back") do
+          %i.fas.fa-plus
+      %nav.navbar.navbar-expand-xl.navbar-light.blue-grey.lighten-5.mt-4.pb-3.pb-xl-2
+        %p.navbar-brand.mb-0
+          = t('base.filters.filter')
+        %button.navbar-toggler{"aria-controls" => "filterbar", "aria-expanded" => "false", "aria-label" => "Toggle filter", "data-target" => "#filterbar", "data-toggle" => "collapse", :type => "button"}
+          %span.navbar-toggler-icon
+        #filterbar.collapse.navbar-collapse
+          = form_tag(order_reports_path, method: :get, class: "form-inline ml-auto filter-form", id: "orders-filter-form")
+          .row
+            .col-12.col-sm-6.col-md-3.d-flex.align-items-center.justify-content-center.flex-column
+              %label=t('reports.from_date')
+              = date_field_tag :from_date, @from_date, class: 'form-control'
+              %label=t('reports.to_date')
+              = date_field_tag :to_date, @to_date, class: 'form-control'
+            .col-12.col-sm-6.col-md-3.d-flex.align-items-center.justify-content-center.flex-column
+              .md-form.my-2.my-md-0
+                = text_field_tag(:search, params[:search], {class: "form-control", placeholder: "ID", style: "width: 100%"})
+              = select_tag "tecnic", options_for_select_order_tecnics(current_user.subsidiary_id, @tecnic), {include_blank: t('base.filters.technic'), class: "mdb-select md-form colorful-select dropdown-dark my-select mt-0 mb-2 m-md-0 mx-2", :searchable => t('base.filters.search')}
+              = select_tag "status", options_for_select_order_status(@status_p), {include_blank: t('base.filters.status'), class: "mdb-select md-form colorful-select dropdown-dark my-select mt-0 mb-2 m-md-0 mx-2", :searchable => t('base.filters.search')}
+            .col-12.col-sm-6.col-md-3.d-flex.align-items-center.justify-content-center.flex-column
+              = select_tag "city", options_for_select_order_city(current_user.subsidiary_id, @city), {include_blank:  t('base.filters.city'), class: "mdb-select md-form colorful-select dropdown-dark my-select mt-0 mb-2 m-md-0 mx-2", :searchable => t('base.filters.search')}
+              = select_tag "customer", options_for_select_order_customers(current_user.subsidiary_id, @customer), {include_blank: t('base.filters.customer'), class: "mdb-select md-form colorful-select dropdown-dark my-select mt-0 mb-2 m-md-0 mx-2", :searchable => t('base.filters.search')}
+              = select_tag "sync", options_for_select_order_sync(@sync), {include_blank: t('base.filters.synchronization'), class: "mdb-select md-form colorful-select dropdown-dark my-select mt-0 mb-2 m-md-0 mx-2", :searchable => t('base.filters.search')}
+            .col-12.col-sm-6.col-md-3.d-flex.align-items-center.justify-content-center.flex-row
+              %button.btn.secondary-color.btn-rounded.btn-md.text-white.my-2.my-md-0.mr-2.ml-4{:type => "submit"}
+                = t("base.forms.search")
+              %i.fa.fa-trash{id: "cancel_search", title: "Clear Filter"}
+      .card.py-0
+        .card-body
+          .order-tableWrapper
+            .d-flex.flex-row.align-items-center{style: "justify-content: space-between"}
+              %p Resultados de búsqueda:
+              .d-flex.flex-row.align-items-center.ml-auto
+                = link_to t('reports.download'), orders_to_csv_path(format: "csv", from_date: @from_date, to_date: @to_date, status: @status_p, city: @city, tecnic: @tecnic, customer: @customer, sync: @sync, search: params[:search]), class: "btn secondary-color btn-rounded btn-md text-white my-2 my-md-0 mx-2", id: "export_csv"
+                = link_to t('reports.excel'), orders_to_csv_path(format: "xlsx", from_date: @from_date, to_date: @to_date, status: @status_p, city: @city, tecnic: @tecnic, customer: @customer, sync: @sync, search: params[:search]), class: "btn secondary-color btn-rounded btn-md text-white my-2 my-md-0 mx-2", id: "export_excel"
+                = link_to get_qr_code_path(:things => @thigns, format: :pdf), role: "button", class: 'btn btn-outline-red btn-rounded btn-sm px-2', title: t("components.index.download_qr"), target: "_blank"  do
+                  %i.fas.fa-qrcode{style: "vertical-align: middle"}
+            %table#order-table.table.table-striped.table-bordered.table-hover.table-sm.btn-table{:cellspacing => "0", :width => "100%"}
+              %caption
+                = "#{t('base.forms.list_of')} #{t('orders.index.title1')}"
+              %thead.secondary-color.white-text.align-center
+                %tr
+                  %th.center
+                    =t('orders.index.id')
+                  %th.center
+                    =t('orders.index.person_in_charge')
+                  %th.center
+                    =t('orders.index.customer')
+                  %th.center
+                    =t('orders.index.description')
+                  %th.center
+                    =t('orders.index.to_do')
+                  %th.center
+                    =t('orders.index.status')
+                  %th.center.order-f
+                    =t('orders.index.finished_time')
+              %tbody
+                - @orders.each do |order|
+                  %tr
+                    %td
+                      = "#{order.internal_id ? order.internal_id : order.id}"
+                    %td
+                      = order.tecnic ? "#{order.tecnic.first_name} #{order.tecnic.last_name}" : ''
+                    %td
+                      = "#{order.customer.first_name} #{order.customer.last_name}"
+                    %td
+                      = truncate(order.description, length: 200, omission: '...')
+                    %td
+                      = order.install_time ? order.install_time.strftime("%Y-%m-%d %I:%M%p") : ''
+                    %td.align-center
+                      .btn-group-vertical
+                        = order.updated_at.in_time_zone.strftime("%Y-%m-%d %I:%M%p")
+                        - case order.status_id
+                        - when 500
+                          %b.badge.badge-pill.badge-light.mt-1.mb-2
+                            = t('orders.status.request')
+                        - when 501
+                          %b.badge.badge-pill.badge-info.mt-1.mb-2
+                            = t('orders.status.assigned')
+                        - when 502
+                          %b.badge.badge-pill.badge-primary.mt-1.mb-2
+                            = t('orders.status.in_progress')
+                        - when 503
+                          %b.badge.badge-pill.badge-danger.mt-1.mb-2
+                            = t('orders.status.rejected')
+                        - when 504
+                          %b.badge.badge-pill.badge-success.mt-1.mb-2
+                            = t('orders.status.done')
+                        - else
+                          %b.badge.badge-pill.badge-warning.mt-1.mb-2
+                            = t('orders.status.pre_order')
+                        - if order.sync
+                          %i.fas.fa-sync
+                        - else
+                          %i.small.material-icons.desync sync_disabled
+                    - if order.status.id == 504
+                      %td.center
+                        = order.updated_at.in_time_zone.strftime("%Y-%m-%d %I:%M%p")
+                    - else
+                      %td.center
+                        = t(' ')

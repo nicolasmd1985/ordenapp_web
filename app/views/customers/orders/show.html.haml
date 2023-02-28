@@ -1,0 +1,105 @@
+.row.flex-box-center.order-detail
+  .col.s12.m10.force_margin
+    .card.light-1
+      .card-header.card-header-primary
+        = link_to customers_orders_path, class: "card__button btn btn-primary btn-sm btn-space", title: t('base.forms.back') do
+          %i.fas.fa-arrow-alt-circle-left
+        - if @order.status.id == 504
+          = link_to customer_order_path(@order.slug, format: :pdf), class: 'card__button btn btn-primary btn-sm btn-space', title: t("orders.index.download") , target: "_blank" do
+            %i.fas.fa-file-download
+        - else
+          = link_to edit_customer_order_path(@order.slug), class: 'card__button btn btn-success btn-sm btn-space', title: t('base.forms.edit') do
+            %i.fas.fa-edit
+        .card-deck{style: "display: block;"}
+          .row
+            .col-sm-12.col-md-6
+              .card
+                %h5.card-header
+                  = t('orders.index.ord_details')
+                  = "#{@order.internal_id ? @order.internal_id : @order.id}"
+
+                  - if @order.sync
+                    %i.material-icons.sync sync
+                  - else
+                    %i.material-icons.desync sync_disabled
+                .card-body
+                  %ul.list-group.list-group-flush
+                    %li.list-group-item
+                      %i.fas.fa-bullhorn.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = t("base.forms.created_at")
+                        = "#{@order.created_at.strftime("%Y-%m-%d")} - #{@order.created_at.strftime("%I:%M %p")}"
+                    %li.list-group-item
+                      %i.fas.fa-info-circle.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = t("orders.index.description")
+                        = "#{@order.description}"
+                    %li.list-group-item
+                      %i.fas.fa-info-circle.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = t("orders.index.things_ids")
+                        = "#{@order.try(:things).try(:first).try(:name)}"
+                    %li.list-group-item
+                      %i.fas.fa-map-marked-alt.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = t("orders.index.address")
+                        = "#{@order.address}"
+                    %li.list-group-item
+                      %i.fas.fa-city.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = t("orders.index.city")
+                        = "#{City.find(@order.city_id).name}"
+                    %li.list-group-item
+                      %i.fas.fa-object-group.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          =t('category.index.category')
+                        - if !@order.category_id.blank?
+                          - if @order.category_id <= 103
+                            = "#{category_humanized(@order.category.name)}"
+                          - else
+                            = @order.category.name
+                        - else
+                          = 'N/A'
+                    %li.list-group-item
+                      %i.fas.fa-calendar-alt.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = t("orders.index.install_date")
+                        = "#{@order.install_date ? "#{@order.install_date} - #{@order.install_time.strftime("%I:%M %p")}" : ''}"
+            .col-sm-12.col-md-6
+              .card
+                %h5.card-header
+                  = t("orders.index.tec_details")
+                .card-body
+                  - if @order.tecnic
+                    %ul.list-group.list-group-flush
+                      %li.list-group-item
+                        %i.fas.fa-user.mr-3{"aria-hidden" => "true"}
+                        %p
+                          %b
+                            = t("users.index.name")
+                          = "#{@order.tecnic.first_name.humanize} #{@order.tecnic.last_name.humanize}"
+                      %li.list-group-item
+                        %i.fas.fa-mobile.mr-3{"aria-hidden" => "true"}
+                        %p
+                          %b
+                            = t("users.index.phone")
+                          = "#{@order.tecnic.phone_number_1}"
+                      %li.list-group-item
+                        %i.fas.fa-envelope.mr-3{"aria-hidden" => "true"}
+                        %p
+                          %b
+                            = t("users.index.email")
+                          = "#{@order.tecnic.email}"
+                  - else
+                    %li.list-group-item
+                      %strong --
+                      
+- if @order.try(:logs).size > 0
+  = render "order_logs", logs: @order.logs

@@ -1,0 +1,53 @@
+.row.flex-box-center
+  .col.s12.m10.force_margin
+    .card.card-cascade.narrower.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-between.align-items-center
+        = link_to dashboard_path, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t("base.forms.back") do
+          %i.fas.fa-chevron-left
+        %h3.center.mt-2
+          %strong
+            = t("notifications.notification")
+        = link_to notifications_path, role: "button", class: 'btn btn-outline-white btn-rounded btn-sm px-2', title: t("notifications.notifications") do
+          %i.fas.fa-list
+      .card
+        .row.justify-content-center
+          .col-6
+            %h5.card-header.text-center
+              = t("notifications.notification")
+            .card-body
+              %ul.list-group.list-group-flush
+                %li.list-group-item
+                  %p
+                    %b
+                      = t("notifications.order")
+                    = link_to @notification.order_internal_id, show_order_path(@notification.order_slug)
+                %li.list-group-item
+                  %p
+                    %b
+                      = t("notifications.status")
+                    = order_status_humanized(@notification.order_status)
+                %li.list-group-item
+                  %p
+                    %b
+                      = t("notifications.view")
+                    = @notification.readed
+                %li.list-group-item
+                  %p
+                    %b
+                      = t("notifications.readed")
+                    = "#{@notification.read_at.strftime("%Y-%m-%d %T")} | #{distance_of_time_in_words_translation(@notification.read_at)}"
+                %li.list-group-item
+                  %p
+                    %b
+                      = t("notifications.supervisor")
+                    = @notification.supervisor_name
+                %li.list-group-item
+                  %p
+                    %b
+                      = t("notifications.user")
+                    = @notification.user_name
+                %li.list-group-item
+                  %p
+                    %b
+                      = t("notifications.notificated")
+                    = @notification.created_at.strftime("%Y-%m-%d %T")

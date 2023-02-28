@@ -1,0 +1,25 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @corporation.name
+%p
+  %strong Phone:
+  = @corporation.phone
+%p
+  %strong Address:
+  = @corporation.address
+%p
+  %strong Email:
+  = @corporation.email
+%p
+  %strong Identification:
+  = @corporation.identification
+%p
+  %strong Corporate initials:
+  = @corporation.corporate_initials
+%p
+  %strong Status:
+  = @corporation.status
+= link_to 'Edit', edit_corporation_path(@corporation)
+|
+= link_to 'Back', corporations_path

@@ -1,0 +1,86 @@
+.invisible#breadcrumb
+  = render_breadcrumbs
+.row.flex-box-center
+  .col.s12.m10.force_margin
+    .card.card-cascade.narrower.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-between.align-items-center
+        = link_to dashboard_path, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t("base.forms.back") do
+          %i.fas.fa-chevron-left
+        %h3.center.mt-2
+          %strong
+            = @role == '2' ? t('base.bar_menu.customers.customers'): t('base.bar_menu.tecnics.tecnics')
+        = link_to new_user_path(:role => @role), role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: "Add #{@role == '2' ? "Customer" : "Tecnic"}" do
+          %i.fas.fa-plus
+      %nav.navbar.navbar-expand-lg.navbar-light.blue-grey.lighten-5.mt-4.pb-3.pb-lg-2
+        %p.navbar-brand.mb-0
+          = t('base.filters.filter')
+        %button.navbar-toggler{"aria-controls" => "filterbar", "aria-expanded" => "false", "aria-label" => "Toggle filter", "data-target" => "#filterbar", "data-toggle" => "collapse", :type => "button"}
+          %span.navbar-toggler-icon
+        #filterbar.collapse.navbar-collapse
+          = form_tag(users_path, method: :get, class: "form-inline ml-auto filter-form", id: "users-filter-form")
+          .md-form.my-2.my-md-0.mx-4
+            = text_field_tag(:search, params[:search], {class: "form-control", placeholder: t('base.filters.search')})
+          = hidden_field_tag(:role, params[:role], value: @role)
+          = select_tag "city", options_for_select_city(current_user.subsidiary_id, @role, @city), {include_blank: t('base.filters.city'), class: "mdb-select md-form colorful-select dropdown-dark my-select my-2 m-md-0", :searchable => t('base.filters.search')}
+          %button.btn.secondary-color.btn-rounded.btn-md.text-white.my-2.my-md-0.mr-2.ml-4{:type => "submit"}
+            = t("base.forms.search")
+          %i.fa.fa-trash{id: "cancel_search", title: "Clear Filter"}
+      .card.py-0
+        .card-body
+          .user-tableWrapper
+            %table#user-table.table.table-striped.table-bordered.table-hover.table-sm.btn-table{:cellspacing => "0", :width => "100%"}
+              %caption
+                = "#{t('base.forms.list_of')}#{@role == '2' ? "Customers" : "Tecnics"}"
+              %thead.secondary-color.white-text.align-center
+                %tr
+                  %th.center
+                    = t("users.index.c_name")
+                  %th.center
+                    = t("users.index.id")
+                  %th.center
+                    = t("users.index.email")
+                  %th.center
+                    = t("users.index.phone")
+                  - if @role == '0'
+                    %th
+                      = t("users.index.orders")
+                  %th.center.options.th-sm
+                    =t("base.forms.options")
+              %tbody
+                - @users.each do |user|
+                  %tr
+                    %td.center
+                      = "#{user.first_name} #{user.last_name}"
+                    %td.center
+                      = user.document_number
+                    %td.center
+                      = user.email
+                    %td.center
+                      = user.phone_number_1
+                    - if user.role != "customer"
+                      %td.align-center
+                        = User.active_orders(user.id, user.subsidiary_id) ? User.active_orders(user.id, user.subsidiary_id) : "0"
+                    %td.align-center
+                      = link_to user, class: 'card__button btn-floating btn btn-primary btn-sm', style: "z-index: 0; padding: 0", title: t("base.forms.details") do
+                        %i.fas.fa-info
+                      = link_to edit_user_path(user), class: 'card__button btn-floating btn btn-success btn-sm', style: "z-index: 0; padding: 0", title: t("base.forms.edit") do
+                        %i.fas.fa-edit
+                      - if user.role != "customer"
+                        .btn-group-vertical{class: "#{user.active ? "card__button btn-floating btn btn-success btn-sm" : "card__button btn-floating btn btn-danger btn-sm"}", "data-target" => "#modal_user_activation_#{user.id}", "data-toggle" => "modal", type: "button", style: "z-index: 0; padding: 0", title: user.active ? t("users.index.active") : t("users.index.inactive")}
+                          - if user.active
+                            %i.fas.fa-check
+                          - else
+                            %i.fas.fa-times
+                        .modal{id: "modal_user_activation_#{user.id}", "aria-hidden" => "true", "aria-labelledby" => "modal_user_activation", role: "dialog", tabindex: "-1"}
+                          .modal-dialog.modal-dialog-centered.modal{role: "document"}
+                            .modal-content
+                              .modal-header
+                                %h5.modal-title{style: "margin-left: auto;"}
+                                  = "#{user.first_name} #{user.last_name}"
+                                %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+                                  %span{"aria-hidden" => "true"} ×
+                              .modal-body
+                                = "#{user.active ? "Inactive #{user.first_name} #{user.last_name} user?" : "Active #{user.first_name} #{user.last_name} user?"}"
+                              .modal-footer
+                                = link_to "Ok", user, method: :put, class: 'btn btn-danger', style: "margin-left: auto; margin-right: auto;", href: "/users/status/#{user.id}", title: "Ok"
+                                %button.btn.btn-success{"data-dismiss" => "modal", type: "button", style: "margin-left: auto; margin-right: auto;", title: "Cancel"} Cancel

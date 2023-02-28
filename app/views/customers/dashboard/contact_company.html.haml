@@ -1,0 +1,99 @@
+.invisible#breadcrumb
+  = render_breadcrumbs
+.row.flex-box-center
+  .col.s12.m10
+    .row
+      .col-12
+        .card.mt-0.h-100
+          %h5.card-header.text-center
+            = t("customers.contact.contact")
+          .card-body
+            .row
+              .col-12.col-lg-6
+                %h5.card-header.text-center
+                  = t("customers.contact.company")
+                %ul.list-group.list-group-flush
+                  %li.list-group-item
+                    %p
+                      %b
+                        = t("customers.contact.name")
+                      = @company.try(:name)
+                %ul.list-group.list-group-flush
+                  %li.list-group-item
+                    %p
+                      %b
+                        = t("customers.contact.phone")
+                      = @company.try(:phone)
+                %ul.list-group.list-group-flush
+                  %li.list-group-item
+                    %p
+                      %b
+                        = t("customers.contact.address")
+                      = @company.try(:address)
+                %ul.list-group.list-group-flush
+                  %li.list-group-item
+                    %p
+                      %b
+                        = t("customers.contact.email")
+                      = link_to @company.try(:email), "mailto:#{@company.try(:email)}"
+                %ul.list-group.list-group-flush
+                  %li.list-group-item
+                    %p
+                      %b
+                        = t("company.index.status")
+                      - if @company.status_id == 100
+                        %span.badge.badge-pill.badge-success
+                          = t("company.index.active")
+                      - else
+                        %span.badge.badge-pill.badge-dark
+                          = t("company.index.inactive")
+                %ul.list-group.list-group-flush
+                  %li.list-group-item
+                    %p
+                      - if @company.try(:urlavatar).present?
+                        %img{:src => @company.try(:urlavatar), class: "img-thumbnail z-depth-1 avatar-pic", style: "object-fit: cover; max-width: 60%;", alt: "Company logo"}
+                        .mask.flex-center.rgba-white-slight
+              .col-12.col-lg-6
+                %h5.card-header.text-center
+                  = t("customers.contact.subsidiary")
+                %ul.list-group.list-group-flush
+                  %li.list-group-item
+                    %p
+                      %b
+                        = t("customers.contact.name")
+                      = @subsidiary.try(:name)
+                %ul.list-group.list-group-flush
+                  %li.list-group-item
+                    %p
+                      %b
+                        = t("customers.contact.phone")
+                      = @subsidiary.try(:phone)
+                %ul.list-group.list-group-flush
+                  %li.list-group-item
+                    %p
+                      %b
+                        = t("customers.contact.address")
+                      = @subsidiary.try(:address)
+                %ul.list-group.list-group-flush
+                  %li.list-group-item
+                    %p
+                      %b
+                        = t("customers.contact.email")
+                      = link_to @subsidiary.try(:email), "mailto:#{@subsidiary.try(:email)}"
+                %ul.list-group.list-group-flush
+                  %li.list-group-item
+                    %p
+                      %b
+                        = t("subsidiary.index.status")
+                      - if @subsidiary.status_id == 100
+                        %span.badge.badge-pill.badge-success
+                          = t("subsidiary.index.active")
+                      - else
+                        %span.badge.badge-pill.badge-dark
+                          = t("subsidiary.index.inactive")
+                %ul.list-group.list-group-flush
+                  %li.list-group-item
+                    %p
+                      - if @subsidiary.try(:urlavatar).present?
+                        %img{:src => @subsidiary.try(:urlavatar), class: "img-thumbnail z-depth-1 avatar-pic", style: "object-fit: cover; max-width: 60%;", alt: "Company logo"}
+                        .mask.flex-center.rgba-white-slight

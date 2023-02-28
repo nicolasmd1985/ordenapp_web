@@ -1,0 +1,19 @@
+= form_tag(tool_comment_path(tool.slug), method: :put, class: "form-horizontal") do |f|
+  .row{style: "align-items: center;"}
+    .col-12.col-sm-12.col-md-4.col-lg-4
+      .form__field--select.md-form
+        %label.mdb-main-label.active{"data-error" => "wrong", "data-success" => "right"}
+          = t("tools.index.comment")
+        = text_area_tag :comment, "", required: true, minlength: 10, class:'form-control validate', placeholder: t('tools.index.comment'), rows: 4
+    .col-8.col-sm-8.col-md-6.col-lg-6
+      .form__field--select.md-form
+        %label.mdb-main-label.active{"data-error" => "wrong", "data-success" => "right"}
+          = t("tools.index.status")
+        = select_tag :status_id, options_for_select_tool_status(tool ? tool.status_id ? tool.status_id : '401' : '401'), {class: "mdb-select md-form mb-2 colorful-select dropdown-primary validate", style: "margin-bottom: 0.5rem;"}
+      .form__field--select.md-form
+        %label.mdb-main-label.active{"data-error" => "wrong", "data-success" => "right"}
+          = t("tools.index.responsable")
+        = select_tag :tecnic_id, options_for_select_tool_tecnic(current_user.subsidiary_id, @tool ? @tool.tecnic_id : ''), {include_blank: true, id: "tool-tecnic", class: "mdb-select colorful-select dropdown-primary", style: "margin-bottom: 0.5rem;", searchable: t('base.filters.search')}
+    .col-4.col-sm-4.col-md-2.col-lg-2
+      %button.btn.btn-primary{:type => "submit"}
+        = t('tools.index.save')

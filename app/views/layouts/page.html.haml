@@ -1,0 +1,39 @@
+!!!
+%html{lang: "#{locale}"}
+  %head
+    %title
+      = t('home.meta.title')
+    = stylesheet_link_tag "page", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "page", "data-turbolinks-track" => true
+    = csrf_meta_tags
+    = favicon_link_tag asset_path('logo-mobile-05.png')
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+    %meta{:name => "description", :content => "#{t('home.meta.description')}"}
+    %meta{:name => "keywords", :content => "Software, Herramienta, Gestion, Implementación, Mantenimiento, Optimización, Productividad, Seguimiento, Control, Instalación, Activos, Reparación"}
+    / Font Awesome
+    %link{:href => "https://use.fontawesome.com/releases/v5.8.2/css/all.css", :rel => "stylesheet"}/
+    %link{:href => "https://unpkg.com/aos@next/dist/aos.css", :rel => "stylesheet"}/
+    %script{:async => "", :src => "https://www.googletagmanager.com/gtag/js?id=UA-171500849-1"}
+    :javascript
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-171500849-1');
+  %body
+    - if notice
+      = javascript_tag "toastr.success('#{notice}', {timeOut: 2000})"
+    - if alert
+      = javascript_tag "toastr.error('#{alert}', {timeOut: 2000})"
+    = render "base/navbar_page"
+    .full-page-content
+      - if !user_signed_in?
+        = yield
+      - else
+        - if current_user.role != 'supervisor'
+          - controller.redirect_to customers_dashboard_path
+        - else
+          - controller.redirect_to dashboard_path
+
+    %script{:src => "https://unpkg.com/aos@next/dist/aos.js", :type => "text/javascript"}
+    %script
+      AOS.init();

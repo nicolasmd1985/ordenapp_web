@@ -1,0 +1,771 @@
+es:
+  activerecord:
+    attributes:
+      order:
+        internal_id: ID interno
+        customer_id_order: ID orden de cliente
+        created_at: "Creación"
+        updated_at: "Actualización"
+        description: "Descripción"
+        address: "Dirección"
+        status_id: ID de estado
+        substatus_id: ID de subestado
+        install_date: "Fecha de instalación"
+        install_time: "Hora de instalación"
+        limit_time: Tiempo limite
+        comment: Comentarios
+        sync: Sincronizado
+        origin: Origen
+        city:
+          name: Ciudad
+        supervisor:
+          first_name: Nombre del supervisor
+          last_name: Apellido del supervisor
+        tecnic:
+          first_name: Nombre del Usuario
+          last_name: Apellido del Usuario
+        customer:
+          first_name: Nombre del cliente
+          last_name: Apellido del cliente
+        status:
+          description: Estado
+        substatus:
+          description: Subestado
+        category:
+          name: "Categoría"
+        subsidiary:
+          name: Sucursal
+  home:
+    meta:
+      title: "Ordenapp Gestión de activos"
+      description: "Solución empresarial para optimizar la gestión de instalaciones, mantenimientos y reparaciones. Podras llevar el control de actividades en tiempo real y así optimizar la gestión de tu empresa."
+      tags: "Software, Herramienta, Gestion, Implementación, Mantenimiento, Optimización, Productividad, Seguimiento, Control, Instalación, Activos, Reparación"
+    index: # Pagina Inicial Ordenapp, Info, Demo etc.
+      title_1: "Supervisa en tiempo real tus operaciones"
+      sub_title: "ORDENAPP es una solución empresarial para optimizar la gestión de instalaciones, mantenimientos y reparaciones. "
+      video: "VER VIDEO"
+      demo: "Inicie ahora mismo sin ningun costo"
+      name: "Tu Nombre"
+      email: "Tu correo electrónico"
+      phone: "Tu numero telefónico"
+      send: "ENVIAR"
+      terms: "Aceptar términos y condiciones"
+      terms_and: "Terminos y condiciones"
+      habeas: "Habeas Data"
+      sponsors: "Sponsors"
+      title_2: "Gestiona ordenes de trabajo"
+      title_3: "con tus colaboradores en campo. "
+      title_4: "Recibe de tus clientes y asigna a tus colaboradores ordenes de trabajo fácilmente, incrementando la eficiencia de tu equipo y mejorando tus tiempos de respuesta. "
+      request: "SOLICITA UN DEMO"
+      title_5: "Supervisa de forma"
+      title_6: "agil y en tiempo real"
+      title_7: "Ahora podrás hacer seguimiento y tener todo el control sobre el movimiento de tu empresa en tiempo real."
+      title_8: "...y mucho más"
+      geo: "Geolocalización"
+      geo_1: "Seguimiento de personal en tiempo real. "
+      time: "Control del tiempo "
+      time_1: "Identificación exacta de cuando y donde se realizan las operaciones. "
+      work_orders: "Ordenes de trabajo"
+      work_orders_1: "Asignación de ordenes de trabajo Online 7/24."
+      digital_sig: "Firma digital"
+      digital_sig_1: "Asegure que sus ordenes sean entregadas a su cliente final con la captura de firma digital."
+      activity: "Actividad"
+      activity_1: "Conozca el estado de la actividad actual de sus colaboradores."
+      report: "Reporte de herramienta"
+      report_1: "Evite la perdida de herramienta y conozca a quien fue asignada. "
+      follow_up: "Seguimiento de materiales y equipos"
+      follow_up_1: "Identifique y haga seguimiento en tiempo real de los materiales o equipos electromecánicos a trabajar. "
+      alert_maint: "Alerta de Mantenimientos"
+      alert_maint_1: "Automatice el mantenimiento de materiales o equipos electromecánicos según su naturaleza. "
+      contact: "Contacto"
+  base:
+    navbar:
+      plans: "Planes" # Navbar
+      create_account: "Crear cuenta" # Navbar
+      sign_in: "Ingresar" # Navbar
+      logout: "Salir" # Navbar
+      edit_profile: "Mi perfil"  # Navbar
+      corporation: "Compañia"
+      subsidiary: "Sucursal"
+      contact: "Contacto"
+    filters:
+      technic: "Usuario"
+      status: "Estado"
+      city: "Ciudad"
+      customer: "Cliente"
+      synchronization: "Sincronización"
+      filter: "Filtros"
+      search: "Buscar"
+    forms:
+      back: "Atras"
+      edit: "Actualizar"
+      delete: "Eliminar"
+      details: "Detalles"
+      all: Ver todo
+      save: "Guardar"
+      options: "Opciones"
+      created_at: "Fecha de Creación:"
+      updated_at: "Fecha de Actualización:"
+      confirm: "¿Está seguro?"
+      list_of: "Listado de "
+      add_info: "Información Adicional "
+      err_2: "Este campo es requerido!"
+      err_3: "Seleccione una fecha válida."
+      err_4: "Seleccione una hora válida."
+      search: "Buscar"
+      select_date: "Seleccione fecha"
+      select_hour: "Seleccione hora"
+      cancel: "Cancelar"
+      clear: "Borrar"
+    bar_menu:
+      admins:
+        subsidiaries: Sucursales
+        new: Nueva sucursal
+        list: Lista de sucursales
+        supervisor: Supervisores
+        new_s: Nuevo supervisor
+      users: Usuarios
+      customers:
+        customers: Clientes
+        new: Nuevo cliente
+        list: Lista de clientes
+        upload: Carga masiva clientes
+      tecnics:
+        tecnics: Usuarios
+        new: Nuevo usuario
+        list: Lista de usuarios
+      orders:
+        orders: Ordenes de trabajo
+        new: Nueva orden
+        list: Lista de órdenes
+        finish_list: Ordenes finalizadas
+        preorder: Ordenes sin asignar
+        support: Solicitar soporte
+      categories:
+        categories: Categorías
+        new: Nueva categoría
+        list: Lista de categorías
+      things:
+        things: "Inventario"
+        new: "Nuevo producto"
+        list: "Lista de inventario"
+      tools:
+        tools: "Herramientas"
+        new: "Nueva herramienta"
+        list: "Lista de herramientas"
+      poll:
+        poll: Encuestas
+        list: Lista de encuentas
+      toggle:
+        expand: Expandir menú
+        collapse: Contraer menú
+    breadcrumb: Inicio
+  mailers:
+    general:
+      news: "Esta recibiendo este correo debido a que visito nuestro sitio y se registro para estar al tanto de nuestras novedades."
+      unsubscribe: "Cancelar subscripción para futuros mensajesUser."
+      about_us: "Nosotros"
+      what_is: "Que es Ordenapp"
+      contact_us: "Contactenos"
+    devise:
+      hello: "Hola"
+      line_1: "Hemos recibido su solicitud para el cambio de contraseña.  Podra hacerlo a travez del siguiente link."
+      change: "Cambiar Contraseña"
+      line_2: "Si tu no has solicitado el cambio de contraseña, por favor ignora este correo."
+      line_3: "Su contraseña no sera modificada hasta que acceda al link enviado y cree una clave nueva."
+    customer:
+      welcome: "!Bienvenido a "
+      intro: "A continuación encontrara las credenciales de acceso a la plataforma"
+      user: "Usuario: "
+      password: "Contraseña: "
+    orders:
+      order: "Orden "
+      assign: "asignada: "
+      subsidiary: "Compañia: "
+      technic: "Responsable"
+      phone: "Teléfono: "
+      email: "Email: "
+      time: "Hora visita técnica: "
+      see: "Ver"
+      sr: "Señores "
+      created: "ha sido creada exitosamente."
+      info: "A continuación encontrara detalles sobre esta orden:"
+      comp_in_charge: "Compañia encargada: "
+      assignment_order: "Asignación orden "
+      dear: "Apreciado "
+      assigned_to: "se le ha sido asignada."
+      client: "Cliente: "
+      description: "Descripción trabajo: "
+      address: "Dirección: "
+      reported: "reportada por el cliente: "
+      creation_date: "Fecha de creación: "
+      devices: "Inventario: "
+      city: "Ciudad: "
+    tecnic:
+      welcome: "!Bienvenido a "
+      intro: "A continuación encontrara las credenciales de acceso a la APP recuerde descargar la APP en la Google PlayStore.."
+      user: "Usuario: "
+      password: "Contraseña: "
+      change_password: "Cambiar Contraseña"
+    supervisor:
+      welcome: "Bienvenido "
+      tutorial: "Te invitamos a que veas el video tutorial, donde te mostraremos como crear clientes y técnicos."
+      intro: "A continuación encontraras las credenciales de acceso a la plataforma"
+    admin:
+      welcome: "Bienvenido a Ordenapp"
+      tutorial: "Te invitamos a que veas el video tutorial, donde te mostraremos como crear clientes y técnicos."
+      intro: "A continuación encontraras las credenciales de acceso a la plataforma"
+  dashboard:
+    customers:
+      orders: Ordenes reportadas
+      finished: Ordenes cerradas
+      help:
+        advise: "Empresa o sucursal inactiva. Imposible generar un nuevo ticket"
+        contact: "Porfavor contacte con ellos vía e-mail o teléfonicamente."
+    keep: "Sigue intentando"
+    supervisor:
+      map: "Mapa"
+      orders: "Ordenes"
+      finished_orders: "Ordenes Finalizadas"
+      request_orders: "Ordenes Solicitadas"
+      list: "Lista de supervisores"
+    welcome: "Bienvenido %{name}"
+    welcome_msg: "Te invitamos a crear tu sucursal para que puedas empezar a administrar tu empresa: %{company}"
+  orders:
+    pdf:
+      address: "Dirección:"
+      order_id: "ID Orden"
+      order_client: "ID Interno Cliente"
+      client_info: "Datos Cliente "
+      client_name: "Nombre: "
+      comment: "Comentarios: "
+      id: "Identificación: "
+      imagen: "Imagen"
+      type_id: "Tipo de Identificación: "
+      phone: "Teléfono: "
+      technician_info: "Datos Técnico"
+      t_name: "Nombre: "
+      t_id:  "Identificación: "
+      order_sumary: "Resumen de la Orden"
+      start_time: "Hora inicio: "
+      end_time: "Hora fin: "
+      duration: "Duración: "
+      order_type: "Tipo de Orden: "
+      dev_code: "Codigo Producto"
+      item: "Item"
+      description: "Descripción: "
+      warranty: "Garantia"
+      price: "Precio"
+      Total: "Total"
+      signature: "Firma"
+      website: "Pagína Web: "
+    index:
+      title1: "Ordenes"
+      title2: "Ordenes Pendientes"
+      finish_title: "Ordenes terminadas"
+      my_orders: Mis ordenes
+      person_in_charge: "Técnico"
+      customer: "Cliente"
+      supervisor: "Supervisor"
+      description: "Descripción:"
+      assign_to: "Asignar a"
+      to_do: "Para realizar"
+      status: "Estado"
+      sync: "Sync APP"
+      options: "Opciones"
+      finished_time: "Hora Finalización"
+      finished_date: "Fecha Finalización"
+      address: "Dirección"
+      install_date: "Fecha del Servicio"
+      install_time: "Hora del Servicio"
+      contact: "Persona de Contacto"
+      phone_contact: "Teléfono de Contacto"
+      limit_time: "Tiempo límite"
+      unit_time: "Unidad de tiempo"
+      city: "Ciudad"
+      new: "Crear Orden"
+      download: "Descargar"
+      report: Reportar orden
+      id: ID
+      date: Fecha
+      order: Orden
+      err_1: "Esta Orden no puede ser guardada."
+      err_2: "El usuario seleccionado ya tiene una orden para esa hora."
+      ord_details: "Detalles Orden "
+      tec_details: "Información Persona a Cargo"
+      cust_details: "Detalles del cliente"
+      things_ids: "Inventario"
+      parent_order: "Orden principal:"
+      children_orders: "Ordenes relacionadas:"
+      group_type: "Grupal"
+      single_type: "Individual"
+      order_type: "Tipo:"
+      select_customer: "Seleccione Cliente"
+      select_tecnic: "Seleccione Usuario"
+      select_status: "Seleccione Estado"
+      referral: 'Remisión'
+      details: 'Ver Detalles'
+      customer_id_order: 'id cliente'
+      comment: Comentarios
+      overlapped: Tiene conflicto
+      non_overlapped: Ok
+      update: Actualizar
+      finish: Finalizar orden
+      change: Cambiar estado
+      change_sub: Cambiar subestado
+      reassign: Reasignar
+      reassign_tecnic: Reasignar Usuario
+      title_confirm: "Finalizar y cerrar orden %{order}"
+      body_confirm: "¿Está seguro de finalizar y cerrar la orden?<br>Al finalizar la orden, la orden será cerrada y no se podrá abrir de nuevo."
+    time:
+      day: "Días"
+      hour: "Horas"
+      minute: "Minutos"
+    status:
+      request: "Solicitada"
+      assigned: "Asignada"
+      in_progress: "En Proceso"
+      rejected: "Rechazada"
+      done: "Completado"
+      pre_order: "Preorden"
+      pending: "Pendiente"
+      receivable: "Cuenta por cobrar"
+      service_center: "Centro de servico"
+      service_evaluation: "Evaluacion de servicio"
+      arrives_place: "Llega a domicilio"
+      generated_manual_order: "Orden generada por usuario"
+      no_progress: "Sin Progreso"
+    substatuses_type:
+      done: "Completado"
+      pending: "Pendiente"
+      receivable: "Cuenta por Cobrar"
+      service_center: "Centro de Servicio"
+    substatuses:
+      warranty: "Garantia"
+      serv_qua: "Calidad del Servicio"
+      cancelled: "Cancelado"
+      absent: "Cliente Ausente"
+      non_comp: "Cancelado / No completado"
+      price_pend: "Cotización Pendiente"
+      budget: "Pendiente por Presupuesto"
+      canc_by_custo: "Cancelado por el Cliente"
+      auth_requ: "Requiere Autorización"
+      wrong_data: "Información Erronea"
+      product_return: "Producto Retornado"
+      wait_cust_contact: "Esperando contacto con el Cliente"
+      prepaid: "Prepagado"
+      paid: "Pagado"
+      deliv_goods: "Producto Entregado"
+      transf: "Transferido a centro de Servicio"
+    sync:
+      sync: "Sincronizado"
+      desync: "Desincronizado"
+    logs:
+      log: Log
+      logs: Logs
+      description: "Descripción"
+      address: "Dirección"
+      priority: "Prioridad"
+      supervisor_id: "Supervisor"
+      customer_id: "Cliente"
+      tecnic_id: "Usuario"
+      status_id: "Status"
+      substatus_id: "Substatus"
+      install_date: "Fecha instalación"
+      install_time: "Hora instalación"
+      city_id: "Ciudad"
+      limit_time: "Limite"
+      subsidiary_id: "Sucursal"
+      category_id: "Categoría"
+      order_type: "Tipo"
+      parent: "Padre"
+      parent_order: "Orden padre"
+      things_ids: "things_ids"
+      updated_at: "updated_at"
+      customer_id_order: "Orden ID"
+      user: "Usuario"
+      action: "Acción"
+      status: "Estado"
+      date: "Fecha"
+      changes: "Cambios"
+      comment: "Cometarios"
+      sync: "Sincronía"
+    comments:
+      comments: Comentarios
+      comment: Comentario
+      user: Usuario
+      date: Fecha
+    tec_avai:
+      check: "Validar Disponibilidad"
+      available: "Disponibilidad Usuario"
+      overlaps: "Se cruza? "
+      qty: "Nro de Ordenes asignadas para esa fecha:"
+  things:
+    index:
+      order: "Orden"
+      status: "Estado"
+      device: "Producto"
+      devices: "Inventario"
+      code: "Código Scan"
+      thing_name: "Nombre"
+      thing_desc: "Descripción"
+      customer: "Cliente"
+      ini_address: "Dirección inicial"
+      end_address: "Dirección final"
+      internal_id: "Id"
+      date: "Fecha"
+      maint_date: "Fecha mantenimiento"
+      maint_time: "Hora Mantenimiento"
+      freq: "Frecuencia"
+      nro: "Cantidad de Mantenimientos"
+      new: "Nuevo producto"
+      details: Detalle
+      histories: Históricos
+      modal_close: Cerrar
+      last_works: "Últimas 5 órdenes de trabajo"
+      main_info: Información
+      aditional_info: Información adicional
+      summary: Resumen
+      price: "Precio"
+      warranty: "Garantía"
+      record: Historial
+      intervention: "Tipo de intervención"
+      imgs: Imágenes
+      images: " imágenes"
+      historical: Historico de
+      evidence: "Evidencia fotográfica de"
+      next_image: Siguiente
+      prev_image: Anterior
+      h6_text: "<strong>Usuario</strong> %{tecnic} - <strong>Orden:</strong> %{order}"
+      err_1: "Este producto no puede ser guardado."
+      updated_true: "Producto actualizado correctamente"
+      updated_false: "El cliente ha asignado al producto, no puede ser modificado"
+      category: "Categoría"
+      create: "Crear producto"
+      edit: "Editar producto"
+      notification: "Notificación para Mantenimiento"
+      time: "Tiempo"
+      serial_number: "Número de serie"
+      stock: "Existencias"
+      final_price: "Precio final"
+      cost_price: "Precio de costo"
+      substatus: "Subestado"
+      start_warranty: "Inicio garantía"
+      finish_warranty: "Fin garantía"
+      weight: "Peso"
+      kilogram: "Kilogramos"
+      gram: "Gramos"
+      ton: "Toneladas"
+      mg: "Miligramos"
+      ounce: "Onzas"
+      pound: "Libras"
+      unit_weight: "Unidad de peso"
+      quantity: "Cantidad"
+      discount: "Descuento"
+    status:
+      active: "Activo"
+      corrective_m: "Mantenimiento Correctivo"
+      inactive: "Inactivo"
+      installed: "Instalado"
+      installing: "En proceso de Instalación"
+      on_the_way: "En Camino"
+      preventive_m: "Mantenimiento Preventivo"
+      replacement: "Reemplazo"
+      stock: "En Stock"
+      in: "Entrada"
+      out: "Salida"
+    time:
+      minutes: Minutos
+      hours: Horas
+      days: Dias
+      weeks: Semanas
+  tools:
+    index:
+      tools: Herramientas
+      tool: Herramienta
+      new: Nueva Herramienta
+      update: Actualizar
+      details: Detalles
+      code_scan: "Código"
+      name: Nombre
+      description: "Descripción"
+      status: Estado
+      tecnic: "Usuario"
+      responsable: "Responsable"
+      slug: Slug
+      registered: "Registrado por"
+      created: Registro
+      updated: Actualizado
+      modal_close: Cerrar
+      date: Fecha
+      user: Autor
+      save: Guardar
+      info: "Información"
+      comment: Comentarios
+      err_1: "Esta herramienta no puede ser guardada."
+    status:
+      assigned: Asignada
+      stock: En bodega
+      replacement: Reemplazo
+      lost: Extrabiada
+  components:
+    index:
+      new: Nuevo Componente
+      components: Componentes
+      name: Nombre
+      description: "Descripción"
+      code: Code scan
+      thing: Producto
+      search: Buscar producto
+      modal_close: Cerrar
+      title: Cargar componentes via archivo CSV
+      load_components: Cargar Componentes
+      file: "Seleccione archivo"
+      up_file: Carga tu archivo
+      upload: Subir
+      download: Descargar layout
+      download_qr: Descargar códigos QR
+      err_1: "Este componente no puede ser guardado."
+  maintenaces:
+    index:
+      maintenance_date: Dia del Mantenimiento
+      maintenance_time: Hora del Mantenimiento
+  qr:
+    generator: "Generar QR's"
+    obj_class: "Tipo QR"
+    quantity: "Cantidad"
+    generate: "Generar"
+  category:
+    index:
+      category: "Categoría"
+      categories: "Categorías"
+      cat_caption: "Listado de Categorías"
+      new_cat_title: "Crear Nueva Categoría"
+      cat_details: "Detalles Categoría"
+      cat_name: "Nombre Categoría"
+      category_type: Tipo Categoría
+      select_category: Seleccione categoría
+      create: Crear Categoría
+    status:
+      install: "Instalación"
+      maintenance: "Mantenimiento"
+      repair: "Reparación"
+    types:
+      order: Orden
+      thing: Producto
+      tool: Herramienta
+      component: Componente
+      uncat: Sin Categoría
+  substatus:
+    index:
+      substatus: "Subestado"
+      substatuses: "Subestados"
+      caption: "Lista de subestados"
+      status_id: "Tipo:"
+      description: "Descripción:"
+      details: "Detalle"
+      new: "Nuevo subestado"
+      options: "Opciones"
+      modal_close: "Cerrar"
+      edit: "Actualizar"
+      504: Completado
+      506: Pendiente
+      507: Cuenta por Cobrar
+      508: Centro de Servicio
+      300: Entrada
+      301: Salida
+  users:
+    import:
+      upload: "Subir"
+      file: "Seleccione archivo..."
+      download: "Descargar Layout"
+      title: "Carga masiva de Clientes"
+      success: "Se cargaron %{saved} usuarios de %{users_loaded} enviados."
+    index:
+      users: "Usuarios"
+      c_name: "Nombre"
+      name: "Nombre"
+      last_name: "Apellido"
+      email: "Email"
+      document_type: "Tipo documento"
+      document_number: "Número documento"
+      city: "Ciudad"
+      orders: "Ordenes"
+      id: "Identificación"
+      phone_1: "Teléfono de contacto"
+      phone_2: "Teléfono 2"
+      address_1: "Dirección 1"
+      address_2: "Dirección 2"
+      image: "Cambiar imagen"
+      id_number: "Número de documento"
+      subsidiary: "Sucursal"
+      active: "Activo"
+      inactive: "Inactivo"
+      role: "Rol"
+      err_1: "Este usuario no puede ser guardado."
+      company_name: "Nombre de la empresa"
+      web_page: "Pagina web"
+      priority_user: "Prioridad del cliente"
+      principal_activity: "Actividad Principal"
+      watch: Supervisar
+      subsidiaries: Sucursales
+      as_supervisor: Ver como supervisor
+      subsidiary_view: Ver como administrador
+      as_supervisor_msg: "Estás supervisando: sucursal %{subsidiary}"
+      no_apply: Ver como admin
+      create: Crear Usuario
+  subsidiary:
+    index:
+      contact: Contacto
+      name: "Nombre de la sucursal"
+      phone: "Teléfono"
+      email: "Correo electronico"
+      identification: "Identificación de la sucursal"
+      address: "Dirección"
+      logo: "Cambiar logo"
+      status: "Estado"
+      active: "Activa"
+      inactive: "Inactiva"
+      subsidiary_initials: "Siglas de la sucursal"
+      upd_subsidiary: "Actualizar Sucursal"
+      err_1: "Esta sucursal no puede ser guardada."
+      err_2: "Este campo es requerido!"
+      list: "Lista de sucursales"
+  corporation:
+    index:
+      corporate: "Corporación"
+      name: "Nombre de la compañia"
+      phone: "Teléfono de la compañia"
+      email: "Correo de la compañia"
+      identification: "Identificación de la compañia"
+      address: "Dirección de la compañia"
+      logo: "Cambiar logo"
+      status: "Estado"
+      active: "Activa"
+      inactive: "Inactiva"
+      initials: "Siglas de la compañia"
+      upd_subsidiary: "Actualizar Sucursal"
+      invitation: Le invitamos a actualizar la información de su empresa.
+      err_1: "Esta compañia no puede ser guardada."
+      err_2: "Este campo es requerido!"
+  session:
+    index:
+      welcome: "Bienvenido"
+      start: "Empecemos"
+      continue: "Continuar"
+      information: "Te invitamos a completar la siguiente información para continuar con el registro:"
+      sign_in: "Iniciar sesión con:"
+      sign_up: "Regístrate con:"
+      log_in: "Iniciar sesión"
+      register: "Registrarse"
+      forgot_pwd: "¿Olvidaste la contraseña?"
+      member: "¿Eres miembro?"
+      not_member: "¿No eres miembro?"
+      or: "ó"
+      field_required: "Este campo es obligatorio!"
+      terms_service: "Debes aceptar antes de enviar"
+      send_instru: "Enviar instrucciones"
+      mail_register: "Registro con Email"
+  profile:
+    current_password: "Digita tu contraseña actual para confirmar cambios"
+    password_length: "mínimo 8 caracteres"
+    password: "Contraseña"
+    password_confirmation: "Confirmar contraseña"
+    new_password: "Nueva contraseña"
+    confirm_new_password: "Confirmar nueva contraseña"
+    change_password: "Cambiar contraseña"
+    reset_password: "Restablecer contraseña"
+    invalid_pattern_password: "La contraseña debe tener 1 letra mayúscula, 1 minúscula, 1 número y 1 caracter especial."
+    mismatched_password: "Las contraseñas no coinciden"
+    invalid_email: "Correo inválido"
+    invalid_subsidiary: "Nombre de compañía inválido"
+    invalid_tel: "Número de teléfono inválido"
+    invalid_activity: "Actividad económica invalida"
+    invalid_address: "Dirección invalida"
+    invalid_doc: "Número de documento inválido"
+  customers:
+    contact:
+      contact: Contacto
+      name: "Nombre:"
+      phone: "Teléfono:"
+      address: "Dirección:"
+      email: "Correo:"
+      company: "Compañia"
+      subsidiary: "Sucursal"
+  reports:
+    reports: "Reportes"
+    report: "Reporte"
+    order: "Reporte de ordenes"
+    orders: "Ordenes"
+    from_date: "Desde"
+    to_date: "Hasta"
+    download: "Descargar csv"
+    excel: Descargar excel
+    no_text: ""
+  notifications:
+    notifications: Notificaciones
+    notification: "Notificación"
+    all_read: Marcar todas como leidas
+    delete_all: Eliminar todas
+    delete_readed: Eliminar leidas
+    date: "Fecha:"
+    order: "Orden:"
+    status: "Estado:"
+    readed: "Leida:"
+    link_order: "Orden %{order}"
+    text: "%{user} actualizó orden %{order} al estado <bold>%{status}</bold>"
+    view: "Vista:"
+    notificated: "Notificada en:"
+    show_all: Ver todas las notificaiones
+  datetime:
+    distance_in_words:
+      half_a_minute: 'Hace medio minuto'
+      less_than_x_seconds:
+        zero: 'Hace menos de 1 segundo'
+        one: 'Hace cerca de 1 segundo'
+        other: 'Hace menos de %{count} segundos'
+      x_seconds:
+        one: 'Hace 1 segundo'
+        other: 'Hace %{count} segundos'
+      less_than_x_minutes:
+        zero: 'Hace menos de 1 minuto'
+        one: 'Hace cerca de 1 minuto'
+        other: 'Hace menos de %{count} minutos'
+      x_minutes:
+        one: 'Hace 1 minuto'
+        other: 'Hace %{count} minutos'
+      about_x_hours:
+        one: 'Hace 1 hora'
+        other: 'Hace %{count} horas'
+      x_days:
+        one: 'Hace 1 día'
+        other: 'Hace %{count} días'
+      about_x_months:
+        one: 'Hace 1 mes'
+        other: 'Hace %{count} meses'
+      x_months:
+        one: 'Hace 1 mes'
+        other: 'Hace %{count} meses'
+      about_x_years:
+        one: 'Hace 1 año'
+        other: 'Hace %{count} años'
+      over_x_years:
+        one: 'Hace más de 1 año'
+        other: 'Hace más de %{count} años'
+      almost_x_years:
+        one: 'Hace casi 1 año'
+        other: 'Hace casi %{count} años'
+    prompts:
+      second: "Seconds"
+  back_messages:
+    not_found: "%{resource} no encontrado."
+    no_registered: "%{resource} No se encunetra registrada en la sucursal."
+    code_scan_uniq: "Code scan debe ser único"
+    created: "%{resource} creado satifactoriamente."
+    updated: "%{resource} actualizado satifactoriamente."
+    destroyed: "%{resource} eliminado satifactoriamente."
+    nothing: "Nada para actualizar"
+    field_updated: "%{field} actualizado."
+    tools:
+      error_field: "Error intentando actualizar el %{field} de la herramienta."
+      responsible_error: "El responsable es requerido para asignar una herramienta."

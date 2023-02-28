@@ -1,0 +1,118 @@
+.invisible#breadcrumb
+  = render_breadcrumbs
+.row.flex-box-center
+  .col.s12.m10.force_margin
+    .card.light-1
+      .card-header.card-header-primary
+        %p#notice= notice
+        = link_to customers_dashboard_path, class: "card__button btn btn-primary btn-sm btn-space", title: t("base.forms.back") do
+          %i.fas.fa-arrow-alt-circle-left
+        = link_to new_customer_order_path, class: "card__button btn btn-success btn-sm btn-space", title: t("orders.index.report") do
+          %i.fas.fa-plus-circle
+      .card
+        .card-body
+          %h3.align-center
+            %strong
+              =t('orders.index.my_orders')
+          .card-header.mt-4
+            = form_tag(customers_orders_path, method: :get, class:"form-inline justify-content-around")
+            = text_field_tag(:search, params[:search], {class: "form-control", placeholder: "ID", style: "width: 100%;"})
+            = select_tag "sync", customer_options_for_select_sync(@sync), {include_blank: t('base.filters.synchronization'), class: "form-control mr-ms-2", searchable:  t('base.filters.search')}
+            = select_tag "status", options_for_select_order_status(@status), {include_blank: t('base.filters.status'), class: "form-control mr-ms-2", searchable:  t('base.filters.search')}
+            = select_tag "tecnic", customer_options_for_select_tecnics(current_user.id, current_user.subsidiary_id, @tecnic), {include_blank: t('base.filters.technic'), class: "form-control mr-ms-2", searchable:  t('base.filters.search')}
+            = select_tag "city", customer_options_for_select_city(current_user.id, current_user.subsidiary_id, @city), {include_blank:  t('base.filters.city'), class: "form-control mr-ms-2", searchable:  t('base.filters.search')}
+            %button.btn.btn-outline-success{type: "submit"} Search
+            %i.fa.fa-times{id: "cancel_search", title: "Clear"}
+          .order-tableWrapper
+            %table#order-table.table.table-striped.table-bordered.table-hover.table-sm.btn-table{:cellspacing => "0", :width => "100%"}
+              %thead.secondary-color.white-text.align-center
+                %tr
+                  %th.center
+                    = t('orders.index.id')
+                  %th.center
+                    = t('orders.index.date')
+                  %th.center
+                    = t('orders.index.description')
+                  %th.center
+                    = t('orders.index.address')
+                  %th.center
+                    = t('orders.index.city')
+                  %th.center
+                    = t('orders.index.install_date')
+                  %th.center
+                    = t('orders.index.status')
+                  %th.center
+                    = t('orders.index.sync')
+                  %th.center.options.th-sm
+                    =t('orders.index.options')
+              %tbody
+                - @orders.each do |order|
+                  %tr
+                    %td.align-center
+                      = order.internal_id ? order.internal_id : order.id
+                    %td.align-center
+                      = order.created_at.strftime("%Y-%m-%d")
+                      %br
+                      %small
+                        = order.created_at.strftime("%I:%M %p")
+                    %td{style:"width:35%"}
+                      = order.description
+                    %td.align-center
+                      = order.address
+                    %td.align-center
+                      = order.city.name
+                    %td.align-center
+                      = order.install_date
+                      %br
+                      %small
+                        = order.install_time ? order.install_time.strftime("%I:%M %p") : ''
+                    %td.align-center
+                      - case order.status_id
+                      - when 500
+                        %b.badge.badge-pill.badge-light
+                          = t('orders.status.request')
+                      - when 501
+                        %b.badge.badge-pill.badge-info
+                          = t('orders.status.assigned')
+                      - when 502
+                        %b.badge.badge-pill.badge-primary
+                          = t('orders.status.in_progress')
+                      - when 503
+                        %b.badge.badge-pill.badge-danger
+                          = t('orders.status.rejected')
+                      - when 504
+                        %b.badge.badge-pill.badge-success
+                          = t('orders.status.done')
+                      - else
+                        %b.badge.badge-pill.badge-warning
+                          = t('orders.status.pre_order')
+
+                    %td.align-center
+                      - if order.sync
+                        %i.material-icons.sync sync
+                      - else
+                        %i.material-icons.desync sync_disabled
+                    %td
+                      - if order.status.id == 504
+                        = link_to customer_order_path(order.slug, format: :pdf), class: 'card__button btn btn-primary btn-sm btn-space', title: t("orders.index.download") , target: "_blank" do
+                          %i.fas.fa-file-download
+                      = link_to customer_order_path(order.slug), class: 'card__button btn btn-info btn-sm btn-space', title: t("base.forms.details") do
+                        %i.fas.fa-info-circle
+                      - if order.status_id == 505 && !order.sync
+                        = link_to edit_customer_order_path(order.slug), class: 'card__button btn btn-success btn-sm btn-space', title: t("base.forms.edit") do
+                          %i.fas.fa-edit
+                        .btn-group-vertical{class: "card__button btn btn-danger btn-sm btn-space", "data-target" => "#modal_destroy_order_#{order.slug}", "data-toggle" => "modal", type: "button", title: t("base.forms.delete")}
+                          %i.fas.fa-trash-alt
+                        .modal{id: "modal_destroy_order_#{order.slug}", "aria-hidden" => "true", "aria-labelledby" => "modal_user_activation", role: "dialog", tabindex: "-1"}
+                          .modal-dialog.modal-dialog-centered.modal{role: "document"}
+                            .modal-content
+                              .modal-header
+                                %h5.modal-title{style: "margin-left: auto;"}
+                                  = "#{t("base.forms.delete")} #{order.internal_id}"
+                                %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+                                  %span{"aria-hidden" => "true"} ×
+                              .modal-body.align-center
+                                = "#{t("base.forms.delete")} #{order.internal_id}"
+                              .modal-footer
+                                = link_to "Ok", customer_destroy_path(order.slug), method: :delete, class: 'btn btn-danger', style: "margin-left: auto; margin-right: auto;", href: "/customers/orders/#{order.slug}", title: "Ok"
+                                %button.btn.btn-success{"data-dismiss" => "modal", type: "button", style: "margin-left: auto; margin-right: auto;", title: "Cancel"} Cancel

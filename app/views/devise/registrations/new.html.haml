@@ -1,0 +1,82 @@
+.container
+  .row
+    .col-sm-8.col-md-6.col-lg-6
+      .card.light-1.p-0.background_video
+        = video_tag "https://ordenappbucket.s3.amazonaws.com/ordenapp_main_page+liviano.mp4", :playsinline => true, :controls => false, :autoplay => true, :width => "100%", :id => "video_presentation", :preload => "auto", :muted => true, :loop => false
+    .col-sm-8.col-md-6.col-lg-6
+      .card.light-1.p-0
+        %h3.card-header.info-color.white-text.text-center.py-4.mb-3
+          = t("session.index.sign_up")
+        .card-body.px-lg-5.text-center
+          = link_to user_facebook_omniauth_authorize_path, class: "btn btn-primary", style: "background-color: #3b5998 !important" do
+            %i.fab.fa-facebook-f
+          = link_to user_google_oauth2_omniauth_authorize_path, class: "btn btn-primary", style: "background-color: #dd4b39 !important" do
+            %i.fab.fa-google
+          %br
+          %br
+            = t("session.index.or")
+          %button.btn.btn-primary#email_register{:type => "button"}
+            = t("session.index.email_register")
+          #form_new_email
+            = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { autocomplete: "off" }) do |f|
+              = render "devise/shared/error_messages", resource: resource
+              .row
+                .col-6
+                  .form__field--input.md-form.field#verify_name.validate_field
+                    = f.label t("users.index.name"), {"data-error" => "wrong", "data-success" => "right"}
+                    = f.text_field :first_name, autofocus: true, required: true, minlength: 3, class: "form-control validate", id: "autocomplete-name", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+                    .invalid-feedback
+                      = t("base.forms.err_2")
+                .col-6
+                  .form__field--input.md-form.field#verify_lastname.validate_field
+                    = f.label t("users.index.last_name"), {"data-error" => "wrong", "data-success" => "right"}
+                    = f.text_field :last_name, required: true, minlength: 3, class: "form-control validate", id: "autocomplete-lastname", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+                    .invalid-feedback
+                      = t("base.forms.err_2")
+                .col
+                  .form__field--input.md-form
+                    = f.label t("users.index.phone_1")
+                    = f.number_field :phone_number_1, type: "tel", maxlength: 20, onkeypress:"if ( isNaN( String.fromCharCode(event.keyCode) )) return false;", class: "form-control", id: "autocomplete-phone_number_1", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+                    .invalid-feedback
+                      = t("profile.invalid_tel")
+                  .form__field--input.md-form.field#verify_corporation.validate_field
+                    = f.label t("corporation.index.name")
+                    = f.text_field :corporation_id, {class: "input-field autocomplete form-control validate", id: "autocomplete-corporation",  :autocomplete => :off, minlength: 3, required: "true", style: "margin-bottom: 0.5rem;"}
+                    .invalid-feedback
+                      = t("profile.invalid_corporation")
+                  .form__field--input.md-form.field#verify_email.validate_field
+                    = f.label t("users.index.email"), {"data-error" => "wrong", "data-success" => "right"}
+                    = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'example@mail.com', :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+                    .invalid-feedback
+                      = t("profile.invalid_email")
+                  .form__field--input.md-form.field#verify_pass.validate_field
+                    = f.label t("profile.password")
+                    = f.password_field :password, autocomplete: "new-password", :class => "form-control"
+                    %span{toggle: "#user_password", class: "fa fa-fw fa-eye-slash field-icon toggle-password"}
+                    - if @minimum_password_length
+                      %small.form-text.text-muted
+                        = t("profile.password_length")
+                    .invalid-feedback
+                      = t("profile.invalid_pattern_password")
+                  .form__field--input.md-form.field#verify_pass_confirm.validate_field
+                    = f.label t("profile.password_confirmation")
+                    = f.password_field :password_confirmation, autocomplete: "new-password", :class => "form-control"
+                    %span{toggle: "#user_password_confirmation", class: "fa fa-fw fa-eye-slash field-icon toggle-password"}
+                    .invalid-feedback
+                      = t("profile.mismatched_password")
+                  .check-div
+                    %input#acceptCheck.form-check-input.validate_check{type: "checkbox", required: "true", checked: true, name: "acceptCheck"}
+                    %label{:for => "acceptCheck"}
+                      %a{href: "https://ordenapp.co/terminos-y-condiciones", target: "_blank", title: t('home.index.terms') }
+                        = t("home.index.terms")
+                    .invalid-feedback
+                      = t("session.index.terms_service")
+              .row.justify-content-center.flex-column.align-items-center
+                %button.btn.btn-outline-success.btn-rounded.btn-block.form__submit.my-4{:type => "submit", id: "register", class: "not_continue"}
+                  = t("session.index.register")
+                %p
+                  = t("session.index.member")
+                  %a.form-link{:href => "/en/users/sign_in"}
+                    = t("session.index.sign_in")
+    -# = render "home/first_section"
+= render "home/whatsapp_button"

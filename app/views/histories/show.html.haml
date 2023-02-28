@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %strong Thing:
+  = @history.thing
+%p
+  %strong Description:
+  = @history.description
+%p
+  %strong Text:
+  = @history.text
+= link_to 'Edit', edit_history_path(@history)
+|
+\#{link_to 'Back', histories_path}

@@ -1,0 +1,85 @@
+.invisible#breadcrumb
+  = render_breadcrumbs
+.row.flex-box-center
+  .col.s12.m10.force_margin
+    .card.card-cascade.narrower.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-between.align-items-center
+        = link_to dashboard_path, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t("base.forms.back") do
+          %i.fas.fa-chevron-left
+        %h3.center.mt-2
+          %strong
+            =t("tools.index.tools")
+        = link_to new_tool_path, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t("tools.index.new") do
+          %i.fas.fa-plus
+      %nav.navbar.navbar-expand-lg.navbar-light.blue-grey.lighten-5.mt-4.pb-3.pb-lg-2
+        %p.navbar-brand.mb-0
+        = t('base.filters.filter')
+        %button.navbar-toggler{"aria-controls" => "filterbar", "aria-expanded" => "false", "aria-label" => "Toggle filter", "data-target" => "#filterbar", "data-toggle" => "collapse", :type => "button"}
+          %span.navbar-toggler-icon
+        #filterbar.collapse.navbar-collapse
+          = form_tag(tools_path, method: :get, class: "form-inline ml-auto filter-form", id: "tools-filter-form")
+          .row
+            .col-12.col-sm-6.col-md-3
+              .md-form.mt-0.mb-2.m-md-0.mx-2
+                = text_field_tag(:search, params[:search], {class: "form-control", placeholder: t('base.filters.search'), style: "width: 100%;"})
+            .col-12.col-sm-6.col-md-3
+              = select_tag "status", options_for_select_tool_status(@status), {include_blank: t('base.filters.status'), class: "mdb-select md-form colorful-select dropdown-dark my-select mt-0 mb-2 m-md-0 mx-2", :searchable => t('base.filters.search')}
+            .col-12.col-sm-6.col-md-3
+              = select_tag "tecnic", options_for_select_tool_tecnic(@current_user.subsidiary_id, @tecnic), {include_blank: t('base.filters.technic'), class: "mdb-select md-form colorful-select dropdown-dark my-select mt-0 mb-2 m-md-0 mx-2", :searchable => t('base.filters.search')}
+            .col-12.col-sm-6.col-md-3.d-flex.align-items-center.justify-content-center.flex-row
+              %button.btn.secondary-color.btn-rounded.btn-md.text-white.my-2.my-md-0.mx-2{:type => "submit"}
+                = t("base.forms.search")
+              %i.fa.fa-trash{id: "cancel_search_tools", title: "Clear Filter"}
+      .card.py-0
+        .card-body
+          .tool-tableWrapper
+            %table#tool-table.table.table-striped.table-bordered.table-hover.table-sm.btn-table{:cellspacing => "0", :width => "100%"}
+              %caption
+                = "#{t('base.forms.list_of')} #{t('tools.index.tools')}"
+              %thead.secondary-color.white-text.align-center
+                %tr
+                  %th.th-sm
+                    =t("tools.index.code_scan")
+                  %th.th-sm
+                    =t("tools.index.name")
+                  %th
+                    =t("tools.index.description")
+                  %th
+                    =t("tools.index.status")
+                  %th
+                    =t("tools.index.tecnic")
+                  %th.th-sm
+                    =t("base.forms.options")
+              %tbody
+                - @tools.each do |tool|
+                  %tr
+                    %td.limitado
+                      = tool.code_scan
+                    %td= tool.name
+                    %td= tool.description
+                    %td= tool_status_humanized(tool.status.description)
+                    %td= tool.tecnic ? "#{tool.try(:tecnic).try(:first_name)} #{tool.try(:tecnic).try(:last_name)}" : 'NA'
+                    %td.align-center
+                      = link_to edit_tool_path(tool.slug), class: 'card__button btn-floating btn-success btn-sm', style: "z-index: 0", title: t('tools.index.update') do
+                        %i.fas.fa-edit
+                      .btn-group-vertical{class: "card__button btn-floating btn-primary btn-sm", style: "z-index: 0", "data-target" => "#modal_tool_#{tool.slug}", "data-toggle" => "modal", type: "button", title: t('tools.index.details')}
+                        %i.fas.fa-info
+                      .modal{id: "modal_tool_#{tool.slug}", "aria-hidden" => "true", "aria-labelledby" => "modal_tool", role: "dialog", tabindex: "-1"}
+                        .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.modal-notify.modal-primary.modal-lg{role: "document"}
+                          .modal-content
+                            .modal-header
+                              %h5.modal-title.white-text{style: "margin-left: auto;"}
+                                = tool.name
+                              %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+                                %span.white-text{"aria-hidden" => "true"} ×
+                            .modal-body.thing-modal
+                              = render 'tool_modal_detail', tool: tool
+                            .modal-footer.justify-content-center
+                              %button.btn.btn-primary.btn-lg{"data-dismiss" => "modal", type: "button"}
+                                = t('tools.index.modal_close')
+                              = link_to show_tool_path(tool.slug), class: 'btn btn-lg btn-info' do
+                                = t("base.forms.all")
+                                %i.far.fa-eye
+
+                      = link_to show_tool_path(tool.slug), class: 'card__button btn-floating btn-yellow btn-sm', style: "z-index: 0", title: t("base.forms.all") do
+                        %i.far.fa-eye

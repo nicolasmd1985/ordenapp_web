@@ -1,0 +1,53 @@
+.row.flex-box-center
+  .col.s12.m12.force_margin
+    .card.card-cascade.narrower.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-center.align-items-center
+        %h3.center.mt-2
+          %strong{id: "orders"}
+            = t('orders.index.title2')
+      //.card.py-0
+      .card-body
+        .order-table-dashWrapper
+          %table#order-table-dash.table.table-striped.table-bordered.table-hover.table-sm.btn-table{:cellspacing => "0", :width => "100%"}
+            %caption
+              = "#{t('base.forms.list_of')} #{t('orders.index.title2')}"
+            %thead.secondary-color.white-text.align-center
+              %tr
+                %th.center.th-lg
+                  = t('orders.index.person_in_charge')
+                %th.center
+                  = t('orders.index.customer')
+                %th.center
+                  = t('orders.index.supervisor')
+                %th.center.order-description
+                  = t('orders.index.description')
+                %th.center
+                  = t('orders.index.to_do')
+                %th.center
+                  = t('orders.index.status')
+                %th.center
+                  = t('orders.index.sync')
+            %tbody
+              - @orders.each do |order|
+                %tr
+                  %td
+                    = "#{order.try(:tecnic).try(:first_name)} #{order.try(:tecnic).try(:last_name)}"
+                  %td
+                    = "#{order.try(:customer).try(:first_name)} #{order.try(:customer).try(:last_name)}"
+                  %td
+                    = order.try(:supervisor) ? "#{order.try(:supervisor).try(:first_name)} #{order.try(:supervisor).try(:last_name)}" : ''
+                  %td
+                    = truncate(order.description, length: 200, omission: '...')
+                  %td
+                    = order.install_time.strftime("%Y-%m-%d %I:%M%p")
+                  %td
+                    %b
+                      = order.status.description
+                    %br
+                      = order.updated_at.localtime.strftime("%Y-%m-%d %I:%M%p")
+                  %td.align-center
+                    - if order.sync
+                      %i.fas.fa-sync
+                    - else
+                      %i.small.material-icons.desync sync_disabled
+          = link_to "Show all #{@orders.count} orders", orders_path, role: "button", class: "btn btn-primary btn-sm", title: "Info"

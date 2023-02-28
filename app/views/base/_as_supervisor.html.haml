@@ -1,0 +1,24 @@
+%a.nav-link{style: "color:white; border-radius: 10px;", "data-target" => "#modal_as_supervisor", "data-toggle" => "modal", type: "button", title: t('users.index.as_supervisor')}
+  - if current_user.try(:subsidiary_id)
+    %i.fas.fa-toggle-on.material-tooltip-main.switch{"data-toggle" => "tooltip", "data-placement" => "left", "trigger" => "manual", :title => "#{t("users.index.subsidiary_view")}"}
+    //= t('users.index.subsidiary_view', subsidiary: current_user.try(:subsidiary).try(:name))
+  - else
+    %i.fas.fa-toggle-off.material-tooltip-main.switch{"data-toggle" => "tooltip", "data-placement" => "left", "trigger" => "manual", :title => "#{t("users.index.as_supervisor")}"}
+    //= t('users.index.as_supervisor')
+.modal{id: "modal_as_supervisor", "aria-hidden" => "true", "aria-labelledby" => "modal_as_supervisor", role: "dialog", tabindex: "-1"}
+  .modal-dialog.modal-dialog-centered.modal{role: "document"}
+    = form_tag(act_as_supervisor_path(), method: :patch, class: "form-horizontal") do |form|
+      .modal-content{style: "min-width: 500px;"}
+        .modal-header
+          %h5.modal-title{style: "margin-left: auto;"}
+            = t('users.index.as_supervisor')
+          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+            %span{"aria-hidden" => "true"} ×
+        .modal-body.align-center
+          .form__field--input.md-form
+            %label.mdb-main-label.active{"data-error" => "wrong", "data-success" => "right"}
+              = t("users.index.subsidiaries")
+            = select_tag :subsidiary_id , select_subsidiary_as_supervisor(current_user, current_user.subsidiary_id), {class: "mdb-select md-form mb-2 colorful-select dropdown-primary validate", style: "margin-bottom: 0.5rem;", :searchable => t('base.filters.search')}
+          %button.btn.btn-primary{:type => "submit"}
+            = t('users.index.watch')
+          %button.btn.btn-dark{"data-dismiss" => "modal", type: "button", style: "", title: "Cancel"} Cancel

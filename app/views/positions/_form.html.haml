@@ -1,0 +1,23 @@
+= form_with(model: position, local: true) do |form|
+  - if position.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(position.errors.count, "error")
+        prohibited this position from being saved:
+      %ul
+        - position.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = form.label :user_id
+    = form.text_field :user_id
+  .field
+    = form.label :thing_id
+    = form.text_field :thing_id
+  .field
+    = form.label :latitude
+    = form.text_field :latitude
+  .field
+    = form.label :longitude
+    = form.text_field :longitude
+  .actions
+    = form.submit

@@ -1,0 +1,22 @@
+%p#notice= notice
+%p
+  %strong Status:
+  = @subsidiary.status
+%p
+  %strong Name:
+  = @subsidiary.name
+%p
+  %strong Phone:
+  = @subsidiary.phone
+%p
+  %strong Address:
+  = @subsidiary.address
+%p
+  %strong Email:
+  = @subsidiary.email
+%p
+  %strong Identification:
+  = @subsidiary.identification
+= link_to 'Edit', edit_subsidiary_path(@subsidiary)
+|
+\#{link_to 'Back', subsidiaries_path}

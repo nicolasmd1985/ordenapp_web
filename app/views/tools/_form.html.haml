@@ -1,0 +1,43 @@
+- @tool = Tool.new unless @tool
+.invisible#breadcrumb
+  = render_breadcrumbs
+= form_with(model: tool, local: true, html: { autocomplete: "off", novalidate: "true" }, id: "tool_form", :class => "tool_form") do |form|
+  - if tool.errors.any?
+    #error_explanation.alert.alert-danger.alert-dismissible.fade.show{:role => "alert"}
+      %h5.alert-heading
+        = pluralize(tool.errors.count, "error")
+        = t("tools.index.err_1")
+      %ul
+        - tool.errors.full_messages.each do |message|
+          %li= message
+      %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+        %span{"aria-hidden" => "true"} ×
+  .row
+    .col-sm-6
+      .form__field--input.md-form
+        = form.label t("tools.index.name"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.text_field :name, required: true, minlength: 3, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          =t("base.forms.err_2")
+      .form__field--input.md-form
+        = form.label t("tools.index.code_scan"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.text_field :code_scan, minlength: 3, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+    .col-sm-6
+      - if @edit
+        .form__field--select.md-form
+          = form.label t("tools.index.status"), {"data-error" => "wrong", "data-success" => "right"}, :class => "active"
+          = form.select(:status_id, options_for_select_tool_status(@tool ? (@tool.try(:status_id) ? @tool.try(:status_id) : '401') : '401'), {}, {class: "mdb-select md-form mb-2 colorful-select dropdown-primary validate", style: "margin-bottom: 0.5rem;"})
+      .form__field--select.md-form
+        = form.label t("tools.index.responsable"), {"data-error" => "wrong", "data-success" => "right"}, :class => "mdb-main-label active"
+        = form.select(:tecnic_id, options_for_select_tool_tecnic(current_user.subsidiary_id, @tool ? (@tool.try(:tecnic_id) ? @tool.try(:tecnic_id) : '') : ''), {include_blank: true}, {id: "tool-tecnic", class: "mdb-select colorful-select dropdown-primary", style: "margin-bottom: 0.5rem;", searchable: t('base.filters.search')})
+
+  .row
+    .col-sm-12.col-lg-12.col-md-12
+      .form__field--input.md-form
+        = form.label t("tools.index.description"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.text_area :description, required: true, minlength: 3, autocomplete: "nope", rows: 4, class: "form-control validate", style: "margin-bottom: 0.5rem; border-style: none;"
+        .invalid-feedback
+          =t("base.forms.err_2")
+  .row.justify-content-center
+    %button.btn.secondary-color.btn-rounded.form__submit{type: 'submit'}
+      = t('tools.index.save')

@@ -1,0 +1,193 @@
+// Place all the styles related to the Dashboard controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.map-container{
+  height: 81vh;
+  width: 100%;
+  margin: auto;
+}
+
+.map-container #map {
+  margin:0;
+  padding:0;
+  width: 100%;
+  height: 98%;
+}
+
+.carousel, .carousel-slider {
+  height: 87vh !important;
+}
+
+.indicators {
+  background-color: rgba(3,155,229,1);
+}
+
+.indicator-item {
+  margin: 12px 4px !important;
+}
+.order-description{
+  width: 40%;
+}
+@media (max-width: 992px) {
+  .order-description{
+    width: 100%;
+  }
+}
+/*********TABLES*********/
+/*********ORDERS TABLE********/
+.align-center {
+  text-align: center;
+
+  th {
+      vertical-align: middle !important;
+  }
+  .btn-group-vertical {
+      align-items: center;
+  }
+}
+#order-table-dash_wrapper .dataTables_scrollHead thead .sorting:before,
+#order-table-dash_wrapper .dataTables_scrollHead thead .sorting:after,
+#order-table-dash_wrapper .dataTables_scrollHead thead .sorting_asc:before,
+#order-table-dash_wrapper .dataTables_scrollHead thead .sorting_asc:after,
+#order-table-dash_wrapper .dataTables_scrollHead thead .sorting_desc:before,
+#order-table-dash_wrapper .dataTables_scrollHead thead .sorting_desc:after,
+#order-table-dash_wrapper .dataTables_scrollHead thead .sorting_asc_disabled:before,
+#order-table-dash_wrapper .dataTables_scrollHead thead .sorting_asc_disabled:after,
+#order-table-dash_wrapper .dataTables_scrollHead thead .sorting_desc_disabled:before,
+#order-table-dash_wrapper .dataTables_scrollHead thead .sorting_desc_disabled:after {
+  bottom: 1.1em;
+}
+#order-table-dash_length {
+  margin-top: 0.55rem;
+}
+#order-table-dash_length .form-control {
+  width: 50px;
+}
+#order-table-dash_length .dropdown-content {    
+  min-width: 3.25rem;
+}
+#order-table-dash.table-hover tbody tr:hover {
+  background-color: #e2eaff;
+  transition: .5s;
+}
+// #order-table-dash_wrapper .dataTables_scrollHeadInner {
+//     width: auto !important;
+// }
+// .my-custom-scrollbar {
+//     position: relative;
+//     height: 80vh;
+//     overflow: auto;
+// }
+//     .table-wrapper-scroll-y {
+//     display: block;
+// }
+.order-table-dashWrapper {
+  max-width: 950px;
+  margin: 0 auto;
+}
+.fa-sync:before {
+  color: #00c851;
+}
+
+/*********FINISHED ORDERS TABLE********/
+#orderf-table-dash_wrapper .dataTables_scrollHead thead .sorting:before,
+#orderf-table-dash_wrapper .dataTables_scrollHead thead .sorting:after,
+#orderf-table-dash_wrapper .dataTables_scrollHead thead .sorting_asc:before,
+#orderf-table-dash_wrapper .dataTables_scrollHead thead .sorting_asc:after,
+#orderf-table-dash_wrapper .dataTables_scrollHead thead .sorting_desc:before,
+#orderf-table-dash_wrapper .dataTables_scrollHead thead .sorting_desc:after,
+#orderf-table-dash_wrapper .dataTables_scrollHead thead .sorting_asc_disabled:before,
+#orderf-table-dash_wrapper .dataTables_scrollHead thead .sorting_asc_disabled:after,
+#orderf-table-dash_wrapper .dataTables_scrollHead thead .sorting_desc_disabled:before,
+#orderf-table-dash_wrapper .dataTables_scrollHead thead .sorting_desc_disabled:after {
+  bottom: 1.1em;
+}
+#orderf-table-dash_length {
+  margin-top: 0.55rem;
+}
+#orderf-table-dash_length .form-control {
+  width: 50px;
+}
+#orderf-table-dash_length .dropdown-content {    
+  min-width: 3.25rem;
+}
+#orderf-table-dash.table-hover tbody tr:hover {
+  background-color: #e2eaff;
+  transition: .5s;
+}
+// #orderf-table-dash_wrapper .dataTables_scrollHeadInner {
+//     width: auto !important;
+// }
+// .my-custom-scrollbar {
+//     position: relative;
+//     height: 80vh;
+//     overflow: auto;
+// }
+//     .table-wrapper-scroll-y {
+//     display: block;
+// }
+.orderf-table-dashWrapper {
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+/*********REQUESTED ORDERS TABLE********/
+#orderR-table-dash_wrapper .dataTables_scrollHead thead .sorting:before,
+#orderR-table-dash_wrapper .dataTables_scrollHead thead .sorting:after,
+#orderR-table-dash_wrapper .dataTables_scrollHead thead .sorting_asc:before,
+#orderR-table-dash_wrapper .dataTables_scrollHead thead .sorting_asc:after,
+#orderR-table-dash_wrapper .dataTables_scrollHead thead .sorting_desc:before,
+#orderR-table-dash_wrapper .dataTables_scrollHead thead .sorting_desc:after,
+#orderR-table-dash_wrapper .dataTables_scrollHead thead .sorting_asc_disabled:before,
+#orderR-table-dash_wrapper .dataTables_scrollHead thead .sorting_asc_disabled:after,
+#orderR-table-dash_wrapper .dataTables_scrollHead thead .sorting_desc_disabled:before,
+#orderR-table-dash_wrapper .dataTables_scrollHead thead .sorting_desc_disabled:after {
+  bottom: 0.4em;
+}
+#orderR-table-dash_length {
+  margin-top: 0.55rem;
+}
+#orderR-table-dash_length .form-control {
+  width: 50px;
+}
+#orderR-table-dash_length .dropdown-content {    
+  min-width: 3.25rem;
+}
+#orderR-table-dash.table-hover tbody tr:hover {
+  background-color: #e2eaff;
+  transition: .5s;
+}
+// #orderR-table-dash_wrapper .dataTables_scrollHeadInner {
+//     width: auto !important;
+// }
+// .my-custom-scrollbar {
+//     position: relative;
+//     height: 80vh;
+//     overflow: auto;
+// }
+//     .table-wrapper-scroll-y {
+//     display: block;
+// }
+.orderR-table-dashWrapper {
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+/*************NAV TABS**********/
+@media (max-width: 768px) {
+  #content #nav-tab {
+    justify-content: center;
+  }
+}
+@media (max-width: 380px) {
+  #content #nav-tab .nav-link {
+    font-size: 0.9em;
+  }
+}
+
+/*******AVATAR***********/
+.navbar .nav-item.avatar .dropdown-toggle img {
+  width: 35px;
+}

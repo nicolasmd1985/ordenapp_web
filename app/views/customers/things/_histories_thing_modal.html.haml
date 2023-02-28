@@ -1,0 +1,15 @@
+- @histories = histories_limited(thing)
+
+#accordion
+  - @histories.each do |history|
+    .card
+      .card-header{id: "heading_#{history.id}"}
+        %h5.mb-0
+          %button.btn.btn-info.collapsed{"aria-controls" => "collapse_#{history.id}", "aria-expanded" => "true", "data-target" => "#collapse_#{history.id}", "data-toggle" => "collapse"}
+            = "#{t('things.index.historical')} #{history.created_at.strftime("%Y-%m-%d - %T")}"
+      .collapse{id: "collapse_#{history.id}","aria-labelledby" => "heading_#{history.id}", "data-parent" => "#accordion"}
+        .card-body
+          = history.description
+        %br
+          %h6
+            = t('things.index.h6_text', tecnic: history.tecnic_name, order: history.order.internal_id).html_safe

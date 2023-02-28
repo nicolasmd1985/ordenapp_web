@@ -1,0 +1,42 @@
+.row.flex-box-center
+  .col.s12.m10.force_margin
+    .card.card-cascade.narrower.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-between.align-items-center
+        = link_to dashboard_path, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t("base.forms.back") do
+          %i.fas.fa-chevron-left
+        %h3.center.mt-2
+          %strong
+            = t("notifications.notifications")
+        = link_to dashboard_path, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2 disabled hidden", title: t("base.forms.back") do
+          %i.fas.fa-plus
+      .card.py-0
+        .card-header.align-center
+          = link_to "Mark all as read", read_all_notifications_path, class: "btn btn-primary btn-sm", title: t('notifications.all_read')
+          = link_to "Delete all", delete_all_notifications_path, class: "btn btn-primary btn-sm", title: t('notifications.delete_all')
+          = link_to "Delete readed", delete_readed_notifications_path, class: "btn btn-primary btn-sm", title: t('notifications.delete_readed')
+        .card-body
+          %table.table.table-sm{id: "notifications_table"}
+            %thead
+              %tr
+                %th
+                  = t('notifications.date')
+                %th
+                  = t('notifications.order')
+                %th
+                  = t('notifications.status')
+                %th
+                  = t('notifications.readed')
+            %tbody
+              - @notifications.each do |notification|
+                - unread = ""
+                - unless notification.readed
+                  - unread = "unread"
+                %tr{class: "#{unread}"}
+                  %td
+                    = notification.created_at.strftime("%Y-%m-%d %T")
+                  %td
+                    = link_to notification.order_internal_id, show_order_path(notification.order_slug), id: "notify-#{notification.id}"
+                  %td
+                    = order_status_humanized(notification.order_status)
+                  %td
+                    = notification.read_at ? notification.read_at.strftime("%Y-%m-%d %T") : 'NA'

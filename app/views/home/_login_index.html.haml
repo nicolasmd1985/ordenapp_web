@@ -1,0 +1,50 @@
+.full-page-intro
+  .mask.rgba-black-light.d-flex.justify-content-center.align-items-center
+    .container
+      .row.slider
+        .col-md-6.mb-4.white-text.text-center.text-md-left{"data-aos" => "zoom-out", "data-aos-duration" => '1500', "data-aos-once" => "true"}
+          %h1.display-4.font-weight-bold
+            =t("welcome.home.title_1")
+          %hr.hr-light
+          %p.mb-4.d-none.d-md-block
+            %strong
+              =t("welcome.home.sub_title")
+          %a.btn.btn-primary--opacity.hvr-bounce-to-right{:type => "button", "data-toggle" => "modal", "data-target" => "#videoModal"}
+            =t("welcome.home.video")
+            %i.fa.fa-graduation-cap.ml-2
+  .background_video
+    = video_tag "DSCF5181_1.webm", :controls => false, :autoplay => true, :width => "100%", :id => "video_presentation", :preload => "auto", :muted => true, :loop => true
+%footer.page-footer.font-small
+  .container.text-center.text-md-left.mt-5
+    .row.mt-3
+      .col-md-3.col-lg-4.col-xl-3.mx-auto.mb-4
+        %h6.text-uppercase.font-weight-bold
+          OrdenApp
+        %hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto{:style => "width: 60px;"}
+        %p
+          Es una solución empresarial para optimizar la gestión de
+          instalaciones, mantenimientos y reparaciones.
+      .col-md-4.col-lg-3.col-xl-3.mx-auto.mb-md-0.mb-4
+        %h6.text-uppercase.font-weight-bold
+          Contacto
+        %hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto{:style => "width: 60px;"}
+        %p
+          %i.fa.fa-home.mr-3
+          Cll 106 N 56 - 62 Of. 507, Bogotá, Colombia
+        %p
+          %i.fa.fa-envelope.mr-3
+          info@ordenapp.co
+        %p
+          %i.fa.fa-phone.mr-3
+          + 57 350 248 5063
+  .footer-copyright.text-center.py-3
+    © 2020 Copyright:
+    %a{:href => "https://ordenapp.co/"}
+      OrdenApp.co
+      
+  .modal.fade.bottom#videoModal{:tabindex => "-1", :role => "dialog", "aria-labelledby" => "myModalLabel", "aria-hidden" => "true"}
+    .modal-dialog.modal-dialog.modal-lg{:role => "document"}
+      .modal-content
+        .modal-body.mb-0.p-0
+          .embed-responsive.embed-responsive-16by9.z-depth-1-half
+            %iframe{:allow => "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture", :allowfullscreen => "", :frameborder => "0", :src => "https://www.youtube.com/embed/UuJgdjkiMOY?rel=0&controls=0", :autoplay => true, :id => "youtube_video"}

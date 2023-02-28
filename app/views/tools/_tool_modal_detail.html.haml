@@ -1,0 +1,66 @@
+.card.card-cascade.narrower.pt-0.light-1
+  .view.view-cascade.gradient-card-header.indigo.narrower.py-3.mx-4.d-flex.justify-content-center.align-items-center
+    %h5.center.mt-2
+      %strong
+        = t("tools.index.info")
+  .card-body
+    .row
+      .col-12.col-lg-6
+        %ul.list-group.list-group-flush
+          %li.list-group-item
+            %i.far.fa-newspaper.mr-3{"aria-hidden" => "true"}
+            %p
+              %b
+                = t("tools.index.slug")
+              = tool.slug
+          %li.list-group-item
+            %i.fas.fa-calendar-check.mr-3{"aria-hidden" => "true"}
+            %p
+              %b
+                = t("tools.index.code_scan")
+              = tool.code_scan
+          %li.list-group-item
+            %i.far.fa-newspaper.mr-3{"aria-hidden" => "true"}
+            %p
+              %b
+                = t("tools.index.name")
+              = tool.name
+          %li.list-group-item
+            %i.fas.fa-signature.mr-3{"aria-hidden" => "true"}
+            %p
+              %b
+                =t("tools.index.description")
+              = tool.description
+          %li.list-group-item
+            %i.fas.fa-info-circle.mr-3{"aria-hidden" => "true"}
+            %p
+              %b
+                =t("tools.index.status")
+              = tool.status.description
+      .col-12.col-lg-6
+        %ul.list-group.list-group-flush
+          %li.list-group-item
+            %i.far.fa-calendar-alt.mr-3{"aria-hidden" => "true"}
+            %p
+              %b
+                =t("tools.index.registered")
+              = tool.user ? "#{tool.try(:user).try(:first_name) } #{tool.try(:user).try(:last_name)}" : 'NA'
+          %li.list-group-item
+            %i.fas.fa-qrcode.mr-3{"aria-hidden" => "true"}
+            %p
+              %b
+                =t("tools.index.created")
+              = tool.created_at ? tool.created_at.strftime("%Y-%m-%d - %T") : 'NA'
+          %li.list-group-item
+            %i.fas.fa-redo.mr-3{"aria-hidden" => "true"}
+            %p
+              %b
+                =t("tools.index.updated")
+              = tool.updated_at ? tool.updated_at.strftime("%Y-%m-%d - %T") : 'NA'
+          %li.list-group-item
+            %i.fas.fa-user-tie.mr-3{"aria-hidden" => "true"}
+            %p
+              %b
+                =t("tools.index.tecnic")
+              = tool.tecnic ? "#{tool.try(:tecnic).try(:first_name) } #{tool.try(:tecnic).try(:last_name)}" : 'NA'
+  .card-footer.text-muted.text-center

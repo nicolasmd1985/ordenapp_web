@@ -1,0 +1,20 @@
+%p#notice= notice
+%h1 Histories
+%table
+  %thead
+    %tr
+      %th Thing
+      %th Description
+      %th Text
+      %th{:colspan => "3"}
+  %tbody
+    - @histories.each do |history|
+      %tr
+        %td= history.thing
+        %td= history.description
+        %td= history.text
+        %td= link_to 'Show', history
+        %td= link_to 'Edit', edit_history_path(history)
+        %td= link_to 'Destroy', history, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New History', new_history_path

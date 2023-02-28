@@ -1,0 +1,50 @@
+%table.es-content{:align => "center", :cellpadding => "0", :cellspacing => "0"}
+  %tbody
+    %tr
+    %tr
+      %td.esd-stripe{:align => "center"}
+        %table.es-content-body{:align => "center", :bgcolor => "#3e454c", :cellpadding => "0", :cellspacing => "0", :style => "background-color: #3e454c;", :width => "600"}
+          %tbody
+            %tr
+              %td.esd-structure.es-p20t.es-p20b.es-p20r.es-p20l{:align => "left"}
+                %table.es-left{:align => "left", :cellpadding => "0", :cellspacing => "0"}
+                  %tbody
+                    %tr
+                      %td.es-m-p20b.esd-container-frame{:align => "left", :width => "430"}
+                        %table{:cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                          %tbody
+                            %tr
+                              %td.esd-block-text.es-m-txt-c{:align => "left"}
+                                %p{style: "color: #ffffff;"}
+                                  = "#{t('corporation.index.name')}: #{@corporation.name}"
+                                %p{style: "color: #fff;"}
+                                  = t('corporation.index.invitation')
+%table.es-footer.esd-footer-popover{:align => "center", :cellpadding => "0", :cellspacing => "0"}
+  %tbody
+    %tr
+      %td.esd-stripe{:align => "center"}
+        %table.es-footer-body{:align => "center", :cellpadding => "0", :cellspacing => "0", :width => "600"}
+          %tbody
+            %tr
+              %td.es-p20t.es-p20r.es-p20l.esd-structure{:align => "left"}
+                %table{:cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                  %tbody
+                    %tr
+                      %td.esd-container-frame{:align => "center", :valign => "top", :width => "560"}
+                        %table{:cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                          %tbody
+                            %tr
+                              %td.esd-block-text.es-p10b{:align => "center", "esdev-links-color" => "#999999"}
+                                %p
+                                  This email was sent to
+                                  = succeed "." do
+                                    %a{:href => "#{@user.email}", :style => "text-align: center", :target => "_blank"}
+                                      = @user.email
+                                %p
+                                  = t('mailers.general.news')
+
+                            %tr
+                              %td.esd-block-text.es-p10b{:align => "center"}
+                                %p
+                                  %a.unsubscribe{:href => "", :style => "text-align: center;", :target => "_blank"}
+                                    = t('mailers.general.unsubscribe')

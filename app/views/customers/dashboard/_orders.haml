@@ -1,0 +1,82 @@
+.invisible#breadcrumb
+  = render_breadcrumbs
+.row.flex-box-center
+  .col.s12.m12.force_margin
+    .card.no-top
+      .card-body
+        %h4.align-center.no-top
+          = t("dashboard.customers.orders")
+        .order-table-dashWrapper
+          %table#order-table-dash.table.table-striped.table-bordered.table-hover.table-sm.btn-table{:cellspacing => "0", :width => "100%"}
+            %thead.secondary-color.white-text.align-center
+              %tr
+                %th.center
+                  = t("orders.index.date")
+                %th.center
+                  = t('orders.index.description')
+                %th.center
+                  = t('orders.index.address')
+                %th.center
+                  = t("orders.index.status")
+                %th.center
+                  = t('orders.index.sync')
+                %th.center.options.th-sm
+                  =t('orders.index.options')
+            %tbody
+              - @orders.each do |order|
+                %tr
+                  %td.align-center
+                    = order.created_at.strftime("%Y-%m-%d")
+                    %br
+                    %small
+                      = order.created_at.strftime("%I:%M %p")
+                  %td.order-description
+                    = order.description
+                  %td.align-center
+                    = order.address
+                  %td.align-center
+                    - case order.status_id
+                    - when 500
+                      %b.badge.badge-pill.badge-light
+                        = t('orders.status.request')
+                    - when 501
+                      %b.badge.badge-pill.badge-info
+                        = t('orders.status.assigned')
+                    - when 502
+                      %b.badge.badge-pill.badge-primary
+                        = t('orders.status.in_progress')
+                    - when 503
+                      %b.badge.badge-pill.badge-danger
+                        = t('orders.status.rejected')
+                    - else
+                      %b.badge.badge-pill.badge-warning
+                        = t('orders.status.pre_order')
+                  %td.align-center
+                    - if order.sync
+                      %i.material-icons.sync sync
+                    - else
+                      %i.material-icons.desync sync_disabled
+                  %td
+                    = link_to customer_order_path(order.slug), class: 'card__button btn btn-info btn-sm btn-space', title: t("base.forms.details") do
+                      %i.fas.fa-info-circle
+                    - if order.status_id == 505 && !order.sync
+                      = link_to edit_customer_order_path(order.slug), class: 'card__button btn btn-success btn-sm btn-space', title: t("base.forms.edit") do
+                        %i.fas.fa-edit
+                      .btn-group-vertical{class: "card__button btn btn-danger btn-sm btn-space", "data-target" => "#modal_destroy_order_#{order.slug}", "data-toggle" => "modal", type: "button", title: t("base.forms.delete")}
+                        %i.fas.fa-trash-alt
+                      .modal{id: "modal_destroy_order_#{order.slug}", "aria-hidden" => "true", "aria-labelledby" => "modal_user_activation", role: "dialog", tabindex: "-1"}
+                        .modal-dialog.modal-dialog-centered.modal{role: "document"}
+                          .modal-content
+                            .modal-header
+                              %h5.modal-title{style: "margin-left: auto;"}
+                                = "#{t("base.forms.delete")} #{order.internal_id}"
+                              %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+                                %span{"aria-hidden" => "true"} ×
+                            .modal-body.align-center
+                              = "#{t("base.forms.delete")} #{order.internal_id}"
+                            .modal-footer
+                              = link_to "Ok", customer_destroy_path(order.slug), method: :delete, class: 'btn btn-danger', style: "margin-left: auto; margin-right: auto;", href: "/customers/orders/#{order.slug}", title: "Ok"
+                              %button.btn.btn-success{"data-dismiss" => "modal", type: "button", style: "margin-left: auto; margin-right: auto;", title: "Cancel"} Cancel
+
+          %br
+            = link_to "Show all #{@orders.count} orders", customers_orders_path, class: 'btn btn-info btn-sm', title: "Info"

@@ -1,0 +1,14 @@
+.row.flex-box-center
+  .col.s12.m10.force_margin
+    .card.card-cascade.narrower.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-between.align-items-center
+        = link_to things_path, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t("base.forms.back") do
+          %i.fas.fa-chevron-left
+        %h3.center.mt-2
+          %strong
+            = @thing.name
+        = link_to thing_path(@thing.slug), role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t("base.forms.details") do
+          %i.fas.fa-info
+      .card.py-0
+        .card-body
+          = render 'form', thing: @thing

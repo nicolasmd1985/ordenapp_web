@@ -1,0 +1,35 @@
+%ul.nav.navbar-nav.mr-auto
+  %li#nav-logo.nav-item.avatar.white-text.position-relative
+    - if current_user.try(:corporation).try(:urlavatar).present?
+      %img#avatar-logo{:src => current_user.try(:corporation).try(:urlavatar), class: "rounded-circle z-depth-0", alt: "main logo"}
+    - else
+      = image_tag "logo.jpg", class: "rounded-circle z-depth-0 d-none", :alt => "main logo", id: "avatar-logo"
+    - if user_signed_in? && (!current_user.try(:subsidiary_id).nil? || !current_user.try(:corporation_id).nil?)
+      - corporation = Corporation.corporation_name(current_user.try(:corporation_id))
+      = corporation
+%ul.nav.navbar-nav.nav-flex-icons.ml-auto
+  %li.nav-item
+    %a.nav-link.waves-effect.waves-light.white-text.d-none
+      1
+      %i.fas.fa-envelope
+  %li.nav-item.avatar.dropdown
+    %a#userMenu.nav-link.dropdown-toggle.material-tooltip-main{"data-toggle" => "tooltip", "data-placement" => "bottom", "data-html" => "true", :title => "<b>#{current_user.role}</b><br>#{current_user.first_name} #{current_user.last_name}", "aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown"}
+      - if current_user.try(:urlavatar).present?
+        %img.rounded-circle.z-depth-0{:alt => "avatar image", :src => current_user.try(:urlavatar)}
+      - else
+        = image_tag "avatar-icon.png", class: "rounded-circle z-depth-0", :alt => "avatar image"
+    .dropdown-menu.dropdown-menu-right.dropdown-secondary{"aria-labelledby" => "userMenu"}
+      - if current_user.role == 'customer'
+        = link_to contact_company_path, title: t("customers.contact.contact"), class: "nav-link dropdown-item" do
+          %i.fab.fas.fa-warehouse.text-center{style: "width: 24px;"}
+          %span.clearfix
+            = t("customers.contact.contact")
+      = link_to edit_user_registration_path, title: t("base.navbar.edit_profile"), class: "nav-link dropdown-item" do
+        %i.fab.fas.fa-user-circle.text-center{style: "width: 24px;"}
+        %span.clearfix
+          = t("base.navbar.edit_profile")
+      %hr.hr-dark.my-1
+      = link_to destroy_user_session_path, title: t("base.navbar.logout"), class: "nav-link dropdown-item", method: :delete do
+        %i.fas.fa-sign-out-alt.text-center{style: "width: 24px;"}
+        %span.clearfix
+          = t("base.navbar.logout")

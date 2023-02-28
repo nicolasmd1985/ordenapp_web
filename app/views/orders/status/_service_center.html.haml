@@ -1,0 +1,38 @@
+.row.flex-box-center.order-detail
+  .col.s12.m10.force_margin
+    .card.card-cascade.narrower.mt-5.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-center.align-items-center
+        %h3.center.mt-2
+          =t("orders.index.referral")
+      .card-body.ovf-visible
+        .row.row-cols-1.row-cols-md-2
+          - if @order.out_thing.present?
+            - @histories.each do |history|
+              .col.mb-4
+                .card.h-100
+                  %h5.card-header
+                    #{t('things.index.device')} #{history.out_thing.thing.name}
+                  .view.overlay
+                    .carousel.slide{"data-ride" => "carousel", "data-interval" => "false", :id => "carousel#{history.id}" }
+                      .carousel-inner.mt-4.mb-3
+                        - history.photos.each do |photo|
+                          .carousel-item
+                            .view
+                              %img.img-fluid.card-img-top.d-block{:alt => "Device image#{history.id}", :src => "https://ordenappbucket.s3.amazonaws.com/#{photo}", style: "margin: 0 auto;"}
+                            .carousel-caption
+                              %h3.h3-responsive
+                                = history.description
+                              %p Image 1
+                      %a.carousel-control-prev{"data-slide" => "prev", :href => "#carousel#{history.id}", :role => "button"}
+                        %span.carousel-control-prev-icon{"aria-hidden" => "true"}
+                        %span.sr-only Previous
+                      %a.carousel-control-next{"data-slide" => "next", :href => "#carousel#{history.id}", :role => "button"}
+                        %span.carousel-control-next-icon{"aria-hidden" => "true"}
+                        %span.sr-only Next
+                  .card-body
+                    %p.card-text
+                      = history.description
+                    = link_to show_thing_path(history.out_thing.thing.slug), class: 'btn btn-primary btn-sm' do
+                      =t('orders.index.details')
+                  .card-footer.text-muted.text-center
+                    = "#{t('base.forms.updated_at')} #{@order.updated_at.strftime("%Y-%m-%d")}"

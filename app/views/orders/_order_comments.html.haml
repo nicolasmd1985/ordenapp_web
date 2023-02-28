@@ -1,0 +1,20 @@
+.collapse{id: "collapse_comments"}
+  .card-body
+    %table.table-bordered.table-hover.table-sm.table-responsive
+      %thead.secondary-color.white-text.align-center
+        %tr
+          %th.align-center
+            = t('orders.comments.user')
+          %th.align-center
+            = t('orders.comments.comment')
+          %th.align-center
+            = t('orders.comments.date')
+      %tbody
+        - comments.each do |comment|
+          %tr
+            %td
+              = "#{comment.user.first_name} #{comment.user.last_name} - (#{comment.user.role})"
+            %td
+              = comment.description
+            %td
+              = "#{comment.created_at.strftime("%Y-%m-%d")} #{comment.created_at.strftime("%T")}"

@@ -1,0 +1,46 @@
+= form_with(model: maintenance, local: true, html: { autocomplete: "off", novalidate: "true" },  id: "maintence_form", :class => "maintenance_form") do |form|
+  - if maintenance.errors.any?
+    #error_explanation.alert.alert-danger.alert-dismissible.fade.show{:role => "alert"}
+      %h5.alert-heading
+        = pluralize(maintenance.errors.count, "error")
+        prohibited this maintenance from being saved:
+      %ul
+        - maintenance.errors.full_messages.each do |message|
+          %li= message
+      %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+        %span{"aria-hidden" => "true"} ×
+
+  .card
+    .card-header
+      %h5.mb-0
+        = "Programacion del mantenimiento"
+      .card-body
+        .row
+          .col-12.col-sm-12.col-md-12
+            .view.overlay.ovf-visible.mb-4.mb-md-auto
+              .row
+                .col-sm-6
+                  .field.md-form.input-with-post-icon.datepicker
+                    = form.label t("maintenaces.index.maintenance_date"), {"data-error" => "wrong", "data-success" => "right"}, :class => "mdb-main-label"
+                    = form.text_field :maintenance_date, class: "form-control validate", value: @maintenance.maintenance_date ? @maintenance.maintenance_date.strftime("%d %B, %Y")  : "", style: "margin-bottom: 0.5rem;", placeholder: t('base.forms.select_date')
+                    %i.fas.fa-calendar.input-prefix
+                    .invalid-feedback
+                      =t("base.forms.err_2")
+                .col-sm-6
+                  .form__field--input.md-form.input-with-post-icon.timepicker{:twelvehour => "true", :default => "now", :closetext => t('base.forms.cancel'), :cleartext => t('base.forms.clear'), :donetext => t('base.forms.save')}
+                    = form.label t("maintenaces.index.maintenance_time"), {"data-error" => "wrong", "data-success" => "right"}, :class => "mdb-main-label"
+                    = form.text_field :maintenance_time, class: "form-control validate", value: @maintenance.maintenance_date ? @maintenance.maintenance_date.strftime("%I:%M%p") : "", required: true, placeholder: t('base.forms.select_hour'), style: "margin-bottom: 0.5rem;", readonly: true
+                    %i.fas.fa-clock.input-prefix
+                    .invalid-feedback
+                      =t("base.forms.err_4")
+
+              .form__field--input.md-form
+                = form.label t("orders.index.contact"), {"data-error" => "wrong", "data-success" => "right"}
+                = form.select :frequency, options_for_select_frequency(@maintenance.frequency), {}, {:class => "mdb-select md-form mb-2 colorful-select dropdown-primary validate customer-sel", style: "margin-bottom: 0.5rem;", searchable: t('base.filters.search')}
+              .hide
+                = form.label :out_thing_id
+                = form.text_field :out_thing_id, value: ot_id
+
+        .row.justify-content-center
+          %button.btn.secondary-color.btn-rounded.form__submit.my-4.p-0
+            = form.submit

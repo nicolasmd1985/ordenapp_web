@@ -1,0 +1,16 @@
+%p#notice= notice
+%p
+  %strong User:
+  = @position.user
+%p
+  %strong Thing:
+  = @position.thing
+%p
+  %strong Latitude:
+  = @position.latitude
+%p
+  %strong Longitude:
+  = @position.longitude
+= link_to 'Edit', edit_position_path(@position)
+|
+\#{link_to 'Back', positions_path}

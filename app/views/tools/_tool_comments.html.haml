@@ -1,0 +1,18 @@
+%table.table-hover.table-sm.table-responsive
+  %thead.secondary-color.white-text.align-center
+    %tr
+      %th.align-center
+        = t('tools.index.user')
+      %th.align-center
+        = t('tools.index.comment')
+      %th.align-center
+        = t('tools.index.date')
+  %tbody
+    - @comments.each do |comment|
+      %tr
+        %td
+          = "#{comment.user.first_name} #{comment.user.last_name} - (#{comment.user.role})"
+        %td
+          = comment.comment
+        %td
+          = "#{comment.created_at.strftime("%Y-%m-%d")} #{comment.created_at.strftime("%T")}"

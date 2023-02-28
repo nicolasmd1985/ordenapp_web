@@ -1,0 +1,13 @@
+%h4.text-center
+  %strong
+    =t("home.index.demo")
+.text-center
+  = render "button_request"
+%fieldset
+%hr
+  %input#checkbox2.form-check-input.validate_check{:type => "checkbox", required: "true"}
+  %label.form-check-label.dark-grey-text{:for => "checkbox2"}
+    %a{ :href => "https://ordenapp.co/terminos-y-condiciones", :target => "_blank", :title => t('home.index.terms') }
+      =t("home.index.terms")
+  .invalid-feedback
+    = t("session.index.terms_service")

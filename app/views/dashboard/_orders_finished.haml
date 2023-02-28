@@ -1,0 +1,47 @@
+.row.flex-box-center
+  .col.s12.m12.force_margin
+    .card.card-cascade.narrower.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-center.align-items-center
+        %h3.center.mt-2
+          %strong{id: "finish"}
+            = t('orders.index.finish_title')
+      //.card 
+      .card-body
+        .orderf-table-dashWrapper
+          %table#orderf-table-dash.table.table-striped.table-bordered.table-hover.table-sm.btn-table{:cellspacing => "0", :width => "100%"}
+            %caption
+              = "#{t('base.forms.list_of')} #{t('orders.index.finish_title')}"
+            %thead.secondary-color.white-text.align-center
+              %tr
+                %th.center
+                  = t('orders.index.person_in_charge')
+                %th.center
+                  = t('orders.index.customer')
+                %th.center.order-description
+                  = t('orders.index.description')
+                %th.center
+                  = t('dashboard.orders.address')
+                %th.center
+                  = t("orders.index.status")
+                %th.center.options.th-sm
+                  = "Options"   
+            %tbody
+              - @finished_orders.each do |order|
+                %tr
+                  %td
+                    = link_to "#{order.tecnic.first_name} #{order.tecnic.last_name}", user_path(order.tecnic_id)
+                  %td
+                    = link_to "#{order.customer.first_name} #{order.customer.last_name}", user_path(order.customer_id)
+                  %td
+                    = link_to "#{truncate(order.description, length: 30, omission: '...')}", edit_order_path(order.slug)
+                  %td
+                    = order.address
+                  %td.align-center
+                    = order.status.description
+                  %td.align-center
+                    .btn-group-vertical{"aria-label" => "button group", :role => "group"}
+                      = link_to show_order_path(order.slug, format: :pdf), target: '_blank', class: 'card__button btn btn-info btn-sm', title: t("orders.index.download") do
+                        %i.fas.fa-file-download
+                      = link_to show_order_path(order.slug), class: 'card__button btn btn-primary btn-sm', title: t("base.forms.details") do
+                        %i.fas.fa-info
+          = link_to "Show all #{@finished_orders.count} orders", orders_path(status: 504), class: 'btn btn-primary btn-sm', title: "Info"

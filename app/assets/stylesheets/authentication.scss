@@ -1,0 +1,61 @@
+.check-div{
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 15px
+}
+/************NEW ACCOUNT FORM***********/
+#new_user .form-control {
+  margin-left: 0 !important;
+  position: relative;
+  width: 100% !important;
+}
+.md-form label.active {
+  color: #4285f4;
+}
+#new_user .row.justify-content-center a {
+  color: white;
+}
+#new_user .form-check {
+  padding-left: 0;
+}
+ .form-check-input {
+  margin-left: 0 !important;
+  width: auto !important;
+}
+#new_user .sign-options {
+  flex-direction: column;
+  align-items: center;
+}
+input:-webkit-autofill,
+input:-internal-autofill-selected,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #4285f4 !important;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0) inset !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+#new_user .btn-block {
+  width: 70%;
+}
+#new_user .form-link {
+  color: #007bff !important;
+}
+#new_user .not_continue {
+  color: white !important;
+  border: 2px solid white !important;
+}
+
+/***********ALERTS**********/
+.alert.alert-danger {
+  background-color: #ff3547;
+  border-color: #ff3547;
+  color: white;
+  padding-bottom: 0;
+}

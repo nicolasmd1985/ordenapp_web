@@ -1,0 +1,122 @@
+.invisible#breadcrumb
+  = render_breadcrumbs
+= form_with(model: user, local: true, :html => { autocomplete: "off", :id => "userForm", :class => "userForm"}) do |form|
+  - if user.errors.any?
+    #error_explanation.alert.alert-danger.alert-dismissible.fade.show{:role => "alert"}
+      %h5.alert-heading
+        = pluralize(user.errors.count, "error")
+        = t("users.index.err_1")
+      %ul
+        - user.errors.full_messages.each do |message|
+          %li= message
+      %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+        %span{"aria-hidden" => "true"} ×
+  .row
+    = form.hidden_field :role, value: user.role
+    .col-12.col-md-4.d-flex
+      .view.overlay.ovf-visible.mb-4.mb-md-auto
+        - if !@user.try(:urlavatar).present?
+          = image_tag "servicio-tecnico.png", class: "img-thumbnail z-depth-1 avatar-pic", id: "user-image", alt: "Default image"
+          .mask.flex-center.flex-column.rgba-grey-strong.clic-file
+            %p.file-name.font-weight-bolder
+            %p
+              %i.fas.fa-image.mr-2.white-text
+              %span.white-text
+                = t("users.index.image")
+        - else
+          %img#user-image{:src => @user.try(:urlavatar), class: "img-thumbnail z-depth-1 avatar-pic", alt: "User image"}
+          .mask.flex-center.flex-column.rgba-grey-strong.clic-file
+            %p.file-name.font-weight-bolder
+            %p
+              %i.fas.fa-image.mr-2.white-text
+              %span.white-text
+                = t("users.index.image")
+      .d-none.justify-content-center
+        = form.file_field :urlavatar, {class: "btn btn-mdb-color btn-rounded btn-sm", accept: 'image/png,image/jpeg'}
+    .col-12.col-sm-6.col-md-4
+      .form__field--input.md-form
+        = form.label t("users.index.name"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.text_field :first_name, autofocus: true, required: true, minlength: 3, :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          = t("base.forms.err_2")
+      .form__field--input.md-form
+        = form.label t("users.index.last_name"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.text_field :last_name, required: true, minlength: 3, :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          = t("base.forms.err_2")
+      .form__field--select.md-form
+        = form.label t('users.index.document_type'), {"data-error" => "wrong", "data-success" => "right"}, class: "active"
+        = form.select(:document_type, options_for_select_document_type(@user.try(:document_type)), {}, {class: "mdb-select md-form colorful-select dropdown-primary"})
+      .form__field--input.md-form
+        = form.label t("users.index.id_number"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.text_field :document_number, required: true, minlength: 8, maxlength: 11, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          = t("profile.invalid_doc")
+      .form__field--input.md-form.input-field.city-field
+        = form.label t("users.index.city"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.search_field :city_value, id: "autocompleteCityInput", class: "form-control validate mdb-autocomplete autocompleteCity", autocomplete: "nope", value: @city_name, required: true, style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          =t("base.forms.err_2")
+        %button.mdb-autocomplete-clear
+          %svg{:fill => "#000000", :height => "24", :viewBox => "0 0 24 24", :width => "24", :xmlns => "https://www.w3.org/2000/svg"}
+            %path{:d => "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"}
+            %path{:d => "M0 0h24v24H0z", :fill => "none"}
+        = form.hidden_field :place_id, id: "placeId", value: @place_id
+        = form.hidden_field :country_id, id: "countryId", value: @country_id
+      .form__field--select.md-form
+        = form.label t("users.index.subsidiary"), {"data-error" => "wrong", "data-success" => "right"}, class: "active"
+        - if current_user.role == 'admin'
+          - select_value = @user ? @user.subsidiary_id : ''
+        - else
+          - select_value = current_user.role == 'supervisor' ? current_user.try(:subsidiary_id) : ''
+        = form.select(:subsidiary_id, options_for_select_subsidiary(current_user.corporation_id, select_value), {}, {class: "mdb-select md-form colorful-select dropdown-primary", searchable: t('base.filters.search')})
+        .invalid-feedback
+          =t("base.forms.err_2")
+    .col-12.col-sm-6.col-md-4
+      .form__field--input.md-form
+        = form.label t("users.index.email"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.email_field :email, :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          =t("profile.invalid_email")
+      .form__field--input.md-form
+        = form.label t("users.index.phone_1"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.number_field :phone_number_1, type: "tel", required: true, minlength: 10, maxlength: 10, onkeypress:"if ( isNaN( String.fromCharCode(event.keyCode) )) return false;", :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          =t("profile.invalid_tel")
+      .form__field--input.md-form
+        = form.label t("users.index.phone_2"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.number_field :phone_number_2, type: "tel", minlength: 10, maxlength: 10, onkeypress:"if ( isNaN( String.fromCharCode(event.keyCode) )) return false;", :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          =t("profile.invalid_tel")
+      .form__field--input.md-form
+        = form.label t("users.index.address_1"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.text_field :address_1, required: false, minlength: 10, :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          =t("profile.invalid_address")
+      .form__field--input.md-form
+        = form.label t("users.index.address_2"), {"data-error" => "wrong", "data-success" => "right"}
+        = form.text_field :address_2, required: false, minlength: 10, :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          =t("profile.invalid_address")
+      - if user.role == 'customer'
+        .form__field--select.md-form
+          = form.label t('users.index.priority_user'), {"data-error" => "wrong", "data-success" => "right"}, class: "active"
+          = form.select(:priority_user, options_for_select_priority_user(@user.try(:priority_user)), {}, {class: "mdb-select md-form colorful-select dropdown-primary"})
+        .form__field--input.md-form
+          = form.label t("users.index.company_name"), {"data-error" => "wrong", "data-success" => "right"}
+          = form.text_field :company_name, required: false, minlength: 3, :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+          .invalid-feedback
+            =t("base.forms.err_2")
+        .form__field--input.md-form
+          = form.label t("users.index.web_page"), {"data-error" => "wrong", "data-success" => "right"}
+          = form.text_field :web_page, required: false, minlength: 3, :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+          .invalid-feedback
+            =t("base.forms.err_2")
+        .form__field--input.md-form
+          = form.label t("users.index.principal_activity"), {"data-error" => "wrong", "data-success" => "right"}
+          = form.text_field :principal_activity, required: false, minlength: 3, :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+          .invalid-feedback
+            =t("base.forms.err_2")
+  .row.justify-content-center
+    %button.btn.secondary-color.btn-rounded.not_continue{id: 'create_action', type: 'submit'}
+      =t("users.index.create")

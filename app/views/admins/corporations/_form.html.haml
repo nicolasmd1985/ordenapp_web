@@ -1,0 +1,88 @@
+= form_tag({controller: controller, action: action}, {class: 'form-horizontal corporation_form', id: 'corporation_form', method: method, multipart: true, autocomplete: "off", novalidate: "true"}) do |form|
+  - if corporation.errors.any?
+    #error_explanation.alert.alert-danger.alert-dismissible.fade.show{:role => "alert"}
+      %h5.alert-heading
+        = pluralize(corporation.errors.count, "error")
+        prohibited this corporation from being saved:
+      %ul
+        - corporation.errors.full_messages.each do |message|
+          %li= message
+      %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+        %span{"aria-hidden" => "true"} ×
+  .row
+    .col-12.col-md-4.d-flex
+      .view.overlay.ovf-visible.mb-4.mb-md-auto
+        - if !@corporation.try(:urlavatar).present?
+          = image_tag "logo.jpg", class: "img-thumbnail z-depth-1 avatar-pic", id: "corporation-logo", alt: "Default logo"
+          //%a{:href => "#!"}
+          .mask.flex-center.flex-column.rgba-grey-strong.clic-file
+            %p.file-name.font-weight-bolder
+            %p
+              %i.fas.fa-image.mr-2.white-text
+              %span.white-text
+                = t("corporation.index.logo")
+        - else
+          %img#corporation-logo{:src => @corporation.try(:urlavatar), class: "img-thumbnail z-depth-1 avatar-pic", alt: "Corporation logo"}
+          //%a{:href => "#!"}
+          .mask.flex-center.flex-column.rgba-grey-strong.clic-file
+            %p.file-name.font-weight-bolder
+            %p
+              %i.fas.fa-image.mr-2.white-text
+              %span.white-text
+                = t("corporation.index.logo")
+      .d-none.justify-content-center
+        = file_field_tag :urlavatar, {id: "corporation-urlavatar", class: "btn btn-mdb-color btn-rounded btn-sm", accept: 'image/png,image/jpeg'}
+    .col-12.col-sm-6.col-md-4
+      .form__field--input.md-form
+        %label{"data-error" => "wrong", "data-success" => "right"}
+          = t('corporation.index.name')
+        = text_field_tag :name, @corporation.name, required: true, autofocus: true, minlength: 3, class: "form-control validate", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          = t("corporation.index.err_2")
+      .form__field--select.md-form
+        %label{ {"data-error" => "wrong", "data-success" => "right"}, class: "active"}
+          = t('corporation.index.document_type')
+        = select_tag :document_type, options_for_select_document_type(@corporation.try(:document_type)), {class: "mdb-select md-form colorful-select dropdown-primary"}
+      .form__field--input.md-form
+        %label{"data-error" => "wrong", "data-success" => "right"}
+          = t('corporation.index.identification')
+        = text_field_tag :identification, @corporation.identification, onkeypress: "if ( isNaN ( String.fromCharCode(event.keyCode) )) return false;", required: true, minlength: 9, maxlength: 9, class: "form-control validate", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          = t("corporation.index.err_2")
+      .form__field--input.md-form
+        %label{"data-error" => "wrong", "data-success" => "right"}
+          = t('corporation.index.email')
+        = email_field_tag :email, @corporation.email, required: true, class: "form-control validate", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          = t("profile.invalid_email")
+    .col-12.col-sm-6.col-md-4
+      .form__field--input.md-form
+        %label{"data-error" => "wrong", "data-success" => "right"}
+          = t('corporation.index.phone')
+        = text_field_tag :phone, @corporation.phone, onkeypress: "if ( isNaN ( String.fromCharCode(event.keyCode) )) return false;", required: true, minlength: 7, maxlength: 10, class: "form-control validate", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          = t("profile.invalid_tel")
+      .form__field--input.md-form
+        %label{"data-error" => "wrong", "data-success" => "right"}
+          = t('corporation.index.initials')
+        = text_field_tag :corporate_initials, @corporation.corporate_initials, required: true, minlength: 3, maxlength: 5, class: "form-control validate", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          = t("corporation.index.err_2")
+      .form__field--input.md-form
+        %label{"data-error" => "wrong", "data-success" => "right"}
+          = t('corporation.index.address')
+        = text_field_tag :address, @corporation.address, required: true, minlength: 8, class: "form-control validate", style: "margin-bottom: 0.5rem;"
+        .invalid-feedback
+          = t("corporation.index.err_2")
+      .form__field--input.md-form
+        %label.disabled.active{"data-error" => "wrong", "data-success" => "right"}
+          = t("corporation.index.status")
+        - if corporation.status_id == 100
+          %span.badge.badge-pill.badge-success
+            = t("corporation.index.active")
+        - else
+          %span.badge.badge-pill.badge-dark
+            = t("corporation.index.inactive")
+  .row.justify-content-center
+    %button.btn.secondary-color.btn-rounded.form__submit.my-4
+      = t('base.forms.save')

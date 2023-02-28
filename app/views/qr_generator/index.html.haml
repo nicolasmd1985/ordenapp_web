@@ -1,0 +1,27 @@
+.invisible#breadcrumb
+  = render_breadcrumbs
+.row.flex-box-center
+  .col.s12.m10.force_margin
+    .card.card-cascade.narrower.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-between.align-items-center
+        = link_to dashboard_path, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t("base.forms.back") do
+          %i.fas.fa-chevron-left
+        %h3.center.mt-2
+          %strong
+            = t("qr.generator")
+        = link_to "", role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2 disabled hidden"
+      .card.py-5
+        = form_tag(company_qr_codes_path(format: :pdf), method: :get, target: "_blank" )
+        .row
+          .col-6
+            .form-group
+              %label
+                = t("qr.obj_class")
+              = select_tag "obj_class", select_qrcode_type(), {class: "form-control"}
+          .col-6
+            .form-group
+              %label
+                = t("qr.quantity")
+              = number_field_tag "quantity", nil, {min: 1, max: 100, class: "form-control", required: true}
+        %button.btn.secondary-color.btn-rounded.btn-md.text-white{:type => "submit"}
+          = t("qr.generate")

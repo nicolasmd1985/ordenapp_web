@@ -1,0 +1,18 @@
+// Place all the styles related to the components controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/*********NEW COMPONENT FORM MOBILE***************/
+@media (max-width: 575px) {
+    #component_form > .row > div:last-child > div:first-child.md-form {
+        margin-top: 0;
+    }
+}
+
+/*********UPLOAD COMPONENT FORM MOBILE***************/
+@media (max-width: 440px) {
+    #up_comp_form .file-field {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+}

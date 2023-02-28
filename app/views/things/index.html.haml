@@ -1,0 +1,90 @@
+.invisible#breadcrumb
+  = render_breadcrumbs
+.row.flex-box-center
+  .col.s12.m10.force_margin
+    .card.card-cascade.narrower.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-between.align-items-center
+        = link_to dashboard_path, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t("base.forms.back") do
+          %i.fas.fa-chevron-left
+        %h3.center.mt-2
+          %strong
+            =t("things.index.device")
+        = link_to new_thing_path, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t("things.index.new") do
+          %i.fas.fa-plus
+      %nav.navbar.navbar-expand-lg.navbar-light.blue-grey.lighten-5.mt-4.pb-3.pb-lg-2
+        %p.navbar-brand.mb-0
+          = t('base.filters.filter')
+        %button.navbar-toggler{"aria-controls" => "filterbar", "aria-expanded" => "false", "aria-label" => "Toggle filter", "data-target" => "#filterbar", "data-toggle" => "collapse", :type => "button"}
+          %span.navbar-toggler-icon
+        #filterbar.collapse.navbar-collapse
+          = form_tag(things_path, method: :get, class: "form-inline ml-auto filter-form", id: "things-filter-form")
+          .row
+            .col-12.col-sm-6.col-md-3
+              .md-form.mt-0.mb-2.m-md-0.mx-2
+                = text_field_tag(:search, params[:search], {class: "form-control", placeholder: t('base.filters.search'), style: "width: 100%;"})
+            .col-12.col-sm-6.col-md-3
+              = select_tag "status", options_for_select_status(@status), {include_blank: t('base.filters.status'), class: "mdb-select md-form colorful-select dropdown-dark my-select mt-0 mb-2 m-md-0 mx-2", :searchable => t('base.filters.search')}
+            .col-12.col-sm-6.col-md-3
+              = select_tag "customer", options_for_select_customer(@current_user.subsidiary_id, @customer), {include_blank:t('base.filters.customer'), class: "mdb-select md-form colorful-select dropdown-dark my-select mt-0 mb-2 m-md-0 mx-2", :searchable => t('base.filters.search')}
+            .col-12.col-sm-6.col-md-3.d-flex.align-items-center.justify-content-center.flex-row
+              %button.btn.secondary-color.btn-rounded.btn-md.text-white.my-2.my-md-0.mr-2.ml-4{:type => "submit"}
+                = t("base.forms.search")
+              %i.fa.fa-trash{id: "cancel_search", title: "Clear Filter"}
+      .card.py-0
+        .card-body
+          //.table-responsive
+          .device-tableWrapper
+            .d-flex.flex-row.align-items-center{style: "justify-content: space-between"}
+              %p Resultados de búsqueda:
+              .d-flex.flex-row.align-items-center.ml-auto
+                = link_to get_qr_code_path(:things => @thigns, format: :pdf), role: "button", class: 'btn btn-outline-red btn-rounded btn-sm px-2', title: t("components.index.download_qr"), target: "_blank"  do
+                  %i.fas.fa-qrcode{style: "vertical-align: middle"}
+            %table#device-table.table.table-striped.table-bordered.table-hover.table-sm.btn-table{:cellspacing => "0", :width => "100%"}
+              %caption
+                = "#{t('base.forms.list_of')}#{t('things.index.device')}"
+              %thead.secondary-color.white-text.align-center
+                %tr
+                  %th.th-sm
+                    =t("things.index.code")
+                  %th.th-sm
+                    =t("things.index.thing_name")
+                  %th
+                    =t("things.index.thing_desc")
+                  %th
+                    =t("things.index.stock")
+                  %th
+                    =t("things.index.precio")
+                  %th.th-sm
+                    =t("base.forms.options")
+              %tbody
+                - @things.each do |thing|
+                  %tr
+                    %td.limitado
+                      = thing.code_scan
+                    %td= thing.name
+                    %td= thing.description
+                    %td= thing.stock
+                    %td= number_to_currency(thing.final_price, :unit => "$")
+                    %td.align-center
+                      = link_to edit_thing_path(thing.slug), class: 'card__button btn-floating btn-success btn-sm', style: "z-index: 0", title: 'Update' do
+                        %i.fas.fa-edit
+                      .btn-group-vertical{class: "card__button btn-floating btn-primary btn-sm", style: "z-index: 0", "data-target" => "#modal_thing_#{thing.slug}", "data-toggle" => "modal", type: "button", title: t('things.index.details')}
+                        %i.fas.fa-info
+                      .modal{id: "modal_thing_#{thing.slug}", "aria-hidden" => "true", "aria-labelledby" => "modal_thing", role: "dialog", tabindex: "-1"}
+                        .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.modal-notify.modal-primary.modal-lg{role: "document"}
+                          .modal-content
+                            .modal-header
+                              %h5.modal-title.white-text{style: "margin-left: auto;"}
+                                = thing.name
+                              %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+                                %span.white-text{"aria-hidden" => "true"} ×
+                            .modal-body.thing-modal
+                              = render 'thing_modal_detail', thing: thing
+                            .modal-footer.justify-content-center
+                              %button.btn.btn-primary.btn-lg{"data-dismiss" => "modal", type: "button"}
+                                = t('things.index.modal_close')
+                              = link_to show_thing_path(thing.slug), class: 'btn btn-lg btn-info' do
+                                = t("base.forms.all")
+                                %i.far.fa-eye
+                      = link_to show_thing_path(thing.slug), class: 'card__button btn-floating btn-yellow btn-sm', style: "z-index: 0", title: t("base.forms.all") do
+                        %i.far.fa-eye

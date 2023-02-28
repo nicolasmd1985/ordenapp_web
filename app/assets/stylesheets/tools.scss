@@ -1,0 +1,114 @@
+.card__button {
+    display: inline-block !important;
+    margin: .375rem !important;
+    width: 60px;
+}
+.form__field--input input,
+.form__field--select select {
+    margin-left: 0 !important;
+    width: 100% !important;
+}
+.form__field--select.md-form > label.active,
+.field.md-form > label.active {
+    color: #4285f4 !important;
+    font-size: .8rem;
+    left: 0;
+    top: 0;
+    transform: translateY(-14px);
+    width: 100%;
+}
+.form__submit input {
+    background-color: transparent;
+    border: none;
+    color: white;
+    margin-left: 0 !important;
+    outline: none;
+}
+
+/*************FORMS*************/
+#tool_form .md-form.input-with-post-icon .form-control {
+    padding-right: 1.3rem !important;
+}
+#tool_form .md-form.input-with-post-icon .input-prefix {
+    right: 0;
+    top: 20px;
+}
+.lowcase {
+    text-transform: none !important;
+}
+
+/*********NEW THING FORM MOBILE***************/
+@media (max-width: 575px) {
+#tool_form > .row > div:last-child > div:first-child.md-form {
+    margin-top: 0;
+  }
+  #tool_form > .row > div:first-child > div:last-child.md-form {
+    margin-bottom: 0;
+  }
+}
+
+/*********TABLES*********/
+.align-center {
+    text-align: center;
+}
+#tool-table_wrapper .dataTables_scrollHead thead .sorting:before,
+#tool-table_wrapper .dataTables_scrollHead thead .sorting:after,
+#tool-table_wrapper .dataTables_scrollHead thead .sorting_asc:before,
+#tool-table_wrapper .dataTables_scrollHead thead .sorting_asc:after,
+#tool-table_wrapper .dataTables_scrollHead thead .sorting_desc:before,
+#tool-table_wrapper .dataTables_scrollHead thead .sorting_desc:after,
+#tool-table_wrapper .dataTables_scrollHead thead .sorting_asc_disabled:before,
+#tool-table_wrapper .dataTables_scrollHead thead .sorting_asc_disabled:after,
+#tool-table_wrapper .dataTables_scrollHead thead .sorting_desc_disabled:before,
+#tool-table_wrapper .dataTables_scrollHead thead .sorting_desc_disabled:after {
+    bottom: 1.1em;
+}
+#tool-table_length {
+    margin-top: 0.55rem;
+}
+#tool-table_length .form-control {
+    width: 50px;
+}
+#tool-table_length .dropdown-content {
+    min-width: 3.25rem;
+}
+#tool-table.table-hover tbody tr:hover {
+    background-color: #e2eaff;
+    transition: .5s;
+}
+
+.tool-tableWrapper {
+    max-width: 950px;
+    margin: 0 auto;
+}
+.limitado {
+    max-width: 200px;
+}
+
+.list-group-flush .list-group-item {
+    display: flex;
+}
+.list-group-flush .list-group-item .fas {
+    text-align: center;
+    margin-top: 0.3rem;
+    width: 20px;
+}
+.list-group-flush .list-group-item p,
+.list-group-flush .list-group-item a {
+    line-height: 1.5;
+    margin-bottom: 0;
+   // margin-top: -0.2em;
+}
+
+// Inhabilitar campo customer id cuando ya tiene uno asignado.
+.disabled_field{
+    pointer-events: none;
+    color: lightgray !important;
+}
+
+/*****************THINGS POPUPS*******************/
+@media (max-width: 992px) {
+    .modal.show .card-body .row > div:first-child .list-group-flush > .list-group-item:last-child {
+        border-bottom-width: 1px;
+    }
+}

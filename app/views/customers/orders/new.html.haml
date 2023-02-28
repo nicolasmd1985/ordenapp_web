@@ -1,0 +1,10 @@
+.row.flex-box-center
+  .col.s12.m10.force_margin
+    .card
+      .card-header.card-header-primary
+        %p#notice= notice
+        = link_to customers_orders_path, class: "card__button btn btn-primary btn-sm btn-space", title: t('base.forms.back') do
+          %i.fas.fa-arrow-alt-circle-left
+      .card
+        .card-body
+        = render 'form', controller: 'orders', order: @order, action: 'create', method: :post

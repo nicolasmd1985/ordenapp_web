@@ -1,0 +1,28 @@
+%p#notice= notice
+%h1 Subsidiaries
+%table
+  %thead
+    %tr
+      %th Name
+      %th Phone
+      %th Address
+      %th Email
+      %th Identification
+      %th Corporation initials
+      %th Status
+      %th{colspan: "3"}
+  %tbody
+    - @corporations.each do |corporation|
+      %tr
+        %td= corporation.name
+        %td= corporation.phone
+        %td= corporation.address
+        %td= corporation.email
+        %td= corporation.identification
+        %td= corporation.corporation_initials
+        %td= corporation.status.description
+        %td= link_to 'Show', corporation
+        %td= link_to 'Edit', edit_corporation_path(corporation)
+        %td= link_to 'Destroy', corporation, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Subsidiary', new_corporation_path

@@ -1,0 +1,241 @@
+= content_for :page_scripts do
+  = javascript_include_tag "orders/substatus_select.js"
+.row.flex-box-center.order-detail
+  .col.s12.m10.force_margin
+    .card.card-cascade.narrower.pt-0.light-1
+      .view.view-cascade.gradient-card-header.gradient-blue.narrower.py-3.mx-4.d-flex.justify-content-between.align-items-center
+        = link_to orders_path, role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: "Back" do
+          %i.fas.fa-chevron-left
+        %h3.center.mt-2
+          %strong
+            = "#{t('orders.index.order')} #{@order.internal_id ? @order.internal_id : @order.id}"
+            %br
+            = order_status_humanized(@order.status.description)
+            - if @order.sync
+              %i.syncro.fas.fa-sync
+            - else
+              %i.no-syncro.material-icons.desync sync_disabled
+            - if @order.substatus
+              %br
+              %small
+                = substatus_desc_humanized(@order.substatus.description)
+        -if @order.status_id == 504
+          = link_to show_order_path(@order.slug, format: :pdf), target: '_blank', role: "button", class: 'btn btn-outline-white btn-rounded btn-sm px-2', title: t("orders.index.download") do
+            %i.fas.fa-file-download
+        - else
+          - if !@order.sync || [506, 507, 508].include?(@order.status_id)
+            = link_to edit_order_path(@order.slug), role: "button", class: 'btn btn-outline-white btn-rounded btn-sm px-2', title: "Edit" do
+              %i.fas.fa-edit
+          - else
+            = link_to '#', role: "button", class: "btn btn-outline-white btn-rounded btn-sm px-2", title: t("base.forms.details") do
+              %i.fas.fa-info
+      .row{style: "margin-top: 30px"}
+        .col-12.mb-4.mb-md-0
+          .card.mt-0
+            %h5.card-header.text-center
+              = t('orders.index.ord_details')
+            .card-body
+              .row
+                .col-12.col-lg-6
+                  %ul.list-group.list-group-flush
+                    %li.list-group-item
+                      %i.fas.fa-bullhorn.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          =t('base.forms.created_at')
+                        = "#{@order.created_at.strftime("%Y/%m/%d")} - #{@order.created_at.strftime("%I:%M %p")}"
+                    %li.list-group-item
+                      %i.fas.fa-info-circle.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          - if @order.parent
+                            = t('orders.index.children_orders')
+                          - else
+                            = t('orders.index.parent_order')
+                        - if @order.parent
+                          - @order.childrens.each do |x|
+                            = link_to x.internal_id, show_order_path(x.slug)
+                        - else
+                          - if @order.parents
+                            = link_to @order.parents.internal_id, show_order_path(@order.parents.slug)
+                          - else
+                            = 'N/A'
+                    %li.list-group-item
+                      %i.fas.fa-info-circle.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = t('orders.index.order_type')
+                        = @order.order_type == 'Group' ? t('orders.index.group_type') : t('orders.index.single_type')
+                    %li.list-group-item
+                      %i.fas.fa-map-marked-alt.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          =t('orders.index.address')
+                        = "#{@order.address}"
+                    %li.list-group-item
+                      %i.fas.fa-info-circle.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          = "#{t('orders.index.comment')}:"
+                        = @order.comment
+                    %li.list-group-item
+                      %i.fas.fa-info-circle.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          =t('orders.index.description')
+                        %br
+                          = "#{@order.description}"
+                        %br
+                        = "#{@thing.try(:name)} - #{@thing.try(:code_scan)}"
+                .col-12.col-lg-6
+                  %ul.list-group.list-group-flush
+                    %li.list-group-item
+                      %i.fas.fa-city.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          =t('orders.index.city')
+                        = "#{City.find(@order.city_id).name}"
+                    %li.list-group-item
+                      %i.fas.fa-object-group.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          =t('category.index.category')
+                        - if !@order.category_id.blank?
+                          - if @order.category_id <= 103
+                            = "#{category_humanized(@order.category.name)}"
+                          - else
+                            = @order.category.name
+                        - else
+                          = 'N/A'
+                    %li.list-group-item
+                      %i.fas.fa-calendar-alt.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          =t('orders.index.install_date')
+                        = "#{@order.install_date ? "#{@order.install_date} - #{@order.install_time.strftime("%I:%M %p")}" : ''}"
+                    %li.list-group-item
+                      %i.fas.fa-clock.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          =t('orders.index.limit_time')
+                        = "#{"#{@seg} - #{@data}  #{@order.limit_time.nil? ? (@order.limit_time ? @order.install_time.strftime("%Y-%m-%d %I:%M %p") : '') : (@order.limit_time ? @order.limit_time.getlocal.strftime("%Y-%m-%d %I:%M %p") : '')}"}"
+                    %li.list-group-item
+                      %i.fas.fa-id-badge.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          =t('orders.index.customer_id_order')
+                        = "#{@order.customer_id_order}"
+                    %li.list-group-item
+                      %i.fas.fa-id-badge.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          =t('orders.index.contact')
+                        = "#{@order.contact}"
+                    %li.list-group-item
+                      %i.fas.fa-id-badge.mr-3{"aria-hidden" => "true"}
+                      %p
+                        %b
+                          =t('orders.index.phone_contact')
+                        = "#{@order.phone_contact}"
+            .card-footer.text-muted.text-center
+              = "#{t('base.forms.updated_at')} #{@order.updated_at.strftime("%Y-%m-%d")}"
+      .row{style: "margin-top: 30px"}
+        .col-12.col-md-6.mb-4.mb-md-0
+          .card.mt-0.h-100
+            %h5.card-header.text-center
+              =t('orders.index.cust_details')
+            .view.overlay.ovf-visible
+              - if !@order.try(:customer).try(:urlavatar).present?
+                = image_tag "servicio-tecnico.png", {class: "img-thumbnail z-depth-1 avatar-pic", alt: "User image"}
+                .mask.rgba-white-slight
+              - else
+                %img{:src => @order.customer.try(:urlavatar), class: "img-thumbnail z-depth-1 avatar-pic", alt: "User image"}
+                .mask.rgba-white-slight
+            .card-body
+              - if @order.customer
+                %ul.list-group.list-group-flush
+                  %li.list-group-item
+                    %i.fas.fa-signature.mr-3{"aria-hidden" => "true"}
+                    %p
+                      %b
+                        =t('users.index.name')
+                      = link_to "#{@order.customer.first_name.humanize} #{@order.customer.last_name.humanize}", @order.customer
+                  %li.list-group-item
+                    %i.fas.fa-mobile-alt.mr-3{"aria-hidden" => "true"}
+                    %p
+                      %b
+                        =t('users.index.phone')
+                      = "#{@order.customer.phone_number_1}"
+                  %li.list-group-item
+                    %i.fas.fa-envelope.mr-3{"aria-hidden" => "true"}
+                    %p
+                      %b
+                        =t('users.index.email')
+                      = "#{@order.customer.email}"
+              - else
+                %li.list-group-item
+                  %strong --
+            .card-footer.text-muted.text-center
+              = "#{t('base.forms.updated_at')} #{@order.updated_at.strftime("%Y-%m-%d")}"
+        .col-12.col-md-6
+          .card.mt-0.h-100
+            %h5.card-header.text-center
+              =t('orders.index.tec_details')
+            .view.overlay.ovf-visible
+              - if !@order.try(:tecnic).try(:urlavatar).present?
+                = image_tag "servicio-tecnico.png", {class: "img-thumbnail z-depth-1 avatar-pic", alt: "User image"}
+                .mask.rgba-white-slight
+              - else
+                %img{:src => @order.tecnic.try(:urlavatar), class: "img-thumbnail z-depth-1 avatar-pic", alt: "User image"}
+                .mask.rgba-white-slight
+            .card-body
+              - if @order.tecnic
+                %ul.list-group.list-group-flush
+                  %li.list-group-item
+                    %i.fas.fa-signature.mr-3{"aria-hidden" => "true"}
+                    %p
+                      %b
+                        =t('users.index.name')
+                      = link_to "#{@order.tecnic.first_name.humanize} #{@order.tecnic.last_name.humanize}", @order.tecnic
+                  %li.list-group-item
+                    %i.fas.fa-mobile-alt.mr-3{"aria-hidden" => "true"}
+                    %p
+                      %b
+                        =t('users.index.phone')
+                      = "#{@order.tecnic.phone_number_1}"
+                  %li.list-group-item
+                    %i.fas.fa-envelope.mr-3{"aria-hidden" => "true"}
+                    %p
+                      %b
+                        =t('users.index.email')
+                      = "#{@order.tecnic.email}"
+              - else
+                %li.list-group-item
+                  %strong --
+            .card-footer.text-muted.text-center
+              = "#{t('base.forms.updated_at')} #{@order.updated_at.strftime("%Y-%m-%d")}"
+
+.card
+  .card-header
+    %h5.mb-0
+      %button.btn.btn-info.collapsed{"aria-controls" => "collapse_logs", "aria-expanded" => "false", "data-toggle" => "collapse", "data-target" => "#collapse_logs", title: t('orders.logs.logs')}
+        = t('orders.logs.logs')
+      %button.btn.btn-info.collapsed{"aria-controls" => "collapse_comments", "aria-expanded" => "false", "data-toggle" => "collapse", "data-target" => "#collapse_comments", title: t('orders.comments.comments')}
+        = t('orders.comments.comments')
+      - if @order.try(:logs).size > 0
+        = render "order_logs", logs: @order.logs.order(created_at: :desc)
+      - if @order.try(:comments).size > 0
+        = render "order_comments", comments: @order.comments.order(created_at: :desc)
+
+- if [503, 506, 507, 508].include?(@order.status_id)
+  = render "update_status"
+
+- case @order.status_id
+- when 504
+  = render 'orders/status/done'
+- when 506
+  = render 'orders/status/pending'
+- when 507
+  = render 'orders/status/receivable'
+- when 508
+  = render 'orders/status/service_center'

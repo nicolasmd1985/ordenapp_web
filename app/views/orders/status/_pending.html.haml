@@ -1,0 +1,45 @@
+.card.py-0
+  .card-body
+    .order-tableWrapper
+      %h2{style: "text-align: center;"}
+        =t('things.index.histories')
+      %table#order-table.table.table-striped.table-bordered.table-hover.table-sm.btn-table{:cellspacing => "0", :width => "100%"}
+        %caption
+          = "#{t('base.forms.list_of')} #{t('orders.index.title1')}"
+        %thead.secondary-color.white-text.align-center
+          %tr
+            %th.center
+              =t('things.index.date')
+            %th.center
+              =t('things.index.code')
+            %th.center
+              =t('things.index.thing_name')
+            %th.center
+              =t('things.index.thing_desc')
+            %th.center.options.th-sm
+              =t('things.index.options')
+        %tbody
+          - if @order.out_thing.present?
+            - @histories.each do |history|
+              %tr
+                %td
+                  = history.created_at.strftime("%Y-%m-%d - %T")
+                %td
+                  = history.out_thing.thing.code_scan
+                %td
+                  = history.out_thing.thing.name
+                %td
+                  = truncate(history.description, length: 200, omission: '...')
+                %td.align-center
+                  .btn-group-vertical{class: "card__button btn-floating btn-info btn-sm", style: "z-index: 0", "data-target" => "#histories_thing_#{history.out_thing.thing.slug}", "data-toggle" => "modal", type: "button", title: t('things.index.record')}
+                    %i.fas.fa-camera-retro
+                  .modal{id: "histories_thing_#{history.out_thing.thing.slug}", "aria-hidden" => "true", "aria-labelledby" => "histories_thing_modal", role: "dialog", tabindex: "-1"}
+                    .modal-dialog.modal-dialog-centered.modal-dialog-scrollable.modal-notify.modal-info.modal-lg{role: "document"}
+                      .modal-content
+                        .modal-header
+                          %h5.modal-title.white-text{style: "margin-left: auto;"}
+                            = "#{t('things.index.evidence')} #{history.out_thing.thing.name}"
+                          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", type: "button"}
+                            %span.white-text{"aria-hidden" => "true"} ×
+                        .modal-body.history-modal
+                          = render 'histories_photos', history: history

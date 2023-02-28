@@ -1,0 +1,18 @@
+#accordion.accordion.md-accordion.accordion-blocks{"role" => "tablist"}
+  .card.mt-0
+    .card-header{id: "heading_#{history.id}", "role" => "tab"}
+      .card.card-cascade.narrower.pt-0.light-1
+        .view.overlay
+          .carousel.slide{"data-ride" => "carousel", "data-interval" => "false", :id => "carousel#{history.id}" }
+            .carousel-inner.mt-4.mb-3
+              - history.photos.each do |photo|
+                .carousel-item
+                  .view
+                    %img.img-fluid.card-img-top.d-block{:alt => "Device image#{history.id}", :src => "https://ordenappbucket.s3.amazonaws.com/#{photo}", style: "margin: 0 auto;"}
+                  .carousel-caption
+            %a.carousel-control-prev{"data-slide" => "prev", :href => "#carousel#{history.id}", :role => "button"}
+              %span.carousel-control-prev-icon{"aria-hidden" => "true"}
+              %span.sr-only Previous
+            %a.carousel-control-next{"data-slide" => "next", :href => "#carousel#{history.id}", :role => "button"}
+              %span.carousel-control-next-icon{"aria-hidden" => "true"}
+              %span.sr-only Next

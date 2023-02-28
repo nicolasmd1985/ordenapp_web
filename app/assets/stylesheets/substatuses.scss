@@ -1,0 +1,48 @@
+// Place all the styles related to the Categories controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/*********TABLES*********/
+.align-center {
+    text-align: center;
+}
+#substatus-table_wrapper .dataTables_scrollHead thead .sorting:before,
+#substatus-table_wrapper .dataTables_scrollHead thead .sorting:after,
+#substatus-table_wrapper .dataTables_scrollHead thead .sorting_asc:before,
+#substatus-table_wrapper .dataTables_scrollHead thead .sorting_asc:after,
+#substatus-table_wrapper .dataTables_scrollHead thead .sorting_desc:before,
+#substatus-table_wrapper .dataTables_scrollHead thead .sorting_desc:after,
+#substatus-table_wrapper .dataTables_scrollHead thead .sorting_asc_disabled:before,
+#substatus-table_wrapper .dataTables_scrollHead thead .sorting_asc_disabled:after,
+#substatus-table_wrapper .dataTables_scrollHead thead .sorting_desc_disabled:before,
+#substatus-table_wrapper .dataTables_scrollHead thead .sorting_desc_disabled:after {
+    bottom: 0.4em;
+}
+#substatus-table_length {
+    margin-top: 0.55rem;
+}
+#substatus-table_length .form-control {
+    width: 50px;
+}
+#substatus-table_length .dropdown-content {
+    min-width: 3.25rem;
+}
+#substatus-table.table-hover tbody tr:hover {
+    background-color: #e2eaff;
+    transition: .5s;
+}
+// #substatus-table_wrapper .dataTables_scrollHeadInner {
+//     width: auto !important;
+// }
+// .my-custom-scrollbar {
+//     position: relative;
+//     height: 80vh;
+//     overflow: auto;
+// }
+//     .table-wrapper-scroll-y {
+//     display: block;
+// }
+.substatus-tableWrapper {
+    max-width: 400px;
+    margin: 0 auto;
+}
