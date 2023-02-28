@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module Ordenapp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults 6.0
     config.active_record.default_timezone = :local
     config.time_zone = 'Bogota'
     config.i18n.available_locales = [:en, :es]
@@ -17,6 +17,7 @@ module Ordenapp
     # config.active_job_queue_adapter = Rails.env.production? ? :sidekiq : :async
     config.exceptions_app = self.routes
     config.autoloader = :classic
+    
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
