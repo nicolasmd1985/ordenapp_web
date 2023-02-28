@@ -128,6 +128,7 @@ gem "breadcrumbs_on_rails"
 
 group :production do
   gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"
+  gem 'scout_apm'
 end
 
 group :development, :test do
