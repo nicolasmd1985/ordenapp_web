@@ -44,7 +44,8 @@ Rails.application.configure do
   config.active_storage.service = :local
 
 
-  config.active_job.queue_adapter = :sidekiq
+  # config.active_job.queue_adapter = :sidekiq
+  config.active_job.queue_adapter = :async
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
   #mailer configuration
