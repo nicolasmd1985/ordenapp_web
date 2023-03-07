@@ -54,15 +54,19 @@ Rails.application.configure do
 
   # config.action_mailer.default_url_options = { host: "localhost:3000" }
   config.action_mailer.default_url_options = { host: ENV["HOST"] }
-  config.action_mailer.delivery_method = :smtp
+
+  default_url_options[:host] = ENV["HOST"]
+  config.action_mailer.asset_host = ENV["HOST"]
   config.action_mailer.smtp_settings = {
-    address: ENV["MAIL_HOST"],
-    port: 587,
-    user_name: ENV["MAIL_USERNAME"],
-    password: ENV["MAIL_PASSWORD"],
-    enable_starttls_auto: true,
-    authentication: :login
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
+    # :domain => 'BayCareEasyPass.org',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
   }
+  ActionMailer::Base.delivery_method = :smtp
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
