@@ -80,7 +80,7 @@ class Customers::OrdersController < ApplicationController
 
     if @order.save
       # things_ids = Customers::Orders::ThingsToOrder.new(@order.id, params[:things_ids], '').process
-      # @order.update_attributes(things_ids: things_ids)
+      # @order.update(things_ids: things_ids)
       history_created, @history = Histories::CreateHistory.new(@order, Thing.find(@order.things_ids[0]), nil, nil, nil).process if @order.origin != 'Install'
       log_created, log = ::Orders::CreateOrderLog.new(@order, "create", current_user).process
       OrderMailer.preorder_created_mail(@order).deliver_later(wait: 1.minute)

@@ -93,10 +93,10 @@ class Order < ApplicationRecord
       3.times do |x|
         @subsidiary_initials += initials[x][0].upcase!
       end
-      @subsidiary.update_attributes(subsidiary_initials: @subsidiary_initials)
+      @subsidiary.update(subsidiary_initials: @subsidiary_initials)
     else
       @subsidiary_initials = @subsidiary.name[0..2].upcase!
-			@subsidiary.update_attributes(subsidiary_initials: @subsidiary_initials)
+			@subsidiary.update(subsidiary_initials: @subsidiary_initials)
     end
 		@subsidiary
   end

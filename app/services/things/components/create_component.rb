@@ -17,7 +17,7 @@ class Things::Components::CreateComponent
     success = @component.save
 
     if success
-      @component.update_attributes(code_scan: @component.slug) if @component.code_scan.blank?
+      @component.update(code_scan: @component.slug) if @component.code_scan.blank?
       [success, @component]
     else
       success = false

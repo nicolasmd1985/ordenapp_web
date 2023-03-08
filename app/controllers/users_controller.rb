@@ -102,7 +102,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       if old_email.blank? && !params[:user][:email].blank?
         password_tem = Users::PasswordGenerator.generate
-        @user.update_attributes(password: password_tem)
+        @user.update(password: password_tem)
         TecnicMailer.welcome_mail(@user, password_tem).deliver_later(wait: 1.minute) if @user.role == "tecnic"
         CustomerMailer.welcome_mail(@user, password_tem).deliver_later(wait: 1.minute) if @user.role == "customer"
       end
@@ -172,13 +172,13 @@ class UsersController < ApplicationController
       user = current_user
 
       if params[:subsidiary_id] == "0"
-        # user.update_attributes(as_supervisor: false, subsidiary_id: nil)
+        # user.update(as_supervisor: false, subsidiary_id: nil)
         user.as_supervisor = false
         user.subsidiary_id = nil
         user.save(validate: false)
         redirect_to admins_subsidiaries_url, notice: "Now you are acting as admin."
       else
-        # user.update_attributes(as_supervisor: true, subsidiary_id: params[:subsidiary_id])
+        # user.update(as_supervisor: true, subsidiary_id: params[:subsidiary_id])
         user.as_supervisor = true
         user.subsidiary_id = params[:subsidiary_id]
         if user.save(validate: false)

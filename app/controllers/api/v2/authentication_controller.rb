@@ -11,7 +11,7 @@ class Api::V2::AuthenticationController < ApiController
         token = JsonWebToken.encode(user_id: @user.id)
         time = Time.now + 24.hours.to_i
         @user.update_attribute(:token_message, params[:token_params]) if params[:token_params].present?
-        @user.update_attributes(status_id: 202) #Available
+        @user.update(status_id: 202) #Available
         Gps::CreatePositionLog.new(@user).process
 
         render json: { token: token, exp: time.strftime("%m-%d-%Y %H:%M"),

@@ -42,11 +42,11 @@ class Orders::UpdateOrder
     log_created, log = Orders::CreateOrderLog.new(@order, "update", @current_user, @order.saved_changes).process if @order.saved_changes?
 
     # if order hasn't tecnic
-    @order.update_attributes(status_id: 500) unless @order.tecnic_id?
-    @order.update_attributes(substatus_id: nil) if @order.status_id == 500
+    @order.update(status_id: 500) unless @order.tecnic_id?
+    @order.update(substatus_id: nil) if @order.status_id == 500
 
     # if order is reassigned so is desynchronized
-    @order.update_attributes(sync: false, substatus_id: nil) if @order.status_id == 501
+    @order.update(sync: false, substatus_id: nil) if @order.status_id == 501
 
     if (@old_status == 505 || @old_status == 500) && !@order.tecnic_id.blank?
       OrderMailer.order_assigned_mail(@order).deliver_later(wait: 1.minute)

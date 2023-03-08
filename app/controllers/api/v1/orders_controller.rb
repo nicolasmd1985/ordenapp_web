@@ -105,8 +105,8 @@ class Api::V1::OrdersController < ApiController
 
     if position_service
       user = current_user
-			user.update_attributes(status_id: 203) #Busy
-      @order.update_attributes(status_id: 510) #In progress
+			user.update(status_id: 203) #Busy
+      @order.update(status_id: 510) #In progress
 
       log_created, log = Orders::CreateOrderLog.new(@order, "Arrives place", current_user, @order.saved_changes).process
       Gps::CreatePositionLog.new(user, position_service).process
@@ -130,7 +130,7 @@ class Api::V1::OrdersController < ApiController
 		@position.user_id = current_user.id
 
     if @position.save
-      @order.update_attributes(status_id: 510)
+      @order.update(status_id: 510)
       log_created, log = Orders::CreateOrderLog.new(@order, "Arrives place", current_user, @order.saved_changes).process
       render json: {order: @order, position: @position, log: log}
     else

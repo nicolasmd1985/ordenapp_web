@@ -55,7 +55,7 @@ class ThingsController < ApplicationController
       return
     end
     if @thing.save
-      @thing.update_attributes(code_scan: @thing.slug) if @thing.code_scan.blank?
+      @thing.update(code_scan: @thing.slug) if @thing.code_scan.blank?
       # if @thing.maintenance_date
       #   if @thing.notification && (@thing.notification_time != "0")
       #     Things::SetNotification.new(@thing, 1).process

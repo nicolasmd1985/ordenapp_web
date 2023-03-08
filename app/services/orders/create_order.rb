@@ -39,7 +39,7 @@ class Orders::CreateOrder
     @order.parent = @parent
 
     success = @order.save
-    @order.update_attributes(customer_id_order: @order.internal_id) if @order.customer_id_order.blank?
+    @order.update(customer_id_order: @order.internal_id) if @order.customer_id_order.blank?
 
     if success && @order.status_id == 501
       @user = User.find(@order.tecnic_id)

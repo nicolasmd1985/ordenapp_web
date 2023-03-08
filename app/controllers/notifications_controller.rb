@@ -14,7 +14,7 @@ class NotificationsController < ApplicationController
     @notification = Notification.find_by(slug: params[:slug])
 
     if @notification
-      @notification.update_attributes(readed: true, read_at: Time.now) unless @notification.readed
+      @notification.update(readed: true, read_at: Time.now) unless @notification.readed
     else
       redirect_to notifications_url, alert: "Notification not found."
     end

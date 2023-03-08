@@ -14,7 +14,7 @@ class Customers::Orders::ThingsToOrder
     old_things.each do |thing|
       old_orders = thing.order_ids
       old_orders.delete(@order_id.to_s)
-      thing.update_attributes(order_ids: old_orders)
+      thing.update(order_ids: old_orders)
     end
 
     # asociate thing with the order
@@ -22,7 +22,7 @@ class Customers::Orders::ThingsToOrder
       orders = thing.order_ids
       orders << @order_id.to_s
       orders.uniq!
-      thing.update_attributes(order_ids: orders)
+      thing.update(order_ids: orders)
     end
 
     @things_ids

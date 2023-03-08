@@ -24,7 +24,7 @@ class Orders::Rates::UpdateRate
 
   private
     def answered(order_rate)
-      order_rate.update_attributes(year: order_rate.updated_at.strftime("%Y").to_i,
+      order_rate.update(year: order_rate.updated_at.strftime("%Y").to_i,
                                     month: order_rate.updated_at.strftime("%m").to_i,
                                     active: false)
     end

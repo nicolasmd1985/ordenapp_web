@@ -50,7 +50,7 @@ class Orders::PreUpdateOrder
       end
 
       if @old_tecnic != @order.tecnic_id
-        @order.update_attributes(substatus_id: nil, status_id: 501, sync: false) if @order.status_id == 501
+        @order.update(substatus_id: nil, status_id: 501, sync: false) if @order.status_id == 501
         log_created, log = Orders::CreateOrderLog.new(@order, "reassigned", @current_user, @order.saved_changes).process if @order.saved_changes?
 
         OrderMailer.order_assigned_mail(@order).deliver_later(wait: 1.minute)

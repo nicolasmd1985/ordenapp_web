@@ -137,7 +137,7 @@ class OrdersController < ApplicationController
 
   def update_status
     if [503, 506, 507, 508].include?(@order.status_id) && params[:status_id] != "0"
-      @order.update_attributes(status_id: params[:status_id].to_i, substatus_id: params[:substatus_id].blank? ? nil : params[:substatus_id].to_i)
+      @order.update(status_id: params[:status_id].to_i, substatus_id: params[:substatus_id].blank? ? nil : params[:substatus_id].to_i)
 
       params[:description] = "#{params[:status_id]} - #{params[:substatus_id]} - #{params[:comment]}"
       comment_created, comment = Comments::CreateComment.new(@order, @current_user, params).process
@@ -153,7 +153,7 @@ class OrdersController < ApplicationController
 
   def close_order
     if [507].include?(@order.status_id)
-      @order.update_attributes(status_id: 504)
+      @order.update(status_id: 504)
       log_created, log = Orders::CreateOrderLog.new(@order, "close", @current_user, @order.saved_changes).process
       OrderMailer.order_finished(@order)
       redirect_to order_url(@order.slug), notice: "Order closed successfully."

@@ -36,7 +36,7 @@ class Api::V1::ReferralsController < ApiController
 
 	def status_define(status_id)
 		user = current_user
-		user.update_attributes(status_id: 202) #Available
+		user.update(status_id: 202) #Available
 		@order = Order.status_order(@params[:order], status_id)
 		name_status = Status.find(status_id).description
 

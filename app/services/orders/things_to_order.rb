@@ -16,14 +16,14 @@ class Orders::ThingsToOrder
     old_things.each do |thing|
       old_orders = thing.order_ids
       old_orders.delete(@order_id.to_s)
-      thing.update_attributes(order_ids: old_orders)
+      thing.update(order_ids: old_orders)
     end
 
     things.each do |thing|
       orders = thing.order_ids
       orders << @order_id.to_s
       orders.uniq!
-      thing.update_attributes(order_ids: orders, user_id: @customer_id)
+      thing.update(order_ids: orders, user_id: @customer_id)
     end
 
     @things_ids

@@ -7,7 +7,7 @@ class Api::V1::NotificationsController < ApiController
   def read
     id = params[:id].split('-')
     notification = Notification.find(id[1])
-    notification.update_attributes(readed: true, read_at: Time.now) if notification
+    notification.update(readed: true, read_at: Time.now) if notification
   end
 
 end

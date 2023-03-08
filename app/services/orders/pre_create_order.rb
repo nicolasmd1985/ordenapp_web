@@ -33,7 +33,7 @@ class Orders::PreCreateOrder
     if order_created
       log_created, log = Orders::CreateOrderLog.new(@order, "create", @current_user).process
       # things_ids = Orders::ThingsToOrder.new(@order.id, @order.customer_id, @params[:order][:things_ids], '').process
-      # @order.update_attributes(things_ids: things_ids)
+      # @order.update(things_ids: things_ids)
 
       # if the order created become a parent call order create service to be groupal
       if @tecnic_list.size > 1 #validate is groupal or sigle to process to auto create children order with the other tecnics

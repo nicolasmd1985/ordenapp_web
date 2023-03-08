@@ -18,7 +18,7 @@ class Api::V1::PositionsController < ApiController
 
 		if @position.save
 			user = current_user
-			user.update_attributes(status_id: 208) #Absence
+			user.update(status_id: 208) #Absence
 			Gps::CreatePositionLog.new(user, position).process
 
 			render json: {message: "Mark as #{user.status.description}"}, status: :ok

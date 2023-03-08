@@ -57,8 +57,8 @@ class ToolsController < ApplicationController
       redirect_to new_tool_url, alert: I18n.t('back_messages.tools.responsible_error')
     else
       if @tool.save
-        @tool.update_attributes(code_scan: @tool.slug) if @tool.code_scan.blank?
-        @tool.update_attributes(tecnic_id: nil) if @tool.status_id != 400
+        @tool.update(code_scan: @tool.slug) if @tool.code_scan.blank?
+        @tool.update(tecnic_id: nil) if @tool.status_id != 400
         Tools::CreateComment.new(@tool, current_user, params[:tool]).process
 
         redirect_to show_tool_url(@tool.slug), notice: I18n.t('back_messages.created', resource: "Tool")
@@ -74,9 +74,9 @@ class ToolsController < ApplicationController
       redirect_to edit_tool_url(@tool.slug), alert: I18n.t('back_messages.tools.responsible_error')
     else
       if @tool.update(tool_params)
-        @tool.update_attributes(status_id: 400) if !params[:tool][:tecnic_id].blank?
-        @tool.update_attributes(tecnic_id: nil) if @tool.status_id != 400
-        @tool.update_attributes(status_id: 401) if @tool.tecnic_id.blank?
+        @tool.update(status_id: 400) if !params[:tool][:tecnic_id].blank?
+        @tool.update(tecnic_id: nil) if @tool.status_id != 400
+        @tool.update(status_id: 401) if @tool.tecnic_id.blank?
         Tools::CreateComment.new(@tool, current_user, params[:tool]).process
 
         redirect_to show_tool_url(@tool.slug), notice: I18n.t('back_messages.updated', resource: "Tool")
@@ -112,9 +112,9 @@ class ToolsController < ApplicationController
 
   def create_comment_tool(tool, params)
     @tool = tool
-    @tool.update_attributes(status_id: params[:status_id])
-    @tool.update_attributes(tecnic_id: params[:tecnic_id]) if !params[:tecnic_id].blank?
-    @tool.update_attributes(tecnic_id: nil) if @tool.status_id != 400
+    @tool.update(status_id: params[:status_id])
+    @tool.update(tecnic_id: params[:tecnic_id]) if !params[:tecnic_id].blank?
+    @tool.update(tecnic_id: nil) if @tool.status_id != 400
 
     commented, comment = Tools::CreateComment.new(@tool, current_user, params).process
 

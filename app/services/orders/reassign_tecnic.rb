@@ -10,7 +10,7 @@ class Orders::ReassignTecnic
 
   def process
     if @params[:tecnic_id].to_i == 0
-      @order.update_attributes(sync: false, tecnic_id: @params[:tecnic_id].to_i, status_id: 500, substatus_id: nil)
+      @order.update(sync: false, tecnic_id: @params[:tecnic_id].to_i, status_id: 500, substatus_id: nil)
       Notifications::CreateNotification.new(@order, @current_user).process if @old_status != @order.status_id
 
       return true
@@ -19,7 +19,7 @@ class Orders::ReassignTecnic
     @params[:install_time] = set_data_time(@params)
     @params[:limit_time] = @params[:install_time] + set_offset_time(@params)
 
-    @order.update_attributes(sync: false,
+    @order.update(sync: false,
                               tecnic_id: @params[:tecnic_id].to_i,
                               install_date: cast_install_date(@params[:install_date]),
                               install_time: @params[:install_time],
