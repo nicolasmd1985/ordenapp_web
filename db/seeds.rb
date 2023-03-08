@@ -63,12 +63,12 @@ def starting_seed
   # User seeder
   puts 'Starting user seeding...'
   puts '==================================='
-  #supervisor
-  User.create(identification: '123456789', first_name: 'Alex', last_name: 'Tintor', phone_number_1: '3207894562', email: 'alextintor@gmail.com', encrypted_password: 'Secret123', password: 'Secret123', role: 1, city_id: 1, subsidiary_id: 1, active: true, status_id: 202)
+  # supervisor
+  # User.create(identification: '123456789', first_name: 'Alex', last_name: 'Tintor', phone_number_1: '3207894562', email: 'alextintor@gmail.com', encrypted_password: 'Secret123', password: 'Secret123', role: 1, city_id: 1, subsidiary_id: 1, active: true, status_id: 202)
   # tecnic
-  User.create(identification: '987654321', first_name: 'Todd', last_name: 'Howard', phone_number_1: '3216589715', email: 'roberto@gmail.com', encrypted_password: 'Secret123', password: 'Secret123', role: 0, city_id: 1, subsidiary_id: 1, active: true, status_id: 202)
+  # User.create(identification: '987654321', first_name: 'Todd', last_name: 'Howard', phone_number_1: '3216589715', email: 'roberto@gmail.com', encrypted_password: 'Secret123', password: 'Secret123', role: 0, city_id: 1, subsidiary_id: 1, active: true, status_id: 202)
   # customer
-  User.create(identification: '12323324543', first_name: 'Andres', last_name: 'Roa', phone_number_1: '3057458895', email: 'andfb18@gmail.com', encrypted_password: 'dipzo123', password: 'dipzo123', role: 2, city_id: 1, subsidiary_id: 1, active: true, status_id: 202)
+  # User.create(identification: '12323324543', first_name: 'Andres', last_name: 'Roa', phone_number_1: '3057458895', email: 'andfb18@gmail.com', encrypted_password: 'dipzo123', password: 'dipzo123', role: 2, city_id: 1, subsidiary_id: 1, active: true, status_id: 202)
   puts 'User seeding finished.'
   puts '==================================='
 
@@ -362,6 +362,7 @@ def new_user_statuses
   Status.create(id: 208, type_status: 'user_status', description: "Absence")
 end
 
+
 # new_user_statuses()
 
 # seed_substatus()
@@ -381,4 +382,12 @@ end
 # create_categories()
 # data_fake()
 
-starting_seed()
+# starting_seed()
+def start
+  starting_seed()
+  create_categories()
+  seed_substatus()
+  new_user_statuses()
+end
+
+start()
