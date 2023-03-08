@@ -52,9 +52,9 @@ module OrdersHelper
   def options_for_select_category(subsidiary, selected_value)
     options = Category.where(subsidiary_id: subsidiary).where(category_type: "Order")
     .or(Category.where(subsidiary_id: subsidiary).where(category_type: nil)).map{|x| [x.name, x.id]}
-    options.insert(0, [t('category.status.install'), 101])
-    options.insert(1, [t('category.status.maintenance'), 102])
-    options.insert(2, [t('category.status.repair'), 103])
+    # options.insert(0, [t('category.status.install'), 101])
+    # options.insert(1, [t('category.status.maintenance'), 102])
+    # options.insert(2, [t('category.status.repair'), 103])
     options_for_select options, selected_value
   end
 
