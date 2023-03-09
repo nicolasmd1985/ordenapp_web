@@ -18,7 +18,7 @@
                         - history.photos.each do |photo|
                           .carousel-item
                             .view
-                              %img.img-fluid.card-img-top.d-block{:alt => "Device image#{history.id}", :src => "https://ordenappbucket.s3.amazonaws.com/#{photo}", style: "margin: 0 auto;"}
+                              %img.img-fluid.card-img-top.d-block{:alt => "Device image#{history.id}", :src => "https://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/#{photo}", style: "margin: 0 auto;"}
                             .carousel-caption
                               %h3.h3-responsive
                                 = history.description

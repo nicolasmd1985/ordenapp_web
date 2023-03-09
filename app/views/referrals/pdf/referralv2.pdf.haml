@@ -123,7 +123,7 @@
               %tr
                 %td
                   - history.photos.each do |photo|
-                    %img{:alt => "Device image#{history.id}", :src => "https://ordenappbucket.s3.amazonaws.com/#{photo}", style: "width: 200px;"}
+                    %img{:alt => "Device image#{history.id}", :src => "https://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/#{photo}", style: "width: 200px;"}
                     %p
                 %td
                   =history.out_thing.thing.code_scan

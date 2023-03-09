@@ -90,7 +90,7 @@
             -#       - history.photos.each do |photo|
             -#         .carousel-item
             -#           .view
-            -#             %img.img-fluid.card-img-top.d-block.w-100{:alt => "Device image#{history.id}", :src => "https://ordenappbucket.s3.amazonaws.com/#{photo}", style: "margin: 0 auto;"}
+            -#             %img.img-fluid.card-img-top.d-block.w-100{:alt => "Device image#{history.id}", :src => "https://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/#{photo}", style: "margin: 0 auto;"}
             -#     / /.Slides
             -#     / Controls
             -#     %a.carousel-control-prev{"data-slide" => "prev", :href => "#history-carousel-thumb#{history.id}", :role => "button"}
@@ -104,7 +104,7 @@
             -#       - i = 0
             -#       - history.photos.each do |photo|
             -#         %li{"data-slide-to" => "#{i}", "data-target" => "#history-carousel-thumb#{history.id}"}
-            -#           %img{:alt => "Device image#{history.id}", :src => "https://ordenappbucket.s3.amazonaws.com/#{photo}", :width => "100"}/
+            -#           %img{:alt => "Device image#{history.id}", :src => "https://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/#{photo}", :width => "100"}/
             -#         - i +=  1
               / /.Carousel Wrapper
           -# .row

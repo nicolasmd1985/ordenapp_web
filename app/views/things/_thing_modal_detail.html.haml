@@ -96,7 +96,7 @@
 -#                 - thing.photos.each do |photo|
 -#                   .carousel-item
 -#                     .view
--#                       %img.img-fluid.card-img-top.d-block.w-100{:alt => "Device image#{thing.id}", :src => "https://ordenappbucket.s3.amazonaws.com/#{photo}", style: "margin: 0 auto;"}
+-#                       %img.img-fluid.card-img-top.d-block.w-100{:alt => "Device image#{thing.id}", :src => "https://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/#{photo}", style: "margin: 0 auto;"}
 -#                       -#%a.carousel-item{:href => "#one!"}
 -#                     .carousel-caption
 -#                       %h3.h3-responsive

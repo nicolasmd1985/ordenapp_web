@@ -2,7 +2,7 @@
   .row
     .col-sm-8.col-md-6.col-lg-6
       .card.light-1.p-0.background_video
-        = video_tag "https://ordenappbucket.s3.amazonaws.com/ordenapp_main_page+liviano.mp4", :playsinline => true, :controls => false, :autoplay => true, :width => "100%", :id => "video_presentation", :preload => "auto", :muted => true, :loop => false
+        = video_tag "https://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/ordenapp_main_page+liviano.mp4", :playsinline => true, :controls => false, :autoplay => true, :width => "100%", :id => "video_presentation", :preload => "auto", :muted => true, :loop => false
     .col-sm-8.col-md-6.col-lg-6
       .card.light-1.p-0
         %h3.card-header.info-color.white-text.text-center.py-4.mb-3

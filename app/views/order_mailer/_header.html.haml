@@ -66,4 +66,4 @@
                                     %tbody
                                       %tr
                                         %td.esd-block-image{:align => "center", :style => "font-size: 0px;"}
-                                          = image_tag("https://ordenappbucket.s3.amazonaws.com/ordenapp_logo.png" , :style => "display: block;", :class => "clase-logo", :alt => "", :height => "172", :href => "https://ordenapp.co", :target => "_blank")
+                                          = image_tag("https://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/ordenapp_logo.png" , :style => "display: block;", :class => "clase-logo", :alt => "", :height => "172", :href => "https://ordenapp.co", :target => "_blank")

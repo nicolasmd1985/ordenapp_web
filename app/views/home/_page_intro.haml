@@ -14,4 +14,4 @@
                                 .text-center
                                     = render "button_request"
     .background_video
-        = video_tag "https://ordenappbucket.s3.amazonaws.com/ordenapp_main_page+liviano.mp4", :playsinline => true, :controls => false, :autoplay => true, :width => "100%", :id => "video_presentation", :preload => "auto", :muted => true, :loop => false
+        = video_tag "https://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/ordenapp_main_page+liviano.mp4", :playsinline => true, :controls => false, :autoplay => true, :width => "100%", :id => "video_presentation", :preload => "auto", :muted => true, :loop => false

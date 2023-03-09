@@ -49,7 +49,7 @@
                 ="#{t('mailers.orders.time')} #{@order.install_date} - #{@order.install_time.strftime("%I:%M %p")}"
             %td.content
               -if !@tecnic.try(:urlavatar).present?
-                %img{:src => "https://ordenappbucket.s3.amazonaws.com/servicio-tecnico.png"}
+                %img{:src => "https://#{ENV['S3_BUCKET_NAME']}.s3.amazonaws.com/servicio-tecnico.png"}
                 %a{:href => "#!"}
                   .mask.rgba-white-slight
               -else      
