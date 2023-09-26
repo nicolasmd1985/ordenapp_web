@@ -35,3 +35,7 @@ dump.rdb
 # Ignore .DS_Store
 *.DS_Store
 *.rdb
+
+/config/credentials/production.key
+
+/config/credentials/development.key

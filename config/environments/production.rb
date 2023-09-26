@@ -55,7 +55,7 @@ Rails.application.configure do
   # config.action_mailer.default_url_options = { host: "localhost:3000" }
   config.action_mailer.default_url_options = { host: ENV["HOST"] }
 
-  default_url_options[:host] = ENV["HOST"]
+  default_url_options[:host] = Rails.application.credentials.dig(:email, :HOST)
   config.action_mailer.asset_host = ENV["HOST"]
   config.action_mailer.smtp_settings = {
     :user_name => ENV['SENDGRID_USERNAME'],
