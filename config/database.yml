@@ -41,4 +41,4 @@ test:
 production:
   <<: *default
   database: ordenapp_production
-  password: <%= ENV['PASSWORD'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
