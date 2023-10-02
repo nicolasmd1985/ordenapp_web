@@ -3,14 +3,16 @@ postgres: &default
   adapter: postgresql
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: <%= ENV["DB_HOST"] %>
+  host: <%= Rails.application.credentials.dig(:database, :host) %>
   # username: <%= ENV["DB_USERNAME"] %>
   # password: <%= ENV["DB_PASSWORD"] %>
-  # port: 3306
+  port: 5432
 
 development:
   <<: *default
   database: ordenapp_development
+  username: <%= Rails.application.credentials.dig(:database, :username) %>
+  password: <%= Rails.application.credentials.dig(:database, :password) %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
