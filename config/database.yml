@@ -11,8 +11,6 @@ postgres: &default
 development:
   <<: *default
   database: ordenapp_development
-  username: <%= Rails.application.credentials.dig(:database, :username) %>
-  password: <%= Rails.application.credentials.dig(:database, :password) %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -43,4 +41,6 @@ test:
 production:
   <<: *default
   database: ordenapp_production
-  password: <%= ENV['DB_PASSWORD'] %>
+  host: <%= ENV['host_db'] %>
+  username: <%= ENV['username'] %>
+  password: <%= ENV['password'] %>
