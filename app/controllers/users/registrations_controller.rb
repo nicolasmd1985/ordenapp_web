@@ -85,7 +85,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       check_mail = User.find_by(email: params[:user][:email])
       check_corporation = Corporation.find_by(name: params[:user][:corporation_id])
         if check_corporation.nil? && check_mail.nil?
-          corporation = Users::CreateCorporation.new params[:user]
+          corporation = .new params[:user]
           corporation_id = corporation.process
           if corporation_id
             name_array = @auth["info"]["name"].split(/ /, 2)

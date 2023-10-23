@@ -126,6 +126,11 @@ gem 'omniauth-google-oauth2'
 #breadcrumb
 gem "breadcrumbs_on_rails"
 
+
+gem 'graphql'
+gem 'graphiql-rails'
+
+
 group :production do
   gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"
   gem 'scout_apm'
@@ -148,8 +153,9 @@ group :development do
   gem 'spring'
   gem 'pry'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'rubocop-rails'
+  # gem 'rubocop-rails'
   gem "letter_opener", "~> 1.4", ">= 1.4.1"
+
 end
 
 group :test do

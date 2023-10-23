@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
 
 
 	def users_tecnics_and_customers
-		if request.format.json?
+		if request.format.json? && current_user
 			@users_tecnics = User.users_count(current_user.subsidiary_id, 0)
 			@users_customers = User.users_count(current_user.subsidiary_id, 2)
 		elsif request.format.html? && user_signed_in?

@@ -3,6 +3,11 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
+  post "/graphql", to: "graphql#execute"
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
+
   resources :maintenances
   devise_for :users, :controllers => { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations', sessions: 'users/sessions', passwords: 'users/passwords'}
   #devise normal
@@ -261,4 +266,7 @@ Rails.application.routes.draw do
   # scope '(:locale)', locale: /#{I18n.available_locales.join("|")}/ do
   #
   # end
+
+
+
 end
