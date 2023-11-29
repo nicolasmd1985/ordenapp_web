@@ -10,10 +10,10 @@ class GraphqlController < ApplicationController
   def execute
     variables = prepare_variables(params[:variables])
     query = params[:query]
-    operation_name = params[:operationName]
+    operation_name = params[:operationName]    
     context = {
       # Query context goes here, for example:
-      # current_user: current_user,
+      current_user: current_user_graph
     }
     result = OrdenappSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
@@ -23,6 +23,18 @@ class GraphqlController < ApplicationController
   end
 
   private
+
+  def current_user_graph
+    return {} if authorization_token.nil?
+    begin
+      authorization_token.slice! "Bearer "      
+      decoded = JsonWebToken.decode(authorization_token)      
+      return User.find(decoded[:user_id])
+    rescue => e 
+      handle_error_in_development(e)
+    end
+    
+  end
 
   # Handle variables in form data, JSON body, or a blank value
   def prepare_variables(variables_param)
@@ -49,5 +61,9 @@ class GraphqlController < ApplicationController
     logger.error e.backtrace.join("\n")
 
     render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: 500
+  end
+
+  def authorization_token
+    @authorization_token ||= request.headers['Authorization']
   end
 end
