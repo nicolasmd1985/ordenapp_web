@@ -1,12 +1,12 @@
 module Types
   class SubsidiaryType < Types::BaseObject
-    field :id, ID, null: false
-    field :name, String, null: false
-    field :phone, String, null: false
-    field :address, String, null: false
-    field :email, String, null: false
-    field :subsidiary_initials, String, null: false
-    field :corporation, Types::CorporationType, null: false
+    field :id, ID, null: true
+    field :name, String, null: true
+    field :phone, String, null: true
+    field :address, String, null: true
+    field :email, String, null: true
+    field :subsidiary_initials, String, null: true
+    field :corporation, Types::CorporationType, null: true
 
   end
 end

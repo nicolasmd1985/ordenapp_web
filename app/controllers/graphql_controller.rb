@@ -6,6 +6,9 @@ class GraphqlController < ApplicationController
   # This allows for outside API access while preventing CSRF attacks,
   # but you'll have to authenticate your user separately
   # protect_from_forgery with: :null_session
+  DEFAULT_CONTEXT = {
+    current_user: nil
+  }.freeze
 
   def execute
     variables = prepare_variables(params[:variables])
@@ -27,7 +30,7 @@ class GraphqlController < ApplicationController
   def current_user_graph
     return {} if authorization_token.nil?
     begin
-      authorization_token.slice! "Bearer "      
+      authorization_token.slice! "Bearer "
       decoded = JsonWebToken.decode(authorization_token)      
       return User.find(decoded[:user_id])
     rescue => e 

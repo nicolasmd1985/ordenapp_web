@@ -13,8 +13,7 @@ module Mutations
 
         subsidiary = Subsidiary.new(args[:subsidiary_input].to_h)
         subsidiary.status_id = 100
-        binding.pry
-        
+        subsidiary.corporation_id = user.corporation.id        
 
         if subsidiary.save
           { subsidiary: subsidiary, errors: [] }

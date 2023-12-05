@@ -14,7 +14,6 @@ module Mutations
         corporation = Users::CreateCorporation.new(user)        
         corporation_id = corporation.process
         if corporation_id
-          # binding.pry
           user = User.new(user.to_hash)
           user.password = password
           user.corporation_id = corporation_id
