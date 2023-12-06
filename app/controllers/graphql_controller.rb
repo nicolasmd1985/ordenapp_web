@@ -33,7 +33,7 @@ class GraphqlController < ApplicationController
       authorization_token.slice! "Bearer "
       decoded = JsonWebToken.decode(authorization_token)      
       return User.find(decoded[:user_id])
-    rescue => e 
+    rescue => e       
       handle_error_in_development(e)
     end
     
