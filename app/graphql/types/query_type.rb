@@ -28,7 +28,9 @@ module Types
     #   "Hello World!"
     # end
 
-    field :subsidiaries, resolver: Queries::Subsidiaries
+    field :subsidiaries, resolver: Queries::Subsidiaries::Subsidiaries
+    field :get_subsidiary, resolver: Queries::Subsidiaries::GetSubsidiary
     field :user_admin, resolver: Queries::UserAdmin
+
   end
 end

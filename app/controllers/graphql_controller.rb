@@ -10,7 +10,7 @@ class GraphqlController < ApplicationController
     current_user: nil
   }.freeze
 
-  def execute
+  def execute    
     variables = prepare_variables(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]    
@@ -28,15 +28,13 @@ class GraphqlController < ApplicationController
   private
 
   def current_user_graph
-    return {} if authorization_token.nil?
-    begin
-      authorization_token.slice! "Bearer "
-      decoded = JsonWebToken.decode(authorization_token)      
-      return User.find(decoded[:user_id])
-    rescue => e       
-      handle_error_in_development(e)
-    end
-    
+    return {} if authorization_token.nil?  
+    authorization_token.slice! "Bearer "    
+    decoded = JsonWebToken.decode(authorization_token)
+    if decoded.nil? || decoded.empty?
+      return {}
+    end      
+    return User.find(decoded[:user_id])    
   end
 
   # Handle variables in form data, JSON body, or a blank value
