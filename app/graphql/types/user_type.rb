@@ -1,9 +1,14 @@
 module Types
   class UserType < Types::BaseObject
-    field :id, ID, null: false
-    field :first_name, String, null: false
-    field :last_name, String, null: false
-    field :email, String, null: false
-    field :corporation_id, String, null: false
+    field :id, ID, null: true
+    field :first_name, String, null: true
+    field :last_name, String, null: true
+    field :email, String, null: true
+    field :corporation_id, String, null: true
+    field :phone_number_1, String, null: true
+    field :subsidiary, String, null: true
+    def subsidiary
+      object.subsidiary.name
+    end
   end
 end

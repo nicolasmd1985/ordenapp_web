@@ -11,9 +11,12 @@ module Types
 
     field :sign_in, mutation: Mutations::SignIn
     field :sign_up, mutation: Mutations::SignUp
+
     field :update_admin_user, mutation: Mutations::UpdateAdminUser
     field :create_subsidiary, mutation: Mutations::Subsidiaries::CreateSubsidiary
     field :update_subsidiary, mutation: Mutations::Subsidiaries::UpdateSubsidiary
     field :delete_subsidiary, mutation: Mutations::Subsidiaries::DeleteSubsidiary
+
+    field :create_supervisor, mutation: Mutations::Supervisor::CreateSupervisor
   end
 end
