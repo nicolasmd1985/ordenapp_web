@@ -32,6 +32,7 @@ module Types
     field :get_subsidiary, resolver: Queries::Subsidiaries::GetSubsidiary
     field :user_admin, resolver: Queries::UserAdmin
     field :supervisors, resolver: Queries::Supervisors::Supervisors
+    field :clients, resolver: Queries::Clients::Clients
 
   end
 end
