@@ -1,6 +1,6 @@
 
 module Mutations
-  module Supervisor
+  module Supervisors
     class CreateSupervisor < BaseMutation
       argument :supervisor_input, Inputs::UserInput, required: true
 

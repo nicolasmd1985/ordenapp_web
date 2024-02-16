@@ -30,9 +30,13 @@ module Types
 
     field :subsidiaries, resolver: Queries::Subsidiaries::Subsidiaries
     field :get_subsidiary, resolver: Queries::Subsidiaries::GetSubsidiary
+    
     field :user_admin, resolver: Queries::UserAdmin
-    field :supervisors, resolver: Queries::Supervisors::Supervisors
+
     field :clients, resolver: Queries::Clients::Clients
+
+    field :get_supervisor, resolver: Queries::Supervisors::GetSupervisor
+    field :supervisors, resolver: Queries::Supervisors::Supervisors
 
   end
 end

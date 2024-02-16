@@ -10,5 +10,9 @@ module Types
     def subsidiary
       object.subsidiary.name
     end
+    field :subsidiary_id, ID, null: true
+    def subsidiary_id
+      object.subsidiary.id
+    end
   end
 end

@@ -17,7 +17,8 @@ module Types
     field :update_subsidiary, mutation: Mutations::Subsidiaries::UpdateSubsidiary
     field :delete_subsidiary, mutation: Mutations::Subsidiaries::DeleteSubsidiary
 
-    field :create_supervisor, mutation: Mutations::Supervisor::CreateSupervisor
+    field :create_supervisor, mutation: Mutations::Supervisors::CreateSupervisor
+    field :update_supervisor, mutation: Mutations::Supervisors::UpdateSupervisor
 
     field :create_client, mutation: Mutations::Clients::CreateClient
   end
