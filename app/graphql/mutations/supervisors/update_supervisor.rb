@@ -1,7 +1,6 @@
-
 module Mutations
   module Supervisors
-    class UpdateSupervisor < BaseMutation
+    class UpdateSupervisor < BaseMutation      
       argument :supervisor_input, Inputs::UserInput, required: true
 
       field :supervisor, Types::UserType, null: false
@@ -10,10 +9,7 @@ module Mutations
       def resolve(args)
         user = context[:current_user]
         return GraphQL::ExecutionError.new('Unauthorized for the action.') unless (user.present? && user.role == "admin")        
-        supervisor = user.corporation.subsidiaries.find(args[:supervisor_input][:id])   
-        if supervisor.nil?
-          return GraphQL::ExecutionError.new('Supervisor not found.')
-        end
+        supervisor = User.find(args[:supervisor_input][:id])  
         if supervisor.update(args[:supervisor_input].to_h)
           { supervisor: supervisor, errors: [] }
         else

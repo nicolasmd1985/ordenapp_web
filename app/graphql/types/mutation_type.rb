@@ -21,5 +21,6 @@ module Types
     field :update_supervisor, mutation: Mutations::Supervisors::UpdateSupervisor
 
     field :create_client, mutation: Mutations::Clients::CreateClient
+    field :update_client, mutation: Mutations::Clients::UpdateClient
   end
 end

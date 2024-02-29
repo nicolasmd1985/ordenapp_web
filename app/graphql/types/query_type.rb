@@ -34,6 +34,7 @@ module Types
     field :user_admin, resolver: Queries::UserAdmin
 
     field :clients, resolver: Queries::Clients::Clients
+    field :get_client, resolver: Queries::Clients::GetClient
 
     field :get_supervisor, resolver: Queries::Supervisors::GetSupervisor
     field :supervisors, resolver: Queries::Supervisors::Supervisors
