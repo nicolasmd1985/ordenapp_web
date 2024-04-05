@@ -1,17 +1,19 @@
 module Mutations
   class SignUp < Mutations::BaseMutation
     argument :user, Inputs::UserInput , required: true
+    argument :corporation_name, String, required: true
     argument :password, String, required: true
 
     field :user, Types::UserType, null: true
     field :token, String, null: true
     field :errors, [String], null: true
 
-    def resolve(user:, password:)
+    def resolve(user:, password:, corporation_name:)
       check_mail = User.find_by(email: user.email)
       check_corporation = Corporation.find_by(name: user.corporation_id)
       if check_corporation.nil? && check_mail.nil?
-        corporation = Users::CreateCorporation.new(user)        
+
+        corporation = Users::CreateCorporation.new(corporation_name)        
         corporation_id = corporation.process
         if corporation_id
           user = User.new(user.to_hash)

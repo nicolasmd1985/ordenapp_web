@@ -39,5 +39,8 @@ module Types
     field :get_supervisor, resolver: Queries::Supervisors::GetSupervisor
     field :supervisors, resolver: Queries::Supervisors::Supervisors
 
+    field :get_technician, resolver: Queries::Technicians::GetTechnician
+    field :technicians, resolver: Queries::Technicians::Technicians
+
   end
 end

@@ -22,5 +22,8 @@ module Types
 
     field :create_client, mutation: Mutations::Clients::CreateClient
     field :update_client, mutation: Mutations::Clients::UpdateClient
+
+    field :create_technician, mutation: Mutations::Technicians::CreateTechnician
+    field :update_technician, mutation: Mutations::Technicians::UpdateTechnician
   end
 end
