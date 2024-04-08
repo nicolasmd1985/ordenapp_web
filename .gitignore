@@ -39,3 +39,8 @@ dump.rdb
 /config/credentials/production.key
 
 /config/credentials/development.key
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
