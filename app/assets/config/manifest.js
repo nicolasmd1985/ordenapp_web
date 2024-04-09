@@ -1,0 +1,12 @@
+//= link graphiql/rails/application.css
+//= link graphiql/rails/application.js
+//= link pantalla1.png
+//= link pantalla2.png
+//= link pantalla3.png
+//= link pantalla4.png
+//= link logo-fondo-emprender.png
+//= link logo-presidencia-republica.png
+//= link logo-mobile-05.png
+//= link_tree ../images
+//= link_directory ../javascripts .js
+//= link_directory ../stylesheets .css
