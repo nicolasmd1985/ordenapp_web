@@ -1,9 +1,14 @@
 
-
 namespace :db do
-  desc 'Create the database if it does not exist'
-  task create: :environment do
-    puts 'Creating the database if it does not exist...'
-    system('bin/rails db:create RAILS_ENV=production') unless ActiveRecord::Base.connection_config[:database]
+  desc 'Create the database and run migrations'
+  task create_and_migrate: :environment do
+    # Create the database
+    Rake::Task['db:create'].invoke
+
+    # Run migrations
+    Rake::Task['db:migrate'].invoke
+
+    # Optionally, seed the database
+    Rake::Task['db:seed'].invoke
   end
 end
