@@ -34,9 +34,9 @@ $quaternary-color-gradient: linear-gradient(90deg, rgba(212,220,240,1) 0%, rgba(
 .quaternary-color-gradient {
   background: $quaternary-color-gradient !important;
 }
-.display-4 {
-    @include responsive-font-size(3.5rem);
-}
+// .display-4 {
+//   @include responsive-font-size(3.5rem);
+// }
 @font-face {
   font-family: "Gotham Book";
   src: url("Gotham-Book.otf");
