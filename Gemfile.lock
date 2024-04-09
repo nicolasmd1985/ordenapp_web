@@ -534,7 +534,7 @@ DEPENDENCIES
   rqrcode
   rspec-rails (~> 3.8)
   rubyzip (>= 1.0.0)
-  sassc (< 2.2.0)
+  sassc (<= 2.1)
   sassc-rails (~> 2.1, >= 2.1.2)
   scout_apm
   sidekiq (~> 5.1, >= 5.1.3)
