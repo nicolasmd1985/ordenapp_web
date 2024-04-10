@@ -41,6 +41,19 @@ test:
 production:
   <<: *default
   database: ordenapp_production
-  host: <%= ENV['host_db'] %>
-  username: <%= ENV['username'] %>
-  password: <%= ENV['password'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOST'] %>
+
+  # database: ordenapp_production
+  # host: "database-1.cbg4y84643nl.us-west-2.rds.amazonaws.com"
+  # username: "nicolasmd"
+  # password: "4dm1nOrdenapp"
+
+#  eb setenv RDS_USERNAME=nicolasmd RDS_PASSWORD=4dm1nOrdenapp RDS_HOST=database-1.cbg4y84643nl.us-west-2.rds.amazonaws.com
+# eb setenv SECRET_KEY_BASE=f94d560da927fe4df3f37813d4de5930cc0f18621b3ae478d68cef7cc38de3cb01974376d46478500bd225c0ce9b8e4b3ad96de8d6aa2dd82754061eb1dd50d4
+# psql --host=database-1.cbg4y84643nl.us-west-2.rds.amazonaws.com --port=5432 --username=nicolasmd --dbname=ordenapp_production 
+#  eb setenv DATABASE_URL=postgres://nicolasmd:4dm1nOrdenapp@database-1.cbg4y84643nl.us-west-2.rds.amazonaws.com:5432/ordenapp_production
+
+  
+  
