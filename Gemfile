@@ -109,7 +109,8 @@ gem 'will_paginate', '~> 3.1.0'
 # gem 'materialize-sass', '~> 1.0.0'
 
 gem "recaptcha"
-gem 'bootstrap', '~> 5.3', '>= 5.3.2'
+# gem 'bootstrap', '~> 5.3', '>= 5.3.2'
+gem 'bootstrap', '~> 4.5.0'
 
 #swet alert
 gem 'rails-assets-sweetalert2', '~> 5.1.1', source: 'https://rails-assets.org'
