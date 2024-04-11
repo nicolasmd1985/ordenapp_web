@@ -11,7 +11,7 @@ module Ordenapp
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
     config.active_record.default_timezone = :local
-    config.time_zone = 'Bogota'
+    config.time_zone = 'Eastern Time (US & Canada)'
     config.i18n.available_locales = [:en, :es]
     config.i18n.default_locale = :es
     # config.active_job_queue_adapter = Rails.env.production? ? :sidekiq : :async
