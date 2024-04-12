@@ -1,3 +1,8 @@
+upstream my_app {
+  server unix:///var/run/puma/my_app.sock;
+}
+
+
 server_name _ localhost; # need to listen to localhost for worker tier
 
 location / {
