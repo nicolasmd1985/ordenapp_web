@@ -84,12 +84,12 @@ class UsersController < ApplicationController
   def cities
     if params[:placeid].present?
       placeid = params[:placeid]
-      @result = Net::HTTP.get(URI.parse("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{placeid}&inputtype=textquery&fields=place_id&key=#{ENV['GOOGLE_MAPS_API_SERVER_KEY']}"))
+      @result = Net::HTTP.get(URI.parse("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{placeid}&inputtype=textquery&fields=place_id&key=#{ENV['GOOGLE_MAPS_API_SERVER_KEY'] || Rails.application.credentials[:GOOGLE_MAPS_API_SERVER_KEY]}"))
       render json: @result, status: :ok
     end
     if params[:city].present?
       city = params[:city]
-      @result = Net::HTTP.get(URI.parse("https://maps.googleapis.com/maps/api/place/autocomplete/json?input=#{city}&types=(cities)&key=#{ENV['GOOGLE_MAPS_API_SERVER_KEY']}"))
+      @result = Net::HTTP.get(URI.parse("https://maps.googleapis.com/maps/api/place/autocomplete/json?input=#{city}&types=(cities)&key=#{ENV['GOOGLE_MAPS_API_SERVER_KEY'] || Rails.application.credentials[:GOOGLE_MAPS_API_SERVER_KEY]}"))
       render json: @result, status: :ok
     end
   end
