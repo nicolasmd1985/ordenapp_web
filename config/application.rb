@@ -13,11 +13,12 @@ module Ordenapp
     config.active_record.default_timezone = :local
     config.time_zone = 'Eastern Time (US & Canada)'
     config.i18n.available_locales = [:en, :es]
-    config.i18n.default_locale = :es
+    config.i18n.default_locale = :en
     # config.active_job_queue_adapter = Rails.env.production? ? :sidekiq : :async
     config.exceptions_app = self.routes
     config.hosts << "ordenapp-qa-env2.eba-f2pqwyhp.us-west-2.elasticbeanstalk.com"
     config.hosts << "ordenapp-qa.ordenapp.site"
+    config.hosts << "127.0.0.1"
 
 
     # Settings in config/environments/* take precedence over those specified here.
