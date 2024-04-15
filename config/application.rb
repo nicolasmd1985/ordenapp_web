@@ -17,7 +17,7 @@ module Ordenapp
     # config.active_job_queue_adapter = Rails.env.production? ? :sidekiq : :async
     config.exceptions_app = self.routes
     config.hosts << "ordenapp-qa-env2.eba-f2pqwyhp.us-west-2.elasticbeanstalk.com"
-    # config.hosts << "ordenapp-qa-env2.eba-f2pqwyhp.us-west-2.elasticbeanstalk.com"
+    config.hosts << "ordenapp-qa.ordenapp.site"
 
 
     # Settings in config/environments/* take precedence over those specified here.
