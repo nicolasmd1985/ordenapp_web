@@ -40,8 +40,6 @@ gem "cancan"
 #geocoder
 gem 'geocoder'
 
-gem "figaro"
-
 #gem for locals
 gem 'rails-i18n'
 gem "i18n-js"
@@ -61,7 +59,9 @@ gem 'aos', '~> 0.1.0'
 
 #Generate PDF's
 gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
+# gem 'wkhtmltopdf-binary'
+gem 'wkhtmltopdf-binary', '~> 0.12.6.6'
+
 #barcodes
 gem 'barby'
 gem 'chunky_png', '~> 1.3', '>= 1.3.5'
@@ -158,8 +158,9 @@ group :development do
   gem 'pry'
   gem 'spring-watcher-listen', '~> 2.0.0'
   # gem 'rubocop-rails'
-  gem "letter_opener", "~> 1.4", ">= 1.4.1"
-
+  # gem "letter_opener", "~> 1.4", ">= 1.4.1"
+  gem 'letter_opener_web', '~> 2.0'
+  gem 'dotenv'
 end
 
 group :test do
