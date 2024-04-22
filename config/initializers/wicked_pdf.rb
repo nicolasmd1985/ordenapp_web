@@ -12,7 +12,7 @@
 #   exe_path: "/usr/local/bin/wkhtmltopdf"
 # }
 if Rails.env.production?
-  WickedPdf.config = {
+  WickedPdf.configure = {
     exe_path: "/usr/local/bin/wkhtmltopdf"
   }
 end
