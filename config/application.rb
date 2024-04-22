@@ -16,8 +16,8 @@ module Ordenapp
     config.i18n.default_locale = :en
     # config.active_job_queue_adapter = Rails.env.production? ? :sidekiq : :async
     config.exceptions_app = self.routes
-    config.hosts << "ordenapp-qa-env2.eba-f2pqwyhp.us-west-2.elasticbeanstalk.com"
-    config.hosts << "ordenapp-qa.ordenapp.site"
+    config.hosts << "ordenapp-prod-env-1.eba-s7ryeynw.us-east-1.elasticbeanstalk.com"
+    config.hosts << "ordenapp.co"
     config.hosts << "127.0.0.1"
 
 
