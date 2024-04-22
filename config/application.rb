@@ -19,7 +19,7 @@ module Ordenapp
     config.hosts << "ordenapp-prod-env-1.eba-s7ryeynw.us-east-1.elasticbeanstalk.com"
     config.hosts << "ordenapp.co"
     config.hosts << "172.31.3.120"
-    config.hosts << "test.ordenapp.co"
+    config.hosts << "www.ordenapp.co"
     config.hosts << "127.0.0.1"
 
 
