@@ -18,6 +18,7 @@ module Ordenapp
     config.exceptions_app = self.routes
     config.hosts << "ordenapp-prod-env-1.eba-s7ryeynw.us-east-1.elasticbeanstalk.com"
     config.hosts << "ordenapp.co"
+    config.hosts << "172.31.3.120"
     config.hosts << "127.0.0.1"
 
 
