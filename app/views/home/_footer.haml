@@ -42,18 +42,18 @@
           =t("home.index.contact")
         %hr.deep-purple.accent-2.mb-4.mt-0.d-inline-block.mx-auto{:style => "width: 60px;"}
         %ul.list-group
-          %li.list-group-item
-            %i.fa.fa-home.mr-3.mr-3{"aria-hidden" => "true"}
-            %p
-              Kissimmee FL
+          -# %li.list-group-item
+          -#   %i.fa.fa-home.mr-3.mr-3{"aria-hidden" => "true"}
+          -#   %p
+          -#     Kissimmee FL
           %li.list-group-item
             %i.fa.fa-envelope.mr-3.mr-3{"aria-hidden" => "true"}
             %p
-              nicolasmelectronic@gmail.com
-          %li.list-group-item
-            %i.fa.fa-phone.mr-3
-            %p
-              +1 (689) 249 0957
+              =mail_to('contact@ordenapp.co')  
+          -# %li.list-group-item
+          -#   %i.fa.fa-phone.mr-3
+          -#   %p
+          -#     +1 (689) 249 0957
   -# <!-- Copyright -->
   .footer-copyright.text-center.py-3
     © 2024 Copyright
