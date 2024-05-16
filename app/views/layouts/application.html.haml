@@ -15,13 +15,13 @@
     / Font Awesome
     %link{:href => "https://use.fontawesome.com/releases/v5.8.2/css/all.css", :rel => "stylesheet"}
     %script{:src => "https://dipzo.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/rvt46q/b/20/a44af77267a987a660377e5c46e0fb64/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=es-ES&collectorId=86d27848", :type => "text/javascript"}
-    %script{:async => "", :src => "https://www.googletagmanager.com/gtag/js?id=G-E6TMBLXTXD"}
+    %script{:async => "", :src => "https://www.googletagmanager.com/gtag/js?id=UA-171500849-1"}
     = javascript_include_tag "jquery.timeago"
     :javascript
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-E6TMBLXTXD');
+      gtag('config', 'UA-171500849-1');
   %body
     - if notice
       = javascript_tag "toastr.success('#{notice}', {timeOut: 2000})"
