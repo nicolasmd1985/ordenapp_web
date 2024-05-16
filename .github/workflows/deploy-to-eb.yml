@@ -19,18 +19,18 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
-          aws-region: "us-west-2"
+          aws-region: "us-east-1"
 
       - name: Upload package to S3 bucket
-        run: aws s3 cp deploy_package.zip s3://deploy-from-github/
+        run: aws s3 cp deploy_package.zip s3://ordenapp-bucket/
 
       - name: Create new ElasticBeanstalk Application Version
         run: |
           aws elasticbeanstalk create-application-version \
-          --application-name ordenapp-qa \
-          --source-bundle S3Bucket="deploy-from-github",S3Key="deploy_package.zip" \
+          --application-name ordenapp-prod \
+          --source-bundle S3Bucket="ordenapp-bucket",S3Key="deploy_package.zip" \
           --version-label "ver-${{ github.sha }}" \
           --description "commit-sha-${{ github.sha }}"
 
       - name: Deploy new ElasticBeanstalk Application Version
-        run: aws elasticbeanstalk update-environment --environment-name Ordenapp-qa-env2 --version-label "ver-${{ github.sha }}"
+        run: aws elasticbeanstalk update-environment --environment-name Ordenapp-prod-env-1 --version-label "ver-${{ github.sha }}"
