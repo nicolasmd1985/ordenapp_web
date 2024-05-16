@@ -160,6 +160,11 @@ Rails.application.routes.draw do
   get 'reports/orders', to: 'reports#orders', as: 'order_reports'
   get 'reports/orders-to-csv', to:'reports#orders_to_csv', as: 'orders_to_csv'
 
+  # cookies
+  get 'cookies', to: 'cookies#index', as: 'cookies_index'
+  get 'cookies/policy', to: "cookies#policy", as: 'cookies_policy'
+  get 'cookies/consent',  to: "cookies#consent", as: 'cookies_consent'
+
 
   # api v1 routes
   namespace :api do
