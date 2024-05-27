@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myrailsapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myrailsapp
+  template:
+    metadata:
+      labels:
+        app: myrailsapp
+    spec:
+      containers:
+      - name: myrailsapp
+        image: nicolasmd/myrailsapp:latest
+        ports:
+        - containerPort: 3000
