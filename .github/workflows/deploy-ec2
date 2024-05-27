@@ -3,7 +3,7 @@ name: Deploy to AWS EC2 using K3s
 on:
   push:
     branches:
-      - main
+      - production
 
 jobs:
   build:
