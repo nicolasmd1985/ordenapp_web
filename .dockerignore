@@ -1,0 +1,13 @@
+/log/*
+/tmp/*
+*.swp
+.DS_Store
+.git
+/storage/*
+!/storage/.keep
+
+/node_modules
+/yarn-error.log
+
+/public/assets
+.byebug_history
