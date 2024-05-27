@@ -3,7 +3,7 @@ name: Deploy to K3s
 on:
   push:
     branches:
-      - main
+      - production
 
 jobs:
   build:
