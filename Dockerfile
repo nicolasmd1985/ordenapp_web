@@ -1,4 +1,4 @@
-FROM ruby:3.1.2
+FROM ruby:3.2.2
 
 RUN apt-get update && apt-get install -y nodejs yarn postgresql-client
 
@@ -12,4 +12,4 @@ COPY . .
 RUN rake assets:precompile
 
 EXPOSE 3000
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["rails", "server", "-e", "production", "-b", "0.0.0.0"]
