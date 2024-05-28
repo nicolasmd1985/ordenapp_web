@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: myrailsapp-service
+  name: ordenappweb-service
 spec:
   selector:
-    app: myrailsapp
+    app: ordenappweb
   ports:
     - protocol: TCP
       port: 80

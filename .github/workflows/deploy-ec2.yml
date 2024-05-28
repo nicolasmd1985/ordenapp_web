@@ -24,8 +24,8 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker build -t your-dockerhub-username/your-rails-app:latest .
-        docker push your-dockerhub-username/your-rails-app:latest
+        docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/ordenappweb:latest .
+        docker push ${{ secrets.DOCKER_HUB_USERNAME }}/ordenappweb:latest
 
     - name: Set up K3s
       run: |
