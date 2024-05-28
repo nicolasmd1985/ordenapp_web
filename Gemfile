@@ -160,7 +160,6 @@ group :development do
   # gem 'rubocop-rails'
   # gem "letter_opener", "~> 1.4", ">= 1.4.1"
   gem 'letter_opener_web', '~> 2.0'
-  gem 'dotenv'
 end
 
 group :test do
@@ -170,3 +169,5 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 
 gem "sprockets-rails", "~> 3.4"
+gem 'dotenv'
+

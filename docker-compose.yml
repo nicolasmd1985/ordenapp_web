@@ -3,7 +3,9 @@ services:
   db:
     image: postgres
     environment:
-      POSTGRES_PASSWORD: 4dm1nOrdenapp
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: user
+      POSTGRES_DB: myapp_development
   web:
     build: .
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
@@ -16,4 +18,5 @@ services:
     env_file:
       - .env
     environment:
-      RAILS_ENV: development
+      RAILS_ENV: development 
+      DATABASE_URL: postgres://user:password@db:5432/myapp_development
