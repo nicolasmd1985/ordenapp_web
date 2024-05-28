@@ -39,4 +39,4 @@ jobs:
         ssh -o StrictHostKeyChecking=no -i ${{ secrets.AWS_SSH_KEY }} ubuntu@${{ secrets.AWS_EC2_HOST }} "sudo k3s kubectl apply -f /home/ubuntu/service.yaml"
     - name: Run database migrations
       run: |
-        ssh -o StrictHostKeyChecking=no -i ${{ secrets.AWS_SSH_KEY }} ec2-user@${{ secrets.AWS_EC2_IP }} "docker-compose run web bin/rails db:migrate RAILS_ENV=development"
+        ssh -o StrictHostKeyChecking=no -i ${{ secrets.AWS_SSH_KEY }} ubuntu@${{ secrets.AWS_EC2_HOST }} "docker-compose run web bin/rails db:migrate RAILS_ENV=development"
