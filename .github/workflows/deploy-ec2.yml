@@ -29,7 +29,9 @@ jobs:
 
     - name: Set up K3s
       run: |
-        ssh -o StrictHostKeyChecking=no -i ${{ secrets.AWS_SSH_KEY }} ubuntu@${{ secrets.AWS_EC2_HOST }} "curl -sfL https://get.k3s.io | sh -"
+        echo "${{ secrets.AWS_SSH_KEY }}" > private_key.pem
+        chmod 600 private_key.pem
+        ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@${{ secrets.AWS_EC2_HOST }} "curl -sfL https://get.k3s.io | sh -"
 
     - name: Deploy to K3s
       run: |
