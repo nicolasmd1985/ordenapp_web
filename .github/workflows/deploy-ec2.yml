@@ -35,10 +35,14 @@ jobs:
 
     - name: Deploy to K3s
       run: |
-        scp -o StrictHostKeyChecking=no -i ${{ secrets.AWS_SSH_KEY }} ./k8s/deployment.yaml ubuntu@${{ secrets.AWS_EC2_HOST }}:/home/ubuntu/
-        scp -o StrictHostKeyChecking=no -i ${{ secrets.AWS_SSH_KEY }} ./k8s/service.yaml ubuntu@${{ secrets.AWS_EC2_HOST }}:/home/ubuntu/
-        ssh -o StrictHostKeyChecking=no -i ${{ secrets.AWS_SSH_KEY }} ubuntu@${{ secrets.AWS_EC2_HOST }} "sudo k3s kubectl apply -f /home/ubuntu/deployment.yaml"
-        ssh -o StrictHostKeyChecking=no -i ${{ secrets.AWS_SSH_KEY }} ubuntu@${{ secrets.AWS_EC2_HOST }} "sudo k3s kubectl apply -f /home/ubuntu/service.yaml"
+        echo "${{ secrets.AWS_SSH_KEY }}" > private_key.pem
+        chmod 600 private_key.pem
+        scp -o StrictHostKeyChecking=no -i private_key.pem ./deployment.yaml ubuntu@${{ secrets.AWS_EC2_HOST }}:/home/ubuntu/
+        scp -o StrictHostKeyChecking=no -i private_key.pem ./service.yaml ubuntu@${{ secrets.AWS_EC2_HOST }}:/home/ubuntu/
+        ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@${{ secrets.AWS_EC2_HOST }} "sudo k3s kubectl apply -f /home/ubuntu/deployment.yaml"
+        ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@${{ secrets.AWS_EC2_HOST }} "sudo k3s kubectl apply -f /home/ubuntu/service.yaml"
     - name: Run database migrations
       run: |
-        ssh -o StrictHostKeyChecking=no -i ${{ secrets.AWS_SSH_KEY }} ubuntu@${{ secrets.AWS_EC2_HOST }} "docker-compose run web bin/rails db:migrate RAILS_ENV=development"
+        echo "${{ secrets.AWS_SSH_KEY }}" > private_key.pem
+        chmod 600 private_key.pem
+        ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@${{ secrets.AWS_EC2_HOST }} "docker-compose run web bin/rails db:migrate RAILS_ENV=development"
