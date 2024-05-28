@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myrailsapp
+  name: ordenappweb
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: myrailsapp
+      app: ordenappweb
   template:
     metadata:
       labels:
-        app: myrailsapp
+        app: ordenappweb
     spec:
       containers:
-      - name: myrailsapp
-        image: nicolasmd/myrailsapp:latest
+      - name: ordenappweb
+        image: nicolasmd/ordenappweb:latest
         ports:
         - containerPort: 3000
