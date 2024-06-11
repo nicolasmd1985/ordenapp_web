@@ -11,5 +11,14 @@ COPY . .
 
 RUN rake assets:precompile
 
+# Precompile assets
+# RUN RAILS_ENV=production bundle exec rake assets:precompile
+
+# Expose the port
 EXPOSE 3000
-CMD ["rails", "server", "-e", "production", "-b", "0.0.0.0"]
+
+# Start the server
+CMD ["rails", "server", "-b", "0.0.0.0"]
+
+# EXPOSE 3000
+# CMD ["rails", "server", "-e", "production", "-b", "0.0.0.0"]

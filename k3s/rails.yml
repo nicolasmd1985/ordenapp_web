@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ordenappweb
+spec:
+  selector:
+    matchLabels:
+      app: ordenappweb
+  template:
+    metadata:
+      labels:
+        app: ordenappweb
+    spec:
+      containers:
+      - name: ordenappweb
+        image: ordenappweb:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: DATABASE_HOST
+          value: postgres
+        - name: DATABASE_USER
+          value: nicolasmd
+        - name: DATABASE_PASSWORD
+          value: 4dm1nOrdenapp
+        - name: DATABASE_NAME
+          value: ordenapp_production
