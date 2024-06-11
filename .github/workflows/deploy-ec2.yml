@@ -26,12 +26,6 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/ordenappweb:latest .
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/ordenappweb:latest
-  
-
-      - name: Install SSH Key
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.AWS_SSH_KEY }}
 
       - name: Deploy with Docker Compose
         run: |
