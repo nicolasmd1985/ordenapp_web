@@ -26,9 +26,12 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/ordenappweb:latest .
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/ordenappweb:latest
+      
+      - name: Install SSH Key
+        run: echo "${{ secrets.AWS_SSH_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 
       - name: Deploy with Docker Compose
         run: |
           echo "${{ secrets.AWS_SSH_KEY }}" > private_key.pem
           chmod 600 private_key.pem
-          ssh -o StrictHostKeyChecking=no private_key.pem ubuntu@${{ secrets.AWS_EC2_HOST }} 'bash -s' < deploy_script.sh
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_EC2_HOST }} 'bash -s' < deploy_script.sh
