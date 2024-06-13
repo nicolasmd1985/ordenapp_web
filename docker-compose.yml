@@ -7,10 +7,7 @@ services:
       POSTGRES_USER: user
       POSTGRES_DB: myapp_development
   web:
-    build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
-    volumes:
-      - ".:/myapp"
+    image: nicolasmd/ordenappweb:latest
     ports:
       - "3000:3000"
     depends_on:
@@ -18,5 +15,5 @@ services:
     env_file:
       - .env
     environment:
-      RAILS_ENV: development 
+      RAILS_ENV: development
       DATABASE_URL: postgres://user:password@db:5432/myapp_development

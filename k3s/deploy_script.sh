@@ -1,6 +1,7 @@
 #!/bin/bash
 
-cd /path/to/your/application
+#if docker-compose is runing
+docker-compose down
 
 # Pull the latest images
 docker-compose pull
