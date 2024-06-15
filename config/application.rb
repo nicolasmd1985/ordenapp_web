@@ -21,6 +21,7 @@ module Ordenapp
     config.hosts << "172.31.3.120"
     config.hosts << "172.31.0.0"
     config.hosts << "www.ordenapp.co"
+    config.hosts << "0.0.0.0"
     config.hosts << "127.0.0.1"
     config.hosts << "localhost"
 
