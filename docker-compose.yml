@@ -16,12 +16,9 @@ services:
       - redis
 #      - db
     env_file:
-      - .env
+      - .env.${ENV}
     environment:
-      RAILS_ENV: development
-      # RDS_HOST: 172.17.194.53
-      # DATABASE_URL: postgres://nicolasmd:4dm1nOrdenapp@database-1.c3oyceysazyw.us-east-1.rds.amazonaws.com:5432
-      # DATABASE_URL: postgres://nicolasmd:4dm1nOrdenapp@host.docker.internal:5432
+      RAILS_ENV: ${ENV}
     networks:
       - app_network
 
