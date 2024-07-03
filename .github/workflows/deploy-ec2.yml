@@ -32,6 +32,15 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.AWS_SSH_KEY }}
 
+      - name: Copy deploy script to EC2
+        run: scp -o StrictHostKeyChecking=no deploy_script.sh ubuntu@${{ secrets.AWS_EC2_HOST }}:/home/ubuntu/
+
+      - name: Copy .env file to EC2
+        run: scp -o StrictHostKeyChecking=no .env ubuntu@${{ secrets.AWS_EC2_HOST }}:/home/ubuntu/
+
+      - name: Copy docker-compose.yml to EC2
+        run: scp -o StrictHostKeyChecking=no docker-compose.yml ubuntu@${{ secrets.AWS_EC2_HOST }}:/home/ubuntu/
+
       - name: Deploy with Docker Compose
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.AWS_EC2_HOST }} 'bash /home/ubuntu/deploy_script.sh'
