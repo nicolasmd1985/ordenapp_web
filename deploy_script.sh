@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Change to the directory of the script
+cd "$(dirname "$0")"
+
 #if docker-compose is runing
 ENV=production docker-compose down
 
