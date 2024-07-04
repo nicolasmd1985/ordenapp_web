@@ -58,8 +58,6 @@ Rails.application.configure do
 
   # config.action_mailer.default_url_options = { host: "localhost:3000" }
   config.action_mailer.default_url_options = { host: ENV["HOST"] }
-
-  default_url_options[:host] = ENV["HOST"]
   config.action_mailer.asset_host = ENV["HOST"]
   config.action_mailer.smtp_settings = {
     :user_name => ENV['EMAIL_USERNAME'],
