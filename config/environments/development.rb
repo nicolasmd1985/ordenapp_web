@@ -46,7 +46,7 @@ Rails.application.configure do
   #mailer configuration
   # config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :letter_opener_web
+  # config.action_mailer.delivery_method = :letter_opener_web
   config.action_mailer.perform_deliveries = true
   config.action_mailer.default_url_options = { host: "localhost:3000" }
 
@@ -55,17 +55,20 @@ Rails.application.configure do
   # config.action_cable.mount_path = '/websocketier'
 
   # config.action_mailer.default_url_options = { host: ENV["HOST"] }
-  #config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.asset_host = ENV["HOST"]
+
+  
   config.action_mailer.smtp_settings = {
-    address: ENV["MAIL_HOST"],
-    port: 465,
-    domain: ENV["MAIL_DOMAIN"],
-    authentication: :login,
-    ssl:true,
-    openssl_verify_mode: 'none',
-    user_name: ENV["MAIL_USERNAME"],
-    password: ENV["MAIL_PASSWORD"]
+    :user_name => ENV['EMAIL_USERNAME'],
+    :password => ENV['EMAIL_PASSWORD'],
+    # :domain => 'BayCareEasyPass.org',
+    :address => ENV['EMAIL_HOST'],
+    :port => ENV['EMAIL_PORT'],
+    :authentication => :plain,
+    :enable_starttls_auto => true
   }
+  
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.

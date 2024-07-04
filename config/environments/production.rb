@@ -62,11 +62,11 @@ Rails.application.configure do
   default_url_options[:host] = ENV["HOST"]
   config.action_mailer.asset_host = ENV["HOST"]
   config.action_mailer.smtp_settings = {
-    :user_name => ENV['SENDGRID_USERNAME'],
-    :password => ENV['SENDGRID_PASSWORD'],
+    :user_name => ENV['EMAIL_USERNAME'],
+    :password => ENV['EMAIL_PASSWORD'],
     # :domain => 'BayCareEasyPass.org',
-    :address => 'smtp.sendgrid.net',
-    :port => 587,
+    :address => ENV['EMAIL_HOST'],
+    :port => ENV['EMAIL_PORT'],
     :authentication => :plain,
     :enable_starttls_auto => true
   }

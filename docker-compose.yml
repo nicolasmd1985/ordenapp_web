@@ -4,7 +4,6 @@ services:
     image: redis:6.2
     networks:
       - app_network
-  
   web:
     build: .
     image: nicolasmd/ordenappweb:latest
