@@ -10,6 +10,7 @@ services:
     image: nicolasmd/ordenappweb:latest
     ports:
       - "3000:3000"
+    #for production dont use volumes
     # volumes:
     #   - .:/app
     depends_on:

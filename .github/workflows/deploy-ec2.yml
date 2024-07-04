@@ -31,12 +31,32 @@ jobs:
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.AWS_SSH_KEY }}
+      
+      - name: Create .env file
+        run: |
+          echo "RDS_HOST=${{ secrets.RDS_HOST }}" >> .env.production
+          echo "RDS_USERNAME=${{ secrets.RDS_USERNAME }}" >> .env.production
+          echo "RDS_PASSWORD=${{ secrets.RDS_PASSWORD }}" >> .env.production
+          echo "RDS_PORT=${{ secrets.RDS_PORT }}" >> .env.production
+          echo "aws_access_key_id=${{ secrets.aws_access_key_id }}" >> .env.production
+          echo "aws_secret_access_key=${{ secrets.aws_secret_access_key }}" >> .env.production
+          echo "S3_BUCKET_NAME=${{ secrets.S3_BUCKET_NAME }}" >> .env.production
+          echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> .env.production
+          echo "GOOGLE_MAPS_API_SERVER_KEY=${{ secrets.GOOGLE_MAPS_API_SERVER_KEY }}" >> .env.production
+          echo "SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }}" >> .env.production
+          echo "SENDGRID_PASSWORD=${{ secrets.SENDGRID_PASSWORD }}" >> .env.production
+          echo "SENDGRID_USERNAME=${{ secrets.SENDGRID_USERNAME }}" >> .env.production
+          echo "REDIS_URL=${{ secrets.REDIS_URL }}" >> .env.production
+          scp -o StrictHostKeyChecking=no .env.production ubuntu@${{ secrets.AWS_EC2_HOST }}:/home/ubuntu/deploy
 
+      - name: Ensure deploy directory exists on EC2
+        run: ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.AWS_EC2_HOST }} 'mkdir -p /home/ubuntu/deploy && chmod 755 /home/ubuntu/deploy'
+      
       - name: Copy deploy script to EC2
-        run: scp -o StrictHostKeyChecking=no deploy_script.sh ubuntu@${{ secrets.AWS_EC2_HOST }}:/home/ubuntu/
+        run: scp -o StrictHostKeyChecking=no deploy_script.sh ubuntu@${{ secrets.AWS_EC2_HOST }}:/home/ubuntu/deploy
 
       - name: Copy docker-compose.yml to EC2
-        run: scp -o StrictHostKeyChecking=no docker-compose.yml ubuntu@${{ secrets.AWS_EC2_HOST }}:/home/ubuntu/
+        run: scp -o StrictHostKeyChecking=no docker-compose.yml ubuntu@${{ secrets.AWS_EC2_HOST }}:/home/ubuntu/deploy
 
       - name: Deploy with Docker Compose
         run: |
