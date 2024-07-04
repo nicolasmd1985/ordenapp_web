@@ -44,9 +44,12 @@ jobs:
           echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> .env.production
           echo "GOOGLE_MAPS_API_SERVER_KEY=${{ secrets.GOOGLE_MAPS_API_SERVER_KEY }}" >> .env.production
           echo "SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }}" >> .env.production
-          echo "SENDGRID_PASSWORD=${{ secrets.SENDGRID_PASSWORD }}" >> .env.production
-          echo "SENDGRID_USERNAME=${{ secrets.SENDGRID_USERNAME }}" >> .env.production
           echo "REDIS_URL=${{ secrets.REDIS_URL }}" >> .env.production
+          echo "EMAIL_HOST=${{ secrets.EMAIL_HOST }}" >> .env.production
+          echo "EMAIL_PORT=${{ secrets.EMAIL_PORT }}" >> .env.production
+          echo "EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME }}" >> .env.production
+          echo "EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}" >> .env.production
+          echo "HOST=${{ secrets.HOST }}" >> .env.production
           scp -o StrictHostKeyChecking=no .env.production ubuntu@${{ secrets.AWS_EC2_HOST }}:/home/ubuntu/deploy
 
       - name: Ensure deploy directory exists on EC2
