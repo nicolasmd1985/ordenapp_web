@@ -26,9 +26,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-.env
-.env.development
-.env.production
+.env.*
 # Ignore application configuration
 /config/application.yml
 # Gemfile.lock

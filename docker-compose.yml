@@ -10,11 +10,10 @@ services:
     image: nicolasmd/ordenappweb:latest
     ports:
       - "3000:3000"
-    volumes:
-      - .:/app
+    # volumes:
+    #   - .:/app
     depends_on:
       - redis
-#      - db
     env_file:
       - .env.${ENV}
     environment:
