@@ -59,17 +59,16 @@ Rails.application.configure do
   # config.action_mailer.default_url_options = { host: "localhost:3000" }
   config.action_mailer.default_url_options = { host: ENV["HOST"] }
   config.action_mailer.asset_host = ENV["HOST"]
+  config.action_mailer.delivery_method = :smtp
+
   config.action_mailer.smtp_settings = {
     :user_name => ENV['EMAIL_USERNAME'],
     :password => ENV['EMAIL_PASSWORD'],
-    # :domain => 'BayCareEasyPass.org',
     :address => ENV['EMAIL_HOST'],
     :port => ENV['EMAIL_PORT'],
     :authentication => :plain,
     :enable_starttls_auto => true
   }
-  ActionMailer::Base.delivery_method = :smtp
-
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'

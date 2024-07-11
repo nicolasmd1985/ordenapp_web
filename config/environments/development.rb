@@ -62,7 +62,6 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     :user_name => ENV['EMAIL_USERNAME'],
     :password => ENV['EMAIL_PASSWORD'],
-    # :domain => 'BayCareEasyPass.org',
     :address => ENV['EMAIL_HOST'],
     :port => ENV['EMAIL_PORT'],
     :authentication => :plain,
