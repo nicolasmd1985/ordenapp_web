@@ -31,7 +31,6 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
-gem 'omniauth', "~> 1.9.1"
 gem 'devise'
 
 # Use ActiveModel has_secure_password
@@ -123,8 +122,9 @@ gem 'fcm'
 gem 'draper'
 
 #facebook OmniAuth
-gem 'omniauth-facebook'
+# gem 'omniauth-facebook'
 #google OmniAuth
+gem 'omniauth', "~> 1.9.1"
 gem 'omniauth-google-oauth2'
 
 #breadcrumb

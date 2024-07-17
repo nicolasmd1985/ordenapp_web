@@ -50,6 +50,9 @@ jobs:
           echo "EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME }}" >> .env.production
           echo "EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}" >> .env.production
           echo "HOST=${{ secrets.HOST }}" >> .env.production
+          echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env.production
+          echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env.production
+
           scp -o StrictHostKeyChecking=no .env.production ubuntu@${{ secrets.AWS_EC2_HOST }}:/home/ubuntu/deploy
 
       - name: Ensure deploy directory exists on EC2
