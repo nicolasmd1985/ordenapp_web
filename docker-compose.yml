@@ -10,6 +10,7 @@ services:
     ports:
       - "3000:3000"
     #for production dont use volumes
+    # network_mode: "host"      
     # volumes:
     #   - .:/app
     depends_on:
@@ -17,9 +18,12 @@ services:
     env_file:
       - .env.${ENV}
     environment:
+      TZ: America/New_York
       RAILS_ENV: ${ENV}
     networks:
       - app_network
+    tty: true
+    stdin_open: true
 
 networks:
   app_network:

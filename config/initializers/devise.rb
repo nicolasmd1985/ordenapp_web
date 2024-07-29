@@ -272,7 +272,8 @@ Devise.setup do |config|
   {
     scope: 'email,profile,openid',
     prompt: 'select_account',
-    access_type: 'offline'
+    access_type: 'offline',
+    skip_jwt: ENV['SKIP_JWT'] == 'true'
   }
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

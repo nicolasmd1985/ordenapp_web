@@ -157,9 +157,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     build_resource({})
     yield resource if block_given?
     @auth = session["omniauth.data"]
-    name_array = @auth["info"]["name"].split(/ /, 2)
-    @user.first_name = name_array[0]
-    @user.last_name = name_array[1]
+    @user.first_name = @auth["info"]["first_name"]
+    @user.last_name = @auth["info"]["last_name"]
   end
 
 

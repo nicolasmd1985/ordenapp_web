@@ -13,7 +13,7 @@ class History < ApplicationRecord
   serialize :photos,Array
 
   def tecnic_name
-    name = "#{self.try(:user).try(:first_name)} #{self.try(:user).try(:last_name)}"
+    "#{self.try(:user).try(:first_name)} #{self.try(:user).try(:last_name)}"
   end
 
 end

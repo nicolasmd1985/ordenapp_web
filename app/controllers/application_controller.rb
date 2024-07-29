@@ -24,7 +24,16 @@ class ApplicationController < ActionController::Base
 	end
 
 	def after_sign_in_path_for(resource)
-	  stored_location_for(resource) || dashboard_path
+		if current_user.corporation.status_id == 100
+			if current_user.role == 'admin'
+				if current_user.corporation.subsidiaries.count <= 0
+					return admins_subsidiary_new_path
+				else
+					return admins_subsidiaries_path
+				end
+			end
+		end
+	  # stored_location_for(resource) || dashboard_path
 	end
 
 
