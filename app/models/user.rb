@@ -18,6 +18,7 @@ class User < ApplicationRecord
   has_many :positions, dependent: :delete_all
   has_many :things, dependent: :delete_all
   has_many :order_rates, dependent: :delete_all
+  has_many :position_logs, dependent: :delete_all
 
   belongs_to :city, optional: true
   belongs_to :subsidiary, optional: true
