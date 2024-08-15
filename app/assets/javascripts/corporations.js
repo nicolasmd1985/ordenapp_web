@@ -23,7 +23,7 @@ $(document).ready(function () {
         "aaSorting": [],
         columnDefs: [{
         orderable: false,
-        targets: 7
+        // targets: 6
         }],
         "order": [[ 0, "desc" ]],
         "scrollX": true,

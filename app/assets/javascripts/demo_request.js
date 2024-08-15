@@ -1,5 +1,5 @@
 //= require jquery
-//= require heatmap.js
+
 
 function openModal(modalId) {
     $(`#${modalId}`).modal("show");

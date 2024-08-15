@@ -24,7 +24,6 @@
 //= require sign_up
 //= require orders
 //= require welcome
-//= require heatmap.js
 //= require dashboard
 //= require things
 //= require tools

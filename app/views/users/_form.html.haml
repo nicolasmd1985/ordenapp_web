@@ -44,14 +44,14 @@
         = form.text_field :last_name, required: true, minlength: 3, :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
         .invalid-feedback
           = t("base.forms.err_2")
-      .form__field--select.md-form
-        = form.label t('users.index.document_type'), {"data-error" => "wrong", "data-success" => "right"}, class: "active"
-        = form.select(:document_type, options_for_select_document_type(@user.try(:document_type)), {}, {class: "mdb-select md-form colorful-select dropdown-primary"})
-      .form__field--input.md-form
-        = form.label t("users.index.id_number"), {"data-error" => "wrong", "data-success" => "right"}
-        = form.text_field :document_number, required: true, minlength: 8, maxlength: 11, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
-        .invalid-feedback
-          = t("profile.invalid_doc")
+      -# .form__field--select.md-form
+      -#   = form.label t('users.index.document_type'), {"data-error" => "wrong", "data-success" => "right"}, class: "active"
+      -#   = form.select(:document_type, options_for_select_document_type(@user.try(:document_type)), {}, {class: "mdb-select md-form colorful-select dropdown-primary"})
+      -# .form__field--input.md-form
+      -#   = form.label t("users.index.id_number"), {"data-error" => "wrong", "data-success" => "right"}
+      -#   = form.text_field :document_number, required: true, minlength: 8, maxlength: 11, :class => "form-control validate", style: "margin-bottom: 0.5rem;"
+      -#   .invalid-feedback
+      -#     = t("profile.invalid_doc")
       .form__field--input.md-form.input-field.city-field
         = form.label t("users.index.city"), {"data-error" => "wrong", "data-success" => "right"}
         = form.search_field :city_value, id: "autocompleteCityInput", class: "form-control validate mdb-autocomplete autocompleteCity", autocomplete: "nope", value: @city_name, required: true, style: "margin-bottom: 0.5rem;"
@@ -83,21 +83,21 @@
         = form.number_field :phone_number_1, type: "tel", required: true, minlength: 10, maxlength: 10, onkeypress:"if ( isNaN( String.fromCharCode(event.keyCode) )) return false;", :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
         .invalid-feedback
           =t("profile.invalid_tel")
-      .form__field--input.md-form
-        = form.label t("users.index.phone_2"), {"data-error" => "wrong", "data-success" => "right"}
-        = form.number_field :phone_number_2, type: "tel", minlength: 10, maxlength: 10, onkeypress:"if ( isNaN( String.fromCharCode(event.keyCode) )) return false;", :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
-        .invalid-feedback
-          =t("profile.invalid_tel")
+      -# .form__field--input.md-form
+      -#   = form.label t("users.index.phone_2"), {"data-error" => "wrong", "data-success" => "right"}
+      -#   = form.number_field :phone_number_2, type: "tel", minlength: 10, maxlength: 10, onkeypress:"if ( isNaN( String.fromCharCode(event.keyCode) )) return false;", :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+      -#   .invalid-feedback
+      -#     =t("profile.invalid_tel")
       .form__field--input.md-form
         = form.label t("users.index.address_1"), {"data-error" => "wrong", "data-success" => "right"}
         = form.text_field :address_1, required: false, minlength: 10, :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
         .invalid-feedback
           =t("profile.invalid_address")
-      .form__field--input.md-form
-        = form.label t("users.index.address_2"), {"data-error" => "wrong", "data-success" => "right"}
-        = form.text_field :address_2, required: false, minlength: 10, :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
-        .invalid-feedback
-          =t("profile.invalid_address")
+      -# .form__field--input.md-form
+      -#   = form.label t("users.index.address_2"), {"data-error" => "wrong", "data-success" => "right"}
+      -#   = form.text_field :address_2, required: false, minlength: 10, :class => "form-control validate", autocomplete: "nope", style: "margin-bottom: 0.5rem;"
+      -#   .invalid-feedback
+      -#     =t("profile.invalid_address")
       - if user.role == 'customer'
         .form__field--select.md-form
           = form.label t('users.index.priority_user'), {"data-error" => "wrong", "data-success" => "right"}, class: "active"

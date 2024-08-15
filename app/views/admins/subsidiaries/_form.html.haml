@@ -52,12 +52,12 @@
         = text_field_tag :identification, @subsidiary.identification, onkeypress: "if ( isNaN ( String.fromCharCode(event.keyCode) )) return false;", required: true, minlength: 9, maxlength: 9, class: "form-control validate", style: "margin-bottom: 0.5rem;"
         .invalid-feedback
           = t("subsidiary.index.err_2")
-      .form__field--input.md-form
-        %label{"data-error" => "wrong", "data-success" => "right"}
-          = t("subsidiary.index.address")
-        = text_field_tag :address, @subsidiary.address, required: true, minlength: 8, class: "form-control validate", style: "margin-bottom: 0.5rem;"
-        .invalid-feedback
-          = t("subsidiary.index.err_2")
+      -# .form__field--input.md-form
+      -#   %label{"data-error" => "wrong", "data-success" => "right"}
+      -#     = t("subsidiary.index.address")
+      -#   = text_field_tag :address, @subsidiary.address, required: true, minlength: 8, class: "form-control validate", style: "margin-bottom: 0.5rem;"
+      -#   .invalid-feedback
+      -#     = t("subsidiary.index.err_2")
       - if @subsidiary.status
         .form__field--input.md-form
           %label.disabled.active{"data-error" => "wrong", "data-success" => "right"}
@@ -68,26 +68,26 @@
           - else
             %span.badge.badge-pill.badge-dark
               = t("subsidiary.index.inactive")
-    .col-12.col-sm-6.col-md-4
-      .form__field--input.md-form
-        %label{"data-error" => "wrong", "data-success" => "right"}
-          = t("subsidiary.index.email")
-        = email_field_tag :email, @subsidiary.email, class: "form-control", style: "margin-bottom: 0.5rem;"
-        .invalid-feedback
-          = t("profile.invalid_email")
-      .form__field--input.md-form
-        %label{"data-error" => "wrong", "data-success" => "right"}
-          = t("subsidiary.index.phone")
-        = text_field_tag :phone, @subsidiary.phone, onkeypress: "if ( isNaN ( String.fromCharCode(event.keyCode) )) return false;", required: true, minlength: 7, maxlength: 10, class: "form-control validate", style: "margin-bottom: 0.5rem;"
-        .invalid-feedback
-          = t("profile.invalid_tel")
-      - if @editable
-        .form__field--input.md-form
-          %label{"data-error" => "wrong", "data-success" => "right"}
-            = t("subsidiary.index.subsidiary_initials")
-          = text_field_tag :subsidiary_initials, @subsidiary.subsidiary_initials, minlength: 3, maxlength: 5, required: true, class: "form-control validate", style: "margin-bottom: 0.5rem;"
-          .invalid-feedback
-            = t("subsidiary.index.err_2")
+    -# .col-12.col-sm-6.col-md-4
+    -#   .form__field--input.md-form
+    -#     %label{"data-error" => "wrong", "data-success" => "right"}
+    -#       = t("subsidiary.index.email")
+    -#     = email_field_tag :email, @subsidiary.email, class: "form-control", style: "margin-bottom: 0.5rem;"
+    -#     .invalid-feedback
+    -#       = t("profile.invalid_email")
+    -#   .form__field--input.md-form
+    -#     %label{"data-error" => "wrong", "data-success" => "right"}
+    -#       = t("subsidiary.index.phone")
+    -#     = text_field_tag :phone, @subsidiary.phone, onkeypress: "if ( isNaN ( String.fromCharCode(event.keyCode) )) return false;", required: true, minlength: 7, maxlength: 10, class: "form-control validate", style: "margin-bottom: 0.5rem;"
+    -#     .invalid-feedback
+    -#       = t("profile.invalid_tel")
+    -#   - if @editable
+    -#     .form__field--input.md-form
+    -#       %label{"data-error" => "wrong", "data-success" => "right"}
+    -#         = t("subsidiary.index.subsidiary_initials")
+    -#       = text_field_tag :subsidiary_initials, @subsidiary.subsidiary_initials, minlength: 3, maxlength: 5, required: true, class: "form-control validate", style: "margin-bottom: 0.5rem;"
+    -#       .invalid-feedback
+    -#         = t("subsidiary.index.err_2")
   .row.justify-content-center
     %button.btn.secondary-color.btn-rounded.form__submit.my-4
       = t('base.forms.save')

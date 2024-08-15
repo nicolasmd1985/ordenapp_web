@@ -44,7 +44,7 @@ gem 'rails-i18n'
 gem "i18n-js"
 
 gem 'jquery-rails'
-gem 'heatmap-rails'
+# gem 'heatmap-rails'
 
 gem 'jquery-validation-rails'
 
