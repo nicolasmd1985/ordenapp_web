@@ -5,7 +5,6 @@
     - lat = Position.position(@tecnics.first.id).latitude
     - lng = Position.position(@tecnics.first.id).longitude
 
-
 %table{class: 'coords'}
   %tbody
     - @tecnics.each do |p|
@@ -20,4 +19,4 @@
 .card.mt-0.p-0
   .card-body
     .map-container#map{"data-image" => "#{image_tag "servicio-tecnico.png"}", "data-latitude" => "#{lat}", "data-longitude" => "#{lng}", "data-speed" => "30", "data-time" => "3:30 PM"}
-%script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyCo9_t6Vj7hbLUOavljSePoyIjMwp_E0MU&callback=initMap"}
+%script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_API_SERVER_KEY']}&callback=initMap"}
