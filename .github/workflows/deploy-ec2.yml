@@ -52,6 +52,8 @@ jobs:
           echo "HOST=${{ secrets.HOST }}" >> .env.production
           echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env.production
           echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env.production
+          echo "RECAPTCHA_SECRET_KEY=${{ secrets.RECAPTCHA_SECRET_KEY }}" >> .env.production
+          echo "RECAPTCHA_SITE_KEY=${{ secrets.RECAPTCHA_SITE_KEY }}" >> .env.production
 
           scp -o StrictHostKeyChecking=no .env.production ubuntu@${{ secrets.AWS_EC2_HOST }}:/home/ubuntu/deploy
 

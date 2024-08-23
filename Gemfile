@@ -107,6 +107,7 @@ gem 'will_paginate', '~> 3.1.0'
 # gem 'twitter-bootstrap-rails', '~> 4.0'
 # gem 'materialize-sass', '~> 1.0.0'
 
+# gem for recaptcha
 gem "recaptcha"
 # gem 'bootstrap', '~> 5.3', '>= 5.3.2'
 gem 'bootstrap', '~> 4.5.0'
