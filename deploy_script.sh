@@ -17,3 +17,6 @@ ENV=production docker-compose run --rm web rails db:seed
 
 # Start the containers in detached mode
 ENV=production docker-compose up -d
+
+# Clean up old images
+docker image prune -f

@@ -148,7 +148,6 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'rspec-rails', '~> 3.8'
-  gem "better_errors"
   gem "binding_of_caller"
   gem 'capybara'
 end
@@ -162,6 +161,8 @@ group :development do
   # gem 'rubocop-rails'
   # gem "letter_opener", "~> 1.4", ">= 1.4.1"
   gem 'letter_opener_web', '~> 2.0'
+  gem "better_errors"
+
 end
 
 group :test do

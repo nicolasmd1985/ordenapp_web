@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     if (params[:search].present? && !params[:search].blank?) || (params[:city].present? && !params[:city].blank?)
       @users = User.search(current_user.subsidiary_id, params[:role], params[:search], params[:city])
     else
-      @users = User.users_colaborators(current_user.subsidiary_id, params[:role])
+      @users = User.users_collaborators(current_user.subsidiary_id, params[:role])
     end
     @role = params[:role]
     @city = params[:city].present? ? params[:city] : ''
@@ -55,16 +55,21 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-
+  def edit    
     if @user.subsidiary_id == current_user.try(:subsidiary_id) ||  @user.corporation_id == current_user.corporation_id
-    city = City.find(@user.city_id)
-    city_name = city.name
-    country = Country.find(city.country_id)
-    country_name = country.name
-    @city_name = "#{city_name}, #{country_name}"
-    @place_id = city.place_id
-    @country_id = country.place_id
+      if @user.city_id.present?
+        begin
+          city = City.find(@user.city_id)
+          country = Country.find(city.country_id)
+          @city_name = "#{city.name}, #{country.name}"
+          @place_id = city.place_id
+          @country_id = country.place_id
+        rescue ActiveRecord::RecordNotFound
+          handle_missing_location_data
+        end
+      else
+        handle_missing_location_data
+      end
 
     else
       redirect_to dashboard_url, notice: "This user is not registered in your subsidiary"
@@ -98,7 +103,7 @@ class UsersController < ApplicationController
     @user.status_id = 200
     old_email = @user.email
     cityId = Users::CreateCity.new(params[:user][:city_value], params[:user][:place_id], params[:user][:country_id]).create
-    @user.update(city_id: cityId)
+    @user.update(city_id: cityId.id)
     if @user.update(user_params)
       if old_email.blank? && !params[:user][:email].blank?
         password_tem = Users::PasswordGenerator.generate
@@ -194,6 +199,14 @@ class UsersController < ApplicationController
   end
 
   private
+
+    def handle_missing_location_data
+      @city_name = "Unknown"
+      @place_id = nil
+      @country_id = nil
+    end
+
+
     def set_auth_token
       return if auth_token.present?
       self.auth_token = generate_auth_token

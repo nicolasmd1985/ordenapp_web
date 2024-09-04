@@ -63,11 +63,11 @@
         = render "base/customers_navbar"
     - else
       -# link to plans
-      %li.nav-item
-        = link_to prices_path, title: t("base.navbar.plans"), class: "nav-link" do
-          %i.fab.fas.fa-tasks
-          %span.clearfix.d-none.d-sm-inline-block
-            = t("base.navbar.plans")
+      -# %li.nav-item
+      -#   = link_to prices_path, title: t("base.navbar.plans"), class: "nav-link" do
+      -#     %i.fab.fas.fa-tasks
+      -#     %span.clearfix.d-none.d-sm-inline-block
+      -#       = t("base.navbar.plans")
       -# link to registration
       %li.nav-item
         = link_to new_user_registration_path, title: t("base.navbar.create_account"), class: "nav-link" do

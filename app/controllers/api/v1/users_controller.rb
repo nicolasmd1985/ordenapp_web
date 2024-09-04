@@ -50,7 +50,7 @@ class Api::V1::UsersController < ApiController
 		def customers
 			@names = []
 			subsidiary = params[:subsidiary_id].present? ? params[:subsidiary_id] : current_user.subsidiary_id
-			customers = User.users_colaborators(subsidiary, 2)
+			customers = User.users_collaborators(subsidiary, 2)
 			customers.each do |n|
 			  @names << {
 					"customer_id" => n.id,

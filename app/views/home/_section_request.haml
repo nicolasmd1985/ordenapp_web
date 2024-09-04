@@ -4,7 +4,56 @@
       .col-md-6{"data-aos" => "zoom-out", "data-aos-duration" => '1500', "data-aos-delay" => "1000"}
         %h4.text-center
           %strong
-            =t("home.index.demo")
+            = t("home.index.demo")
         %hr
-          .text-center
-            = render "button_request"
+        .text-center
+          = render "button_request"
+        .mt-4.text-center
+          %h5 Download our Android app
+          #app-download
+            = image_tag 'google-play-badge.png', id: 'app-logo', alt: "OrdenApp logo", role: "button", tabindex: "0"
+          %p.mt-2
+            %a{href: "https://ordenapp-bucket.s3.amazonaws.com/ordenapp_android.apk", target: "_blank"} Click here to download
+
+#qr-popup.modal
+  .modal-content
+    %span.close &times;
+    #qrcode{"aria-label" => "QR code to download OrdenApp Android application"}
+
+:javascript
+  document.addEventListener('DOMContentLoaded', function() {
+    var modal = document.getElementById("qr-popup");
+    var logo = document.getElementById("app-logo");
+    var span = document.getElementsByClassName("close")[0];
+    var qrcode = null;
+
+    logo.onclick = function() {
+      modal.style.display = "flex";
+      if (!qrcode) {
+        qrcode = new QRCode(document.getElementById("qrcode"), {
+          text: "https://ordenapp-bucket.s3.amazonaws.com/ordenapp_android.apk",
+          width: 100,
+          height: 100,
+          colorDark : "#000000",
+          colorLight : "#ffffff",
+          correctLevel : QRCode.CorrectLevel.H
+        });
+      }
+    }
+
+    logo.onkeypress = function(e) {
+      if (e.key === "Enter") {
+        logo.onclick();
+      }
+    }
+
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  });

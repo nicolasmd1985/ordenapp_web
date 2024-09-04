@@ -1,6 +1,6 @@
 .invisible#breadcrumb
   = render_breadcrumbs
-= form_with(model: user, local: true, :html => { autocomplete: "off", :id => "userForm", :class => "userForm"}) do |form|
+= form_with(model: user, local: true, :html => { autocomplete: "on", :id => "userForm", :class => "userForm"}) do |form|
   - if user.errors.any?
     #error_explanation.alert.alert-danger.alert-dismissible.fade.show{:role => "alert"}
       %h5.alert-heading
