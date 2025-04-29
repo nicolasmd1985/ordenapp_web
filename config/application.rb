@@ -24,6 +24,7 @@ module Ordenapp
     config.hosts << "0.0.0.0"
     config.hosts << "127.0.0.1"
     config.hosts << "localhost"
+    config.hosts << "nicolasmahecha.com"
 
 
     # Settings in config/environments/* take precedence over those specified here.
