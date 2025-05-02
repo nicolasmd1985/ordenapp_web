@@ -20,6 +20,7 @@ services:
     environment:
       TZ: America/New_York
       RAILS_ENV: ${ENV}
+      RAILS_SERVE_STATIC_FILES: "true"
     networks:
       - app_network
     tty: true
