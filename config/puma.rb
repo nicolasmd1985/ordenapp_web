@@ -1,34 +1,35 @@
 # Puma can serve each request in a thread from an internal thread pool.
-# The `threads` method setting takes two numbers: a minimum and maximum.
-# Any libraries that use thread pools should be configured to match
-# the maximum value specified for Puma. Default is set to 5 threads for minimum
-# and maximum; this matches the default thread size of Active Record.
-#
-threads_count = ENV.fetch("RAILS_MAX_THREADS") { 3 }
-threads threads_count, threads_count
+# The `threads`method takes two numbers: a minimum and maximum.
+max_threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
+min_threads_count = ENV.fetch("RAILS_MIN_THREADS") { max_threads_count }
+threads min_threads_count, max_threads_count
 
-# Specifies the `port` that Puma will listen on to receive requests; default is 3000.
-#
-port        ENV.fetch("PORT") { 3000 }
+worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
 
 # Specifies the `environment` that Puma will run in.
-#
 environment ENV.fetch("RAILS_ENV") { "development" }
 
-# Specifies the number of `workers` to boot in clustered mode.
-# Workers are forked webserver processes. If using threads and workers together
-# the concurrency of the application would be max `threads` * `workers`.
-# Workers do not work on JRuby or Windows (both of which do not support
-# processes).
-#
-# workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+# --- CHOOSE ONE BINDING METHOD ---
+# Method 1: Using the `port` directive (simpler for basic TCP)
+# port ENV.fetch("PORT") { 3000 } # If you use this, comment out the `bind` line below.
 
-# Use the `preload_app!` method when specifying a `workers` number.
-# This directive tells Puma to first boot the application and load code
-# before forking the application. This takes advantage of Copy On Write
-# process behavior so workers use less memory.
-#
-# preload_app!
+# Method 2: Using the `bind` directive (more explicit, preferred)
+# Comment out the `port` directive above if you use this `bind` line.
+bind "tcp://0.0.0.0:#{ENV.fetch("PORT") { 3000 }}"
+# --- END CHOOSE ONE BINDING METHOD ---
 
-# Allow puma to be restarted by `rails restart` command.
+
+# workers ENV.fetch("WEB_CONCURRENCY") { 2 } # Uncomment for multi-process mode
+# preload_app! # Uncomment if using workers
+
 plugin :tmp_restart
+
+# if defined?(ActiveRecord::Base) && ENV.fetch("WEB_CONCURRENCY", 0).to_i > 0
+#   before_fork do
+#     ActiveRecord::Base.connection_pool.disconnect!
+#   end
+
+#   on_worker_boot do
+#     ActiveRecord::Base.establish_connection
+#   end
+# end

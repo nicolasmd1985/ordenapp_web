@@ -5,28 +5,31 @@ services:
     networks:
       - app_network
   web:
-    # build: .
-    image: nicolasmd/ordenappweb:latest
-    ports:
-      - "3000:3000"
+    build: .
     #for production dont use volumes
     # network_mode: "host"      
-    # volumes:
-    #   - .:/app
+    volumes:
+      - .:/app
+    image: nicolasmd/ordenappweb:latest # This image will now run Puma
+    container_name: ordenapp_web_container # Good to have an explicit name
+    ports:
+      - "3000:3000" # Host port:Container port (Puma listens on 3000 inside)
     depends_on:
       - redis
     env_file:
-      - .env.${ENV}
+      - .env.${ENV} # e.g., .env.production
     environment:
       TZ: America/New_York
-      RAILS_ENV: ${ENV}
-      RAILS_SERVE_STATIC_FILES: "true"
+      RAILS_ENV: ${ENV} # Will be 'production'
+      RAILS_SERVE_STATIC_FILES: "true" # Important: Tells Puma/Rails to serve static files if Nginx misses them (though Nginx should handle it)
+      RAILS_LOG_TO_STDOUT: "true"    # Ensures Rails logs go to STDOUT for Docker logging
       RAILS_RELATIVE_URL_ROOT: /ordenapp
+      # PORT: 3000 # Puma will pick this up from puma.rb, but can be set here too
+    command: bash -c "bundle exec rake assets:precompile && bundle exec puma -C config/puma.rb"
     networks:
       - app_network
     tty: true
     stdin_open: true
-    container_name: ordenapp_web_container # Explicitly name the container
     logging:
       driver: "json-file"
       options:
@@ -35,3 +38,4 @@ services:
 
 networks:
   app_network:
+    driver: bridge

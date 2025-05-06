@@ -15,9 +15,7 @@ gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
-# gem 'sass-rails', '~> 5.0'
-gem 'sassc', '<= 2.1'
-gem 'sassc-rails', '~> 2.1', '>= 2.1.2'
+gem 'sass-rails', '~> 6.0'
 # Use Uglifier as compressor for JavaScript assets
 # gem 'uglifier', '>= 1.3.0'
 gem 'terser'
@@ -133,7 +131,7 @@ gem "breadcrumbs_on_rails"
 
 
 gem 'graphql'
-gem 'graphiql-rails'
+gem 'graphiql-rails', '~> 1.4.0'
 
 gem 'dotenv'
 

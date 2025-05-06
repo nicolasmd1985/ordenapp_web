@@ -13,16 +13,15 @@ Rails.application.configure do
   # Turn on fragment caching in view templates.
   config.action_controller.perform_caching = true
 
-  # Disable serving static files from the `/public` folder by default since
-  # Apache or NGINX already handles this.
+  # Enable serving of static files from the `/public` folder
   config.public_file_server.enabled = true
   config.serve_static_assets = true
 
   # Compress CSS using a preprocessor
-  config.assets.css_compressor = :sass
+  config.assets.css_compressor = nil  # Disable CSS compression temporarily
 
   # Do not fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  config.assets.compile = true  # Allow runtime compilation
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
@@ -46,7 +45,8 @@ Rails.application.configure do
 
   # Log to STDOUT with the current request id as a default log tag.
   config.log_tags = [ :request_id ]
-  config.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+  config.logger = ActiveSupport::Logger.new(STDOUT)
+  config.logger = ActiveSupport::TaggedLogging.new(config.logger)
 
   # Change to "debug" to log everything (including potentially personally-identifiable information!)
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
