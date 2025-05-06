@@ -793,3 +793,7 @@ li.menu > a{
 .select-wrapper ~ .invalid-feedback, .select-wrapper ~ .valid-feedback {
   margin-top: -0.5rem;
 }
+
+.graphiql-dialog:is(button) {
+  color: #666666;
+}
