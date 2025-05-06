@@ -21,6 +21,7 @@ services:
       TZ: America/New_York
       RAILS_ENV: ${ENV}
       RAILS_SERVE_STATIC_FILES: "true"
+      RAILS_RELATIVE_URL_ROOT: /ordenapp
     networks:
       - app_network
     tty: true
