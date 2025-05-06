@@ -14,6 +14,11 @@ module Ordenapp
     config.time_zone = 'Eastern Time (US & Canada)'
     config.i18n.available_locales = [:en, :es]
     config.i18n.default_locale = :en
+    
+    # Configure assets for subdirectory deployment
+    config.relative_url_root = '/ordenapp'
+    config.assets.prefix = '/ordenapp/assets'
+    
     # config.active_job_queue_adapter = Rails.env.production? ? :sidekiq : :async
     config.exceptions_app = self.routes
     config.hosts << "ordenapp-prod-env-1.eba-s7ryeynw.us-east-1.elasticbeanstalk.com"

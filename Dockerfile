@@ -34,7 +34,9 @@ RUN gem install bundler
 RUN bundle install
 COPY . .
 
-RUN rake assets:precompile
+# Set RAILS_ENV to production for asset precompilation
+ENV RAILS_ENV=production
+RUN SECRET_KEY_BASE=dummy bundle exec rake assets:precompile
 
 # Expose the port
 EXPOSE 3000
