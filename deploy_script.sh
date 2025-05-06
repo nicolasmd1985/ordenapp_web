@@ -28,12 +28,17 @@ sudo rm -rf /home/ubuntu/deploy/public/* # Clean the entire public directory on 
 echo "Copying /app/public/. from container $WEB_CONTAINER_NAME to /home/ubuntu/deploy/public/"
 sudo docker cp "${WEB_CONTAINER_NAME}:/app/public/." "/home/ubuntu/deploy/public/"
 
+# ... after docker cp ...
 echo "Setting permissions for deployed assets..."
-sudo chown -R ubuntu:${NGINX_USER} /home/ubuntu/deploy/public
-sudo chmod -R u+rwX,g+rX,o-rwx /home/ubuntu/deploy/public # Owner: rwx, Group: rx, Other: ---
-# Ensure parent dirs allow Nginx group to traverse
-sudo chgrp ${NGINX_USER} /home/ubuntu/deploy
-sudo chmod g+x /home/ubuntu/deploy
+sudo chown -R ubuntu:ubuntu /home/ubuntu/deploy/public # Owner ubuntu, group ubuntu
+
+# Give read & execute to everyone for directories, read to everyone for files
+sudo find /home/ubuntu/deploy/public -type d -exec chmod 755 {} \; # rwxr-xr-x
+sudo find /home/ubuntu/deploy/public -type f -exec chmod 644 {} \; # rw-r--r--
+
+# Ensure parent directories are traversable by 'others'
+sudo chmod o+x /home/ubuntu/deploy
+# /home and /home/ubuntu are usually already o+x
 
 echo "Cleaning up old Docker images..."
 docker image prune -af

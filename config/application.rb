@@ -17,7 +17,7 @@ module Ordenapp
     
     # Configure assets for subdirectory deployment
     config.relative_url_root = '/ordenapp'
-    config.assets.prefix = '/ordenapp/assets'
+    config.assets.prefix = '/ordenapp/assets' # This is correct
     
     # config.active_job_queue_adapter = Rails.env.production? ? :sidekiq : :async
     config.exceptions_app = self.routes
