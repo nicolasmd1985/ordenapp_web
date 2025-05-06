@@ -5,7 +5,7 @@ services:
     networks:
       - app_network
   web:
-    build: .
+    # build: .
     image: nicolasmd/ordenappweb:latest
     ports:
       - "3000:3000"
@@ -26,6 +26,7 @@ services:
       - app_network
     tty: true
     stdin_open: true
+    container_name: ordenapp_web_container # Explicitly name the container
     logging:
       driver: "json-file"
       options:
