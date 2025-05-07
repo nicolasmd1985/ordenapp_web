@@ -31,9 +31,10 @@ sudo rm -rf /home/ubuntu/deploy/public/* # Clean the entire public directory on 
 echo "Copying /app/public/. from container $WEB_CONTAINER_NAME to /home/ubuntu/deploy/public/"
 sudo docker cp "${WEB_CONTAINER_NAME}:/app/public/." "/home/ubuntu/deploy/public/"
 
-# ... after docker cp ...
-echo "Setting permissions for deployed assets..."
-sudo chown -R ubuntu:ubuntu /home/ubuntu/deploy/public # Owner ubuntu, group ubuntu
+# Ensure the assets directory exists and has correct permissions
+sudo mkdir -p /home/ubuntu/deploy/public/assets
+sudo chown -R ubuntu:ubuntu /home/ubuntu/deploy/public
+sudo chmod -R 755 /home/ubuntu/deploy/public
 
 # Give read & execute to everyone for directories, read to everyone for files
 sudo find /home/ubuntu/deploy/public -type d -exec chmod 755 {} \; # rwxr-xr-x
