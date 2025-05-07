@@ -25,6 +25,8 @@ services:
       RAILS_LOG_TO_STDOUT: "true"
       RAILS_RELATIVE_URL_ROOT: /ordenapp
     command: bash -c "bundle exec rake assets:precompile && bundle exec puma -C config/puma.rb"
+    volumes:
+      - ./public:/app/public
     networks:
       - app_network
     tty: true

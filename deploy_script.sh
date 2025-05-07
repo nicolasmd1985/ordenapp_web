@@ -15,6 +15,9 @@ echo "Running database migrations..."
 # Create a temporary container for migrations
 ENV=production docker-compose run --rm web bundle exec rails db:create db:migrate
 
+echo "Precompiling assets..."
+ENV=production docker-compose run --rm web bundle exec rake assets:precompile
+
 echo "Starting the containers in detached mode..."
 ENV=production docker-compose up -d
 
