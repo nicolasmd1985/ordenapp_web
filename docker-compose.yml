@@ -10,23 +10,25 @@ services:
     # volumes:
     #   - .:/app
     build: .
-    image: nicolasmd/ordenappweb:latest
+    image: nicolasmd/ordenappweb:latest # Use the pre-built image
     container_name: ordenapp_web_container
     ports:
       - "3000:3000"
     depends_on:
       - redis
     env_file:
-      - .env.${ENV}
+      - .env.${ENV} # This should be .env.production on the server
     environment:
       TZ: America/New_York
       RAILS_ENV: ${ENV}
       RAILS_SERVE_STATIC_FILES: "true"
       RAILS_LOG_TO_STDOUT: "true"
       RAILS_RELATIVE_URL_ROOT: /ordenapp
-    command: bash -c "bundle exec rake assets:precompile && bundle exec puma -C config/puma.rb"
-    volumes:
-      - ./public:/app/public
+    # REMOVE THIS COMMAND: (let Dockerfile CMD run)
+    # command: bash -c "bundle exec rake assets:precompile && bundle exec puma -C config/puma.rb"
+    # REMOVE THIS VOLUME FOR PRODUCTION:
+    # volumes:
+    #   - ./public:/app/public
     networks:
       - app_network
     tty: true
