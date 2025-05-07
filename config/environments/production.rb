@@ -131,4 +131,6 @@ Rails.application.configure do
 
   # Set the secret key base from environment variable
   config.secret_key_base = ENV['secret_key_base']
+
+  config.relative_url_root = "/ordenapp"
 end
