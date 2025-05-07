@@ -12,8 +12,8 @@ echo "Pulling the latest image for web service..."
 ENV=production docker-compose pull web # Only pull the web service image
 
 echo "Running database migrations..."
-ENV=production docker-compose run --rm web bundle exec rails db:create
-ENV=production docker-compose run --rm web bundle exec rails db:migrate
+# Create a temporary container for migrations
+ENV=production docker-compose run --rm web bundle exec rails db:create db:migrate
 
 echo "Starting the containers in detached mode..."
 ENV=production docker-compose up -d
