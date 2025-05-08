@@ -1,5 +1,7 @@
 FROM ruby:3.2.2
 
+ENV RAILS_RELATIVE_URL_ROOT=/ordenapp
+
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     nodejs \
@@ -36,7 +38,6 @@ COPY . .
 
 # Set RAILS_ENV to production for asset precompilation
 RUN SECRET_KEY_BASE=dummy bundle exec rake assets:precompile
-ENV RAILS_RELATIVE_URL_ROOT /ordenapp
 ENV RAILS_ENV=${RAILS_ENV}
 
 # Expose the port
