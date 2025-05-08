@@ -19,9 +19,11 @@ ENV=production docker-compose pull web
 echo "Running database migrations..."
 ENV=production docker-compose run --rm web bundle exec rails db:prepare
 
-# REMOVE THIS LINE:
-# echo "Precompiling assets..."
-# ENV=production docker-compose run --rm web bundle exec rake assets:precompile
+echo "Clearing old assets..."
+docker-compose run --rm web bundle exec rake assets:clobber
+
+echo "Precompiling assets..."
+docker-compose run --rm web bundle exec rake assets:precompile
 
 echo "Starting the containers in detached mode..."
 ENV=production docker-compose up -d --remove-orphans

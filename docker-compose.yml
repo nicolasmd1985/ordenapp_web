@@ -9,7 +9,7 @@ services:
     # network_mode: "host"      
     # volumes:
     #   - .:/app
-    build: .
+    # build: .
     image: nicolasmd/ordenappweb:latest # Use the pre-built image
     container_name: ordenapp_web_container
     ports:
