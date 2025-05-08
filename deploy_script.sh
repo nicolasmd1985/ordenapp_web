@@ -54,3 +54,7 @@ echo "Cleaning up old Docker images..."
 docker image prune -af
 
 echo "Deployment finished."
+
+echo "Verifying Rails config..."
+docker exec -it $WEB_CONTAINER_NAME rails c
+docker exec -it $WEB_CONTAINER_NAME puts Rails.application.config.relative_url_root

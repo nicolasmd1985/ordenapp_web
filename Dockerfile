@@ -37,7 +37,7 @@ RUN bundle install
 COPY . .
 
 # Set RAILS_ENV to production for asset precompilation
-RUN SECRET_KEY_BASE=dummy bundle exec rake assets:precompile
+# RUN SECRET_KEY_BASE=dummy bundle exec rake assets:precompile
 ENV RAILS_ENV=${RAILS_ENV}
 
 # Expose the port
