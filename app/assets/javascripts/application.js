@@ -34,7 +34,12 @@
 //= require notifications
 //= require cable
 
+
+
 $(document).ready(function() {
+  // Get the base path once
+  const appBasePath = document.documentElement.getAttribute('data-app-base-path') || '';
+
   // SideNav Button Initialization
   $(".button-collapse").sideNav2({
     breakpoint: 992
@@ -65,36 +70,47 @@ $(document).ready(function() {
     $('#alert_explanation').addClass('display');
   }
 
-/* Set breadcrumb behaviour and active ítem menu on side nav */
+  /* Set breadcrumb behaviour and active ítem menu on side nav */
+  var breadcrumbText = $('#breadcrumb').text(); // Assuming #breadcrumb contains the path string
+  if (breadcrumbText && breadcrumbText.length > 0) { // Check if #breadcrumb has content
+    var link = breadcrumbText.substring(1, breadcrumbText.length - 1);
+    var path = link.split('/');
+    var bc = $('<div/>'); // Create a temporary container for new breadcrumb items
+    var item = '';
 
-  var url = $('#breadcrumb').text();
-  var length = url.length;
-  var link = url.substring(1, length - 1);
-  var path = link.split('/')
-  bc = $('<li class="breadcrumb-item"></li>');
-  var item = ''
-  $(path).each(function(n, element) {
-    if ($('#slide-out .collapsible li').hasClass('active')) {
-      menuItem = $('#slide-out .collapsible .active .collapsible-body').find('a[title="'+element+'"]').addClass("clicked");
-      var a = $(menuItem).clone();
-      bc.append(' / ', a);
-    } else {
-      menuItem = $('#slide-out .collapsible').find('a[data-original-title="'+element+'"]').addClass("clicked");
-      $(menuItem).parent().addClass('active');
-      //$('a.clicked + .collapsible-body').css('display', 'block');
-      var a = $(menuItem).clone();
-      bc.append(' / ', a);
-    }
-  });
-  var lang = $('html').attr('lang');
-  if (lang == "es") {
-    $('.breadcrumb').html( bc.prepend('<a href="/">Inicio</a>'));
-  } else {
-    $('.breadcrumb').html( bc.prepend('<a href="/">Home</a>'));
+    $(path).each(function(n, element) {
+      var menuItem, a;
+      if ($('#slide-out .collapsible li').hasClass('active')) {
+        menuItem = $('#slide-out .collapsible .active .collapsible-body').find('a[title="'+element+'"]');
+        if (menuItem.length) { // Check if element was found
+          menuItem.addClass("clicked");
+          a = menuItem.clone();
+          bc.append(' / ', a);
+        }
+      } else {
+        menuItem = $('#slide-out .collapsible').find('a[data-original-title="'+element+'"]');
+        if (menuItem.length) { // Check if element was found
+          menuItem.addClass("clicked");
+          $(menuItem).parent().addClass('active');
+          a = menuItem.clone();
+          bc.append(' / ', a);
+        }
+      }
+    });
+
+    var lang = $('html').attr('lang');
+    var homeLinkHref = appBasePath + '/'; // Construct correct href for the home link
+    var homeLinkText = (lang === "es") ? "Inicio" : "Home";
+    var homeLinkElement = $('<a></a>').attr('href', homeLinkHref).text(homeLinkText);
+
+    // Prepend the home link to the dynamically generated part, then set the breadcrumb's HTML
+    $('.breadcrumb').html(bc.prepend(homeLinkElement));
+
+    $('.breadcrumb .clicked.no-link').css('cursor', 'default');
+    $('.breadcrumb .clicked').addClass('no-bckgd');
+    $('.breadcrumb .material-tooltip-main').tooltip('disable');
   }
-  $('.breadcrumb .clicked.no-link').css('cursor', 'default');
-  $('.breadcrumb .clicked').addClass('no-bckgd');
-  $('.breadcrumb .material-tooltip-main').tooltip('disable');
+
 
 /* Set up side nav element behaviour */
 

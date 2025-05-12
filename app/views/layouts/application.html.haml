@@ -1,5 +1,5 @@
 !!!
-%html{lang: "#{locale}"}
+%html{lang: "#{locale}", "data-app-base-path": Rails.application.config.relative_url_root }
   %head
     %title
       = t('home.meta.title')
@@ -37,6 +37,6 @@
       %nav{"aria-label" => "breadcrumb"}
         %ol.breadcrumb
           %li.breadcrumb-item
-            %a{:href => "/"}
+            %a{:href => root_path}
               = t('base.breadcrumb')
       = yield
