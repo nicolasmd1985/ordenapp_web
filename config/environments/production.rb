@@ -117,8 +117,11 @@ Rails.application.configure do
   # Mailer configuration
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { host: ENV["HOST"] }
-  config.action_mailer.asset_host = ENV["HOST"]
+  config.action_mailer.default_url_options = { 
+    host: ENV["HOST"],
+    script_name: Rails.application.config.relative_url_root
+  }
+  config.action_mailer.asset_host = "https://#{ENV["HOST"]}#{Rails.application.config.relative_url_root}"
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     user_name: ENV['EMAIL_USERNAME'],
@@ -132,5 +135,5 @@ Rails.application.configure do
   # Set the secret key base from environment variable
   config.secret_key_base = ENV['secret_key_base']
 
-  config.relative_url_root = "/ordenapp"
+  # config.relative_url_root = "/ordenapp"
 end

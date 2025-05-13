@@ -22,6 +22,21 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-E6TMBLXTXD');
+      
+      // Configure relative URL root for JavaScript
+      window.APP_CONFIG = {
+        basePath: document.documentElement.getAttribute('data-app-base-path') || '',
+        getUrl: function(path) {
+          return this.basePath + path;
+        }
+      };
+      
+      // Override jQuery's ajax to automatically prepend basePath
+      $(document).ajaxSend(function(event, xhr, settings) {
+        if (settings.url && !settings.url.startsWith('http') && !settings.url.startsWith(window.APP_CONFIG.basePath)) {
+          settings.url = window.APP_CONFIG.getUrl(settings.url);
+        }
+      });
   %body
     - if notice
       = javascript_tag "toastr.success('#{notice}', {timeOut: 2000})"

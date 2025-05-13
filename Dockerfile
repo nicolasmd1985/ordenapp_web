@@ -1,6 +1,6 @@
 FROM ruby:3.2.2
 
-ENV RAILS_RELATIVE_URL_ROOT=/ordenapp
+# ENV RAILS_RELATIVE_URL_ROOT=/ordenapp
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     yarn \
     postgresql-client \
     wget \
+    # curl \
     fontconfig \
     libfreetype6 \
     libjpeg62-turbo \
