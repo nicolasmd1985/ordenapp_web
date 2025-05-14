@@ -23,7 +23,7 @@ services:
       RAILS_ENV: ${ENV}
       RAILS_SERVE_STATIC_FILES: "true"
       RAILS_LOG_TO_STDOUT: "true"
-      RAILS_RELATIVE_URL_ROOT: /ordenapp
+      # RAILS_RELATIVE_URL_ROOT: /ordenapp
     # healthcheck:
     #   test: ["CMD", "curl", "-f", "http://localhost:3000/ordenapp/up"]
     #   interval: 30s
