@@ -23,18 +23,9 @@ services:
       RAILS_ENV: ${ENV}
       RAILS_SERVE_STATIC_FILES: "true"
       RAILS_LOG_TO_STDOUT: "true"
-      # RAILS_RELATIVE_URL_ROOT: /ordenapp
-    # healthcheck:
-    #   test: ["CMD", "curl", "-f", "http://localhost:3000/ordenapp/up"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 3
-    #   start_period: 40s
-    # REMOVE THIS COMMAND: (let Dockerfile CMD run)
-    # command: bash -c "bundle exec rake assets:precompile && bundle exec puma -C config/puma.rb"
-    # REMOVE THIS VOLUME FOR PRODUCTION:
-    # volumes:
-    #   - ./public:/app/public
+      RAILS_RELATIVE_URL_ROOT: /ordenapp
+    volumes:
+      - /home/ubuntu/deploy/public:/app/public:ro
     networks:
       - app_network
     tty: true
