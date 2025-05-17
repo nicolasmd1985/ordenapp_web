@@ -44,6 +44,8 @@ sudo rm -rf /home/ubuntu/deploy/public/*
 echo "Verifying container's public directory..."
 docker exec $WEB_CONTAINER_NAME ls -la /app/public/ordenapp/assets || {
     echo "Error: Could not find assets directory in container"
+    echo "Checking container's public directory structure..."
+    docker exec $WEB_CONTAINER_NAME ls -la /app/public/
     exit 1
 }
 
