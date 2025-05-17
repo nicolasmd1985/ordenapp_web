@@ -37,23 +37,34 @@ if ! docker ps -q -f name="^/${WEB_CONTAINER_NAME}$"; then
     exit 1
 fi
 
-echo "Copying assets from '$WEB_CONTAINER_NAME' container to the host..."
+echo "Preparing public directory..."
 sudo mkdir -p /home/ubuntu/deploy/public/
 sudo rm -rf /home/ubuntu/deploy/public/*
 
-echo "Copying /app/public/. from container $WEB_CONTAINER_NAME to /home/ubuntu/deploy/public/"
+echo "Copying assets from container..."
 sudo docker cp "${WEB_CONTAINER_NAME}:/app/public/." "/home/ubuntu/deploy/public/"
 
+echo "Verifying asset copy..."
+ASSET_COUNT=$(find /home/ubuntu/deploy/public -type f | wc -l)
+if [ "$ASSET_COUNT" -lt 10 ]; then
+    echo "Warning: Very few assets were copied. Expected more than 10 files."
+    echo "Current asset count: $ASSET_COUNT"
+    echo "Checking container's public directory..."
+    docker exec $WEB_CONTAINER_NAME ls -la /app/public
+    exit 1
+fi
+
 echo "Setting permissions for deployed assets..."
-sudo chown -R ubuntu:ubuntu /home/ubuntu/deploy/public # Keep ubuntu:ubuntu
-sudo find /home/ubuntu/deploy/public -type d -exec chmod 755 {} \; # rwxr-xr-x for 'others'
-sudo find /home/ubuntu/deploy/public -type f -exec chmod 644 {} \; # rw-r--r-- for 'others'
-sudo chmod 755 /home/ubuntu/deploy # Ensure parent is traversable by 'others'
+sudo chown -R ubuntu:ubuntu /home/ubuntu/deploy/public
+sudo find /home/ubuntu/deploy/public -type d -exec chmod 755 {} \;
+sudo find /home/ubuntu/deploy/public -type f -exec chmod 644 {} \;
+sudo chmod 755 /home/ubuntu/deploy
 
 echo "Cleaning up old Docker images..."
 docker image prune -af
 
-echo "Deployment finished."
+echo "Deployment finished successfully."
+echo "Total assets copied: $ASSET_COUNT"
 
 # echo "Verifying Rails config..."
 # docker exec -it $WEB_CONTAINER_NAME rails c
