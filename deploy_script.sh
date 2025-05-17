@@ -41,16 +41,24 @@ echo "Preparing public directory..."
 sudo mkdir -p /home/ubuntu/deploy/public/
 sudo rm -rf /home/ubuntu/deploy/public/*
 
+echo "Verifying container's public directory..."
+docker exec $WEB_CONTAINER_NAME ls -la /app/public/ordenapp/assets || {
+    echo "Error: Could not find assets directory in container"
+    exit 1
+}
+
 echo "Copying assets from container..."
-sudo docker cp "${WEB_CONTAINER_NAME}:/app/public/." "/home/ubuntu/deploy/public/"
+sudo docker cp "${WEB_CONTAINER_NAME}:/app/public/ordenapp/assets" "/home/ubuntu/deploy/public/"
 
 echo "Verifying asset copy..."
-ASSET_COUNT=$(find /home/ubuntu/deploy/public -type f | wc -l)
+ASSET_COUNT=$(find /home/ubuntu/deploy/public/assets -type f | wc -l)
 if [ "$ASSET_COUNT" -lt 10 ]; then
-    echo "Warning: Very few assets were copied. Expected more than 10 files."
+    echo "Error: Very few assets were copied. Expected more than 10 files."
     echo "Current asset count: $ASSET_COUNT"
     echo "Checking container's public directory..."
-    docker exec $WEB_CONTAINER_NAME ls -la /app/public
+    docker exec $WEB_CONTAINER_NAME ls -la /app/public/ordenapp/assets
+    echo "Checking host's public directory..."
+    ls -la /home/ubuntu/deploy/public/assets
     exit 1
 fi
 
