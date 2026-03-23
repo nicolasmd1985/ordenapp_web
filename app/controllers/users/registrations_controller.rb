@@ -189,6 +189,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def valid_registration_attempt?
+    # Map the v3 token from the custom payload into the standard field which verify_recaptcha expects
+    v3_token = params["g-recaptcha-response-data"]&.dig("signup")
+    params["g-recaptcha-response"] = v3_token if v3_token.present?
+
     params[:user][:accept_terms] == '1' && !bot_detected? && verify_recaptcha(action: 'signup', minimum_score: 0.5, secret_key: ENV['RECAPTCHA_SECRET_KEY'])
   end
 
