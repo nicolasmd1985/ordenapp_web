@@ -56,7 +56,19 @@ def starting_seed
   # Subsidiary seeder
   puts 'Starting subsidiary seeding...'
   puts '==================================='
+  
+  # Ensure a Corporation exists so Subsidiary has a valid corporation_id
+  corp = Corporation.find_or_create_by!(identification: '123456789') do |c|
+    c.status_id = 100
+    c.name = 'Dipzo'
+    c.phone = '123123123'
+    c.address = 'Suba'
+    c.email = 'dipzo@dipzo.net'
+    c.corporate_initials = 'DIP'
+  end
+
   Subsidiary.find_or_create_by!(identification: '123123123') do |sub|
+    sub.corporation_id = corp.id
     sub.status_id = 100
     sub.name = 'Cencosud'
     sub.phone = '123123123'
