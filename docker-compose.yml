@@ -28,6 +28,7 @@ services:
       - /home/ubuntu/deploy/public:/app/public:delegated
     networks:
       - app_network
+      - portfolio_default
     tty: true
     stdin_open: true
     logging:
@@ -39,3 +40,5 @@ services:
 networks:
   app_network:
     driver: bridge
+  portfolio_default:
+    external: true
