@@ -13,6 +13,7 @@ class Users::CreateCorporation
     if create_corporation.save
       Corporation.last.id
     else
+      Rails.logger.error("CreateCorporation Failed: #{create_corporation.errors.full_messages.join(', ')}")
       return false
     end
   end
