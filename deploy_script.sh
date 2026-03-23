@@ -18,8 +18,8 @@ ENV=production docker-compose down --remove-orphans --volumes
 echo "Pulling the latest image for web service..."
 ENV=production docker-compose pull web
 
-echo "Running database migrations..."
-ENV=production docker-compose run --rm web bundle exec rails db:prepare
+echo "Running database migrations and seeds..."
+ENV=production docker-compose run --rm web bundle exec rails db:prepare db:seed
 
 echo "Preparing public directory..."
 sudo mkdir -p /home/ubuntu/deploy/public/
