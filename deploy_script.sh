@@ -13,7 +13,7 @@ echo "Bringing down existing services and removing old containers..."
 docker stop $WEB_CONTAINER_NAME || true
 docker rm -f $WEB_CONTAINER_NAME || true
 docker rm -f $TEMP_CONTAINER_NAME || true
-ENV=production docker-compose down --remove-orphans --volumes
+ENV=production docker-compose down --remove-orphans
 
 echo "Pulling the latest image for web service..."
 ENV=production docker-compose pull web

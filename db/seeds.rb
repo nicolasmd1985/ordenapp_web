@@ -9,27 +9,47 @@ def starting_seed
   # subsidiary 100
   subsidiary_ids = [100 ,101]
   subsidiary_status =['Active', 'Inactive']
-  subsidiary_status.size.times { |i| Status.find_or_create_by!(id: subsidiary_ids[i]) { |s| s.type_status = 'subsidiary_status'; s.description = subsidiary_status[i] } }
+  subsidiary_status.size.times do |i|
+    unless Status.where(id: subsidiary_ids[i]).any?
+      Status.create!(id: subsidiary_ids[i], type_status: 'subsidiary_status', description: subsidiary_status[i])
+    end
+  end
 
   # user 200
   user_ids = [200, 201, 202, 203, 204, 205, 206]
   user_status = ['Active', 'Inactive', 'Available', 'Busy', 'On the Way', 'Out service']
-  user_status.size.times { |i| Status.find_or_create_by!(id: user_ids[i]) { |s| s.type_status = 'user_status'; s.description = user_status[i] } }
+  user_status.size.times do |i|
+    unless Status.where(id: user_ids[i]).any?
+      Status.create!(id: user_ids[i], type_status: 'user_status', description: user_status[i])
+    end
+  end
 
   # thing 300
   thing_ids = [300, 301, 302, 303, 304, 305, 306, 307, 308]
   thing_status = ['Active', 'Inactive', 'Stock', 'Installed', 'Installing', 'Replacement', 'On the Way', 'Corrective Maintenance', 'Preventive Maintenance']
-  thing_status.size.times { |i| Status.find_or_create_by!(id: thing_ids[i]) { |s| s.type_status = 'thing_status'; s.description = thing_status[i] } }
+  thing_status.size.times do |i|
+    unless Status.where(id: thing_ids[i]).any?
+      Status.create!(id: thing_ids[i], type_status: 'thing_status', description: thing_status[i])
+    end
+  end
 
   # tools 400
   tools_ids = [400, 401, 402, 404]
   tools_status = ['Assigned', 'Stock', 'Replacement', 'Lost']
-  tools_status.size.times { |i| Status.find_or_create_by!(id: tools_ids[i]) { |s| s.type_status = 'tools_status'; s.description = tools_status[i] } }
+  tools_status.size.times do |i|
+    unless Status.where(id: tools_ids[i]).any?
+      Status.create!(id: tools_ids[i], type_status: 'tools_status', description: tools_status[i])
+    end
+  end
 
   # order 500
   order_ids = [500, 501, 502, 503, 504, 505]
   order_status = ['Request', 'Assigned', 'In Progress', 'Rejected', 'Done', 'Pre request']
-  order_status.size.times { |i| Status.find_or_create_by!(id: order_ids[i]) { |s| s.type_status = 'order_status'; s.description = order_status[i] } }
+  order_status.size.times do |i|
+    unless Status.where(id: order_ids[i]).any?
+      Status.create!(id: order_ids[i], type_status: 'order_status', description: order_status[i])
+    end
+  end
 
 
 
@@ -175,9 +195,14 @@ end
 
 
 def create_categories
+  sub = Subsidiary.find_by!(identification: '123123123')
   categories_id = [101 ,102, 103]
   categories_name = ['install', 'maintenance', 'repair']
-  categories_name.size.times { |i| Category.find_or_create_by!(id: categories_id[i]) { |c| c.name = categories_name[i] } }
+  categories_name.size.times do |i|
+    unless Category.where(id: categories_id[i]).any?
+      Category.create!(id: categories_id[i], name: categories_name[i], subsidiary_id: sub.id)
+    end
+  end
   puts "****************************************ok"
 end
 
@@ -352,30 +377,54 @@ def seed_substatus
 
   order_ids = [506, 507, 508, 509, 510, 511, 512]
   order_status = ['Pending', 'Receivable', 'Service center', 'Service evaluation', 'Arrives place', 'Generated manual order', 'No Progress']
-  order_status.size.times { |i| Status.find_or_create_by!(id: order_ids[i]) { |s| s.type_status = 'order_status'; s.description = order_status[i] } }
+  order_status.size.times do |i|
+    unless Status.where(id: order_ids[i]).any?
+      Status.create!(id: order_ids[i], type_status: 'order_status', description: order_status[i])
+    end
+  end
 
   substatus_504_ids = [600, 601]
   substatus_504 = ["Warranty", "Service quality"]
-  substatus_504.size.times{|i| Substatus.find_or_create_by!(id: substatus_504_ids[i]) { |s| s.visible = true; s.description = substatus_504[i]; s.status_id = 504 } }
+  substatus_504.size.times do |i|
+    unless Substatus.where(id: substatus_504_ids[i]).any?
+      Substatus.create!(id: substatus_504_ids[i], visible: true, description: substatus_504[i], status_id: 504)
+    end
+  end
 
   substatus_506_ids = [620, 621, 622, 623, 624, 625, 626, 627, 628, 629]
   substatus_506 = ["Cancelled", "Absent customer", "Canceled due non-compliance", "Price quote pending", "Pending by budget", "Canceled by customer", "Authorization required", "Wrong data", "Product return", "Waiting customer contact"]
-  substatus_506.size.times{|i| Substatus.find_or_create_by!(id: substatus_506_ids[i]) { |s| s.visible = true; s.description = substatus_506[i]; s.status_id = 506 } }
+  substatus_506.size.times do |i|
+    unless Substatus.where(id: substatus_506_ids[i]).any?
+      Substatus.create!(id: substatus_506_ids[i], visible: true, description: substatus_506[i], status_id: 506)
+    end
+  end
 
   substatus_507_ids = [640, 641, 642]
   substatus_507 = ["Prepaid", "Paid", "Warranty"]
-  substatus_507.size.times{|i| Substatus.find_or_create_by!(id: substatus_507_ids[i]) { |s| s.visible = true; s.description = substatus_507[i]; s.status_id = 507 } }
+  substatus_507.size.times do |i|
+    unless Substatus.where(id: substatus_507_ids[i]).any?
+      Substatus.create!(id: substatus_507_ids[i], visible: true, description: substatus_507[i], status_id: 507)
+    end
+  end
 
   substatus_508_ids = [660, 661, 662]
   substatus_508 = ["Product return", "Delivered goods", "Transfer to service center"]
-  substatus_508.size.times{|i| Substatus.find_or_create_by!(id: substatus_508_ids[i]) { |s| s.visible = true; s.description = substatus_508[i]; s.status_id = 508 } }
+  substatus_508.size.times do |i|
+    unless Substatus.where(id: substatus_508_ids[i]).any?
+      Substatus.create!(id: substatus_508_ids[i], visible: true, description: substatus_508[i], status_id: 508)
+    end
+  end
   puts 'Seeding finished'
   puts '==================================='
 end
 
 def new_user_statuses
-  Status.find_or_create_by!(id: 207) { |s| s.type_status = 'user_status'; s.description = "Not Available" }
-  Status.find_or_create_by!(id: 208) { |s| s.type_status = 'user_status'; s.description = "Absence" }
+  unless Status.where(id: 207).any?
+    Status.create!(id: 207, type_status: 'user_status', description: "Not Available")
+  end
+  unless Status.where(id: 208).any?
+    Status.create!(id: 208, type_status: 'user_status', description: "Absence")
+  end
 end
 
 
