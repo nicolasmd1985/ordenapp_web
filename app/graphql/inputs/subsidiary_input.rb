@@ -1,11 +1,8 @@
-module Inputs
-  class SubsidiaryInput < Types::BaseInputObject
-    argument :id, ID, required: false
-    argument :name, String, required: false
-    argument :phone, String, required: false
-    argument :address, String, required: false
-    argument :email, String, required: false
-    argument :corporation_id, String, required: false
-
-  end
+class CreateSubsidiaryInput < ::GraphQL::Types::JSON::Node::InputType
+  field :name, ::GraphQL::Types::String
+  field :phone, ::GraphQL::Types::String
+  field :address, ::GraphQL::Types::String
+  field :email, ::GraphQL::Types::String
+  field :status, ::GraphQL::Types::String
+  field :corporation, ::GraphQL::Types::String
 end

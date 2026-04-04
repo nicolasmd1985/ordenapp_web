@@ -1,7 +1,7 @@
-
 # spec/factories/corporations.rb
+
 FactoryBot.define do
   factory :corporation do
-    name "Corporate Corp"
+    name { Faker::Company.name }
   end
 end
