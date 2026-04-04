@@ -1,28 +1,73 @@
-
+```ruby
 # spec/graphql/mutations/subsidiaries/create_subsidiary_spec.rb
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe Subsidiary::CreateSubsidiary, type: :request do
-  context "admin user can create a Subsidiary successfully" do
-    it "creates a new Subsidiary" do
-      post '/graphql', params: { query: Subsidiary::CreateSubsidiary.query }, headers: Subsidiary::CreateSubsidiary.header
-      expect(response).to have_http_status(:ok)
+RSpec.describe SubsidiaryMutation, type: :graphql do
+  let(:headers) { { "HTTP_AUTHORIZATION" => "Bearer #{AdminUser.create!&.access_token}" } }
+  let(:mutation) do
+    "mutation{
+      subsidiaryCreate(input: {name: "Subsidiary1", phone: "555-555-5555", address: "123 Main St", email: "subsidiary1@example.com", status: 1, corporation: 1}){
+        name
+        phone
+        address
+        email
+        status
+        corporation
+      }
+    }"
+  end
+
+  context "when an admin user creates a subsidiary" do
+    it "returns the correct details" do
+      result = execute_graphql(mutation, headers)
+      expect(result.dig(:data, :subsidiaryCreate)).to eq({
+        name: "Subsidiary1",
+        phone: "555-555-5555",
+        address: "123 Main St",
+        email: "subsidiary1@example.com",
+        status: 1,
+        corporation: 1
+      })
     end
   end
 
-  context "non-admin user gets an Unauthorized error" do
-    it "returns an Unauthorized error" do
-      non_admin_headers = Subsidiary::CreateSubsidiary.header
-      non_admin_headers[:user_id] = nil
-      post '/graphql', params: { query: Subsidiary::CreateSubsidiary.query }, headers: non_admin_headers
-      expect(response).to have_http_status(:unauthorized)
+  context "when a non-admin user tries to create a subsidiary" do
+    let(:headers) { { "HTTP_AUTHORIZATION" => "Bearer #{NonAdminUser.create!&.access_token}" } }
+
+    it "returns an unauthorized error" do
+      result = execute_graphql(mutation, headers)
+      expect(result).to include(
+        errors: {
+          subsidiaryCreate: [
+            { message: "You are not allowed to create subsidiaries", code: "Unauthorized" }
+          ]
+        }
+      )
     end
   end
 
-  context "missing required fields return validation errors" do
+  context "when a subsidiary has missing required fields" do
+    let(:headers) { { "HTTP_AUTHORIZATION" => "Bearer #{AdminUser.create!&.access_token}" } }
+    let(:mutation) do
+      "mutation{
+        subsidiaryCreate(input: {name: "Subsidiary", status: 1, corporation: 1}){
+          name
+          phone
+          address
+          email
+          status
+          corporation
+        }
+      }"
+    end
+
     it "returns validation errors" do
-      post '/graphql', params: { query: Subsidiary::CreateSubsidiary.query }, headers: Subsidiary::CreateSubsidiary.header
-      expect(response).to have_http_status(:unprocessable_entity)
+      result = execute_graphql(mutation, headers)
+      expect(result.dig(:errors)).to eq(
+        subsidiaryCreate: [
+          { message: "Subsidiary phone, address, or email can't be blank", code: "Validation" }
+        ]
+      )
     end
   end
 end

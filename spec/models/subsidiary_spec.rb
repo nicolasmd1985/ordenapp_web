@@ -1,31 +1,52 @@
-
+```ruby
 # spec/models/subsidiary_spec.rb
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Subsidiary, type: :model do
-  context "associations" do
-    it { is_expected.to have_many(:users) }
-    it { is_expected.to have_many(:orders) }
-    it { is_expected.to have_many(:things) }
-    it { is_expected.to have_many(:categories) }
-    it { is_expected.to have_many(:components) }
-    it { is_expected.to have_many(:order_rates) }
-    it { is_expected.to have_many(:tools) }
-    it { is_expected.to belong_to(:status) }
-    it { is_expected.to belong_to(:corporation) }
+  it { should have_many(:users).dependent(:destroy) }
+  it { should have_many(:orders).dependent(:destroy) }
+  it { should have_many(:things).dependent(:destroy) }
+  it { should have_many(:categories).dependent(:destroy) }
+  it { should have_many(:components).dependent(:destroy) }
+  it { should have_many(:order_rates).dependent(:destroy) }
+  it { should have_many(:tools).dependent(:destroy) }
+  it { should have_one(:status).dependent(:destroy) }
+  it { should have_one(:corporation).dependent(:destroy) }
+  it { should callback(:set_subsidiary_initials).with([:name]) }
+
+  it { should_not allow_value("").for(:name) }
+  it { should allow_value("A").for(:name) }
+  it { should allow_value("AB").for(:name) }
+  it { should allow_value("ABC").for(:name) }
+  it { should_not allow_value("ABCD").for(:name) }
+
+  context "when name has 3+ words" do
+    it "returns uppercase initials of the first 3 words in name" do
+      s = Subsidiary.new(name: "Subsidiary ABCD").set_subsidiary_initials
+      expect(s.subsidiary_initials).to eq("SAB")
+    end
   end
 
-  context "callbacks" do
-    it { is_expected.to set_subsidary_initials }
+  context "when name has 2 words" do
+    it "returns uppercase initials of the first 2 words in name" do
+      s = Subsidiary.new(name: "Subsidiary AB").set_subsidiary_initials
+      expect(s.subsidiary_initials).to eq("SA")
+    end
   end
 
-  it "has a correct name" do
-    expect(Subsidiary.subsidiary_name(1)).to eq("Subsidiary Name")
+  context "when name has 1 word" do
+    it "returns uppercase initials of the first 3 characters in name" do
+      s = Subsidiary.new(name: "Subsidiary").set_subsidiary_initials
+      expect(s.subsidiary_initials).to eq("SUB")
+    end
   end
 
-  it "sets initials correctly based on name length" do
-    expect(Subsidiary.subsidiary_initials("Subsidiary Name")).to eq("SN")
-    expect(Subsidiary.subsidiary_initials("Corporate Corp"))
-    expect(Subsidiary.subsidiary_initials("Simple Sub"))
+  describe "subsidiary_name method" do
+    context "when given an id" do
+      let(:subsidiary) { Subsidiary.first }
+      it "returns the correct name" do
+        expect(subsidiary.subsidiary_name(subsidiary.id)).to eq(subsidiary.name)
+      end
+    end
   end
 end
