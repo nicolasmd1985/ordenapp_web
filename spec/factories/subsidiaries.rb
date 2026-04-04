@@ -1,11 +1,12 @@
-## spec/factories/subsidiaries.rb
+
+# spec/factories/subsidiaries.rb
 FactoryBot.define do
   factory :subsidiary do
-    name { Faker::Company.name }
-    phone { Faker::PhoneNumber.phone_number }
-    address { Faker::Address.full_address }
-    email { Faker::Internet.email }
-    status { create(:status) }
-    corporation { create(:corporation) }
+    name              "Subsidiary Name"
+    phone             "555-1234"
+    address           "123 Main St"
+    email             "subsidiary@example.com"
+    status             "Active"
+    corporation      { name: "Corporate Corp" }
   end
 end

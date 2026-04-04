@@ -1,6 +1,7 @@
+
+# spec/factories/statuses.rb
 FactoryBot.define do
   factory :status do
-    type { "" }
-    description { "MyString" }
+    name "Active"
   end
 end

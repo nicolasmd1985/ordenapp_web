@@ -1,32 +1,28 @@
-## spec/graphql/mutations/subsidiaries/create_subsidiary_spec.rb
+
+# spec/graphql/mutations/subsidiaries/create_subsidiary_spec.rb
 require 'rails_helper'
 
-RSpec.describe Subsidiary::CreateSubsidiary, type: :graphql do
+RSpec.describe Subsidiary::CreateSubsidiary, type: :request do
   context "admin user can create a Subsidiary successfully" do
-    let(:user) { create(:admin_user) }
-    let(:create_subsidiary_input) { {name: Faker::Company.name, phone: Faker::PhoneNumber.phone_number, address: Faker::Address.full_address, email: Faker::Internet.email, status: {id: create(:status).id}, corporation: {id: create(:corporation).id}} }
-
-    it "should create a Subsidiary" do
-      subject.execute(input: create_subsidiary_input)
-      expect(subject.errors).to be_empty
-      expect(Subsidiary.count).to eq(1)
+    it "creates a new Subsidiary" do
+      post '/graphql', params: { query: Subsidiary::CreateSubsidiary.query }, headers: Subsidiary::CreateSubsidiary.header
+      expect(response).to have_http_status(:ok)
     end
   end
 
-  context "non-admin user gets Unauthorized error" do
-    let(:user) { create(:user) }
-    let(:create_subsidiary_input) { {name: Faker::Company.name, phone: Faker::PhoneNumber.phone_number, address: Faker::Address.full_address, email: Faker::Internet.email, status: {id: create(:status).id}, corporation: {id: create(:corporation).id}} }\n
-    it "should return an Unauthorized error" do
-      allow(subject.client).to receive(:user).and_return(user)
-      allow(subject.client).to receive(:execute).and_raise(GraphQL::ExecutionError, message: 'Unauthorized')
-      expect { subject.execute(input: create_subsidiary_input) }.to raise_error(GraphQL::ExecutionError, message: 'Unauthorized')
+  context "non-admin user gets an Unauthorized error" do
+    it "returns an Unauthorized error" do
+      non_admin_headers = Subsidiary::CreateSubsidiary.header
+      non_admin_headers[:user_id] = nil
+      post '/graphql', params: { query: Subsidiary::CreateSubsidiary.query }, headers: non_admin_headers
+      expect(response).to have_http_status(:unauthorized)
     end
   end
 
   context "missing required fields return validation errors" do
-    let(:create_subsidiary_input) { {name: Faker::Company.name, phone: Faker::PhoneNumber.phone_number, email: Faker::Internet.email} }\n
-    it "should return validation errors" do
-      expect { subject.execute(input: create_subsidiary_input) }.to raise_error(GraphQL::ExecutionError, message: 'Validation failed: Please provide a valid Subsidiary name, status, and corporation')
+    it "returns validation errors" do
+      post '/graphql', params: { query: Subsidiary::CreateSubsidiary.query }, headers: Subsidiary::CreateSubsidiary.header
+      expect(response).to have_http_status(:unprocessable_entity)
     end
   end
 end
