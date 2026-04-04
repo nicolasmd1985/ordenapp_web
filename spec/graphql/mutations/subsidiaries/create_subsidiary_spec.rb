@@ -1,35 +1,31 @@
-# spec/graphql/mutations/subsidiaries/create_subsidiary_spec.rb
-
 require 'rails_helper'
 
-RSpec.describe 'Create Subsidiary Mutation', type: :graphql do
-  let(:admin) { FactoryBot.create(:user, :admin) }
-  let(:user) { FactoryBot.create(:user) }
-  let(:corporation) { FactoryBot.create(:corporation) }
-  let(:status) { FactoryBot.create(:status) }
-  let(:subsidiary) { FactoryBot.create(:subsidiary, corporation: corporation, status: status) }
-  let(:input) { { input: { name: 'Subsidiary Name' } } }
-  let(:mutation) { "mutation { createSubsidiary(input: #{input}) { subsidiary { id, name, phone, address, email, status, corporation { id, name } } } }" }
-
-  context 'admin user can create a Subsidiary successfully' do
-    it 'returns a valid Subsidiary' do
-      post '/graphql', params: { query: mutation }
-      expect(response).to have_http_status(:success)
-      expect(subsidiary.reload).to be_a(Subsidiary)
+RSpec.describe GraphQL::Subsidiaries::CreateSubsidiary, type: :request do
+  describe 'admin user' do
+    let(:admin_user) { create(:user, role: :admin) }
+    let(:headers) { admin_user.create_new_session[:session].headers }
+    let(:params) do
+      { input: { name: 'Subsidiary Test', status_id: 1, corporation_id: 1 } }
     end
-  end
 
-  context 'non-admin user gets an Unauthorized error' do
-    it 'returns an Unauthorized error' do
-      post '/graphql', params: { query: mutation, headers: { Authorization: user.authentication_token } }
+    it 'creates a Subsidiary successfully' do
+      post '/graphql', params: params, headers: headers
+      expect(response).to have_http_status(:created)
+      expect(json_response).to have_key(:data)
+      expect(json_response[:data]).to have_key(:createSubsidiary)
+      expect(json_response[:data][:createSubsidiary]).to be_truthy
+    end
+
+    it 'returns an Unauthorized error for non-admin user' do
+      post '/graphql', params: params
       expect(response).to have_http_status(:unauthorized)
     end
-  end
 
-  context 'missing required fields return validation errors' do
-    it 'returns validation errors' do
-      post '/graphql', params: { query: mutation, headers: { Authorization: admin.authentication_token } }
-      expect(response).to have_http_status(:bad_request)
+    it 'returns validation errors for missing required fields' do
+      params[:input].merge(name: '', status_id: 1, corporation_id: 1)
+      post '/graphql', params: params, headers: headers
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(json_response).to have_key(:errors)
     end
   end
 end
