@@ -26,6 +26,7 @@ services:
       RAILS_RELATIVE_URL_ROOT: /ordenapp
     volumes:
       - /home/ubuntu/deploy/public:/app/public:delegated
+      - .:/app
     networks:
       - app_network
       - portfolio_default

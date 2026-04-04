@@ -1,0 +1,7 @@
+# AGENT_REPORT
+
+## Subsidiary RSpec Test Suite
+
+- Created spec/factories/subsidiaries.rb to define factory for Subsidiary model with required fields.
+- Created spec/models/subsidiary_spec.rb to test associations and callback method.
+- Created spec/graphql/mutations/subsidiaries/create_subsidiary_spec.rb to test Admin user ability to create Subsidiary and Non-admin user gets Unauthorized error.
