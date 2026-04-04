@@ -1,6 +1,11 @@
-
-# spec/rails_helper.rb
+## spec/rails_helper.rb
+require 'simplecov'
+SimpleCov.start
+SimpleCov.command_name :rails_helper
+SimpleCov.coverage_dir 'coverage'
 
 RSpec.configure do |config|
-  config.include FactoryBot::Syntax::Methods
+  config.before(:each) do
+    ActionMailer::Base.deliveries.clear
+  end
 end
