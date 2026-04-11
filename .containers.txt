@@ -1,8 +1,0 @@
-CONTAINER ID   IMAGE                          COMMAND                  CREATED        STATUS                  PORTS                                             NAMES
-bfa379754c77   nicolasmd/ordenappweb:latest   "bundle exec puma -C…"   18 hours ago   Up 18 hours             0.0.0.0:3000->3000/tcp, [::]:3000->3000/tcp       ordenapp_web_container
-d7adfbfd84eb   ai-hub-openclaw-gateway        "docker-entrypoint.s…"   22 hours ago   Up 22 hours (healthy)   0.0.0.0:18789->18789/tcp, [::]:18789->18789/tcp   openclaw-gateway
-9b7634ad425b   ollama/ollama:latest           "/bin/ollama serve"      22 hours ago   Up 22 hours (healthy)   0.0.0.0:11434->11434/tcp, [::]:11434->11434/tcp   ollama-brain
-61a4e12c9c73   redis:6.2                      "docker-entrypoint.s…"   6 days ago     Up 18 hours             6379/tcp                                          ordenapp_web-redis-1
-bbaf18a6ba1d   nicolasmd/portfolio:latest     "bundle exec puma -C…"   6 days ago     Up 2 days               127.0.0.1:3002->3000/tcp                          portfolio-web-1
-34c013405571   postgres:15                    "docker-entrypoint.s…"   6 days ago     Up 2 days (healthy)     0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp       portfolio-postgres-1
-ac315619a05c   redis:7                        "docker-entrypoint.s…"   6 days ago     Up 2 days (healthy)     6379/tcp                                          portfolio-redis-1
