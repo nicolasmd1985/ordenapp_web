@@ -1,6 +1,5 @@
-require 'factory_bot'
-
 FactoryBot.define do
+
   factory :subsidiary do
     name { Faker::Company.name }
     phone { Faker::PhoneNumber.phone_number }
