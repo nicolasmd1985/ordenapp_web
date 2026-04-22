@@ -1,9 +1,13 @@
 FactoryBot.define do
   factory :user do
-    identification { "24524tkl45t4" }
-    first_name { "nicolas" }
-    last_name { "mahecha" }
-    phone_number { "1354345653" }
-    email { "nicolas@dipzo.net" }
+    document_number { "24524#{rand(1000..9999)}" }
+    first_name { "Nicolas" }
+    last_name { "Developer" }
+    phone_number_1 { "1234567890" }
+    email { "user_#{rand(10000)}@example.com" }
+    password { "Password123!" }
+    role { :admin }
+    association :corporation
+    association :status
   end
 end

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :status do
-    type { "" }
+    type_status { "General" }
     description { "MyString" }
   end
 end
