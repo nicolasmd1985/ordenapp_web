@@ -4,8 +4,8 @@ FactoryBot.define do
     phone { "MyString" }
     address { "MyString" }
     email { "MyString" }
-    identification { "MyString" }
-    corporate_initials { "MyString" }
-    status { nil }
+    identification { "ID#{rand(1000..9999)}" }
+    corporate_initials { "COR" }
+    association :status
   end
 end
