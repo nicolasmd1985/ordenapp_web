@@ -1,0 +1,6 @@
+{
+  "project_name": "ordenapp_web",
+  "container_name": "ordenapp_web_container",
+  "test_environment": "test",
+  "docker_exec_command": "docker exec -e RAILS_ENV=test ordenapp_web_container"
+}

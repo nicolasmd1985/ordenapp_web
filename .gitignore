@@ -48,14 +48,7 @@ dump.rdb
 nginx.conf
 
 # Agent Related Files
-.openclaw/
 agent-report/
 *.txt
 AGENT_REPORT.md
 HEARTBEAT.md
-SOUL.md
-SYSTEM.md
-USER.md
-TOOLS.md
-IDENTITY.md
-AGENTS.md
