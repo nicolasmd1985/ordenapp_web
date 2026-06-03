@@ -49,6 +49,7 @@ jobs:
           echo "aws_secret_access_key=${{ secrets.aws_secret_access_key }}" >> .env.production
           echo "S3_BUCKET_NAME=${{ secrets.S3_BUCKET_NAME }}" >> .env.production
           echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> .env.production
+          echo "S3_ENDPOINT=https://storage.googleapis.com" >> .env.production
           echo "GOOGLE_MAPS_API_SERVER_KEY=${{ secrets.GOOGLE_MAPS_API_SERVER_KEY }}" >> .env.production
           echo "SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }}" >> .env.production
           echo "REDIS_URL=${{ secrets.REDIS_URL }}" >> .env.production
