@@ -25,7 +25,7 @@ services:
       RAILS_LOG_TO_STDOUT: "true"
       RAILS_RELATIVE_URL_ROOT: /ordenapp
     volumes:
-      - /home/ubuntu/deploy/public:/app/public:delegated
+      - ~/ordenapp/public:/app/public:delegated
     networks:
       - app_network
       - portfolio_default
