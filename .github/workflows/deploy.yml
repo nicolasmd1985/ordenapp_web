@@ -97,10 +97,10 @@ jobs:
           echo "Running database migrations and seeds..."
           docker compose run --rm web bundle exec rails db:prepare db:seed
 
-          # Preparing public directory
+           # Preparing public directory
           echo "Preparing public directory..."
-          mkdir -p "$DEPLOY_DIR/public/"
-          rm -rf "$DEPLOY_DIR/public/"*
+          sudo mkdir -p "$DEPLOY_DIR/public/"
+          sudo rm -rf "$DEPLOY_DIR/public/"*
 
           # Creating temporary container to extract precompiled assets
           echo "Creating temporary container to extract precompiled assets..."
@@ -108,7 +108,7 @@ jobs:
 
           # Copying assets from temporary container
           echo "Copying assets from temporary container..."
-          docker cp "${TEMP_CONTAINER_NAME}:/app/public/ordenapp/assets" "$DEPLOY_DIR/public/"
+          sudo docker cp "${TEMP_CONTAINER_NAME}:/app/public/ordenapp/assets" "$DEPLOY_DIR/public/"
 
           # Verify asset copy
           ASSET_COUNT=$(find "$DEPLOY_DIR/public/assets" -type f | wc -l || echo 0)

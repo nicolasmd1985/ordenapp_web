@@ -25,14 +25,14 @@ echo "Running database migrations and seeds..."
 docker compose run --rm web bundle exec rails db:prepare db:seed
 
 echo "Preparing public directory..."
-mkdir -p "$DEPLOY_DIR/public/"
-rm -rf "$DEPLOY_DIR/public/"*
+sudo mkdir -p "$DEPLOY_DIR/public/"
+sudo rm -rf "$DEPLOY_DIR/public/"*
 
 echo "Creating temporary container to extract precompiled assets..."
 docker create --name $TEMP_CONTAINER_NAME nicolasmd/ordenappweb:latest
 
 echo "Copying assets from temporary container..."
-docker cp "${TEMP_CONTAINER_NAME}:/app/public/ordenapp/assets" "$DEPLOY_DIR/public/"
+sudo docker cp "${TEMP_CONTAINER_NAME}:/app/public/ordenapp/assets" "$DEPLOY_DIR/public/"
 
 echo "Verifying asset copy..."
 ASSET_COUNT=$(find "$DEPLOY_DIR/public/assets" -type f | wc -l || echo 0)
