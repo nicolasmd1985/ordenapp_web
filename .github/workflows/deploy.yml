@@ -77,7 +77,7 @@ jobs:
           export ENV=production
 
           WEB_CONTAINER_NAME="ordenapp_web_container"
-          TEMP_CONTAINER_NAME="temp_asset_compiler"
+          TEMP_CONTAINER_NAME="temp_asset_compiler_$$"
           DEPLOY_DIR="$HOME/ordenapp"
 
           echo "Ensuring Docker network exists..."
