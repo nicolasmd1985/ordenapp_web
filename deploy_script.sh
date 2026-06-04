@@ -28,15 +28,8 @@ echo "Preparing public directory..."
 mkdir -p "$DEPLOY_DIR/public/"
 rm -rf "$DEPLOY_DIR/public/"*
 
-echo "Creating temporary container for asset compilation..."
+echo "Creating temporary container to extract precompiled assets..."
 docker create --name $TEMP_CONTAINER_NAME nicolasmd/ordenappweb:latest
-
-echo "Clearing old assets..."
-docker start $TEMP_CONTAINER_NAME
-docker exec $TEMP_CONTAINER_NAME bundle exec rake assets:clobber
-
-echo "Precompiling assets..."
-docker exec $TEMP_CONTAINER_NAME bundle exec rake assets:precompile
 
 echo "Copying assets from temporary container..."
 docker cp "${TEMP_CONTAINER_NAME}:/app/public/ordenapp/assets" "$DEPLOY_DIR/public/"
@@ -46,15 +39,12 @@ ASSET_COUNT=$(find "$DEPLOY_DIR/public/assets" -type f | wc -l || echo 0)
 if [ "$ASSET_COUNT" -lt 10 ]; then
     echo "Error: Very few assets were copied. Expected more than 10 files."
     echo "Current asset count: $ASSET_COUNT"
-    echo "Checking temporary container's public directory..."
-    docker exec $TEMP_CONTAINER_NAME ls -la /app/public/ordenapp/assets || true
     echo "Checking host's public directory..."
     ls -la "$DEPLOY_DIR/public/assets" || true
     exit 1
 fi
 
 echo "Cleaning up temporary container..."
-docker stop $TEMP_CONTAINER_NAME || true
 docker rm $TEMP_CONTAINER_NAME || true
 
 echo "Starting the main containers in detached mode..."

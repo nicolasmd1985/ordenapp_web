@@ -5,7 +5,7 @@ FROM ruby:3.2.2
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     nodejs \
-    yarn \
+    npm \
     postgresql-client \
     wget \
     # curl \
@@ -20,6 +20,9 @@ RUN apt-get update && apt-get install -y \
     xfonts-75dpi \
     xfonts-base \
     libjpeg62-turbo
+
+# Install real yarn package manager
+RUN npm install -g yarn
 
 # Download and install wkhtmltopdf
 RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.bookworm_amd64.deb
@@ -37,9 +40,11 @@ RUN gem install bundler
 RUN bundle install
 COPY . .
 
-# Set RAILS_ENV to production for asset precompilation
-# RUN SECRET_KEY_BASE=dummy bundle exec rake assets:precompile
-ENV RAILS_ENV=${RAILS_ENV}
+# Install JS dependencies
+RUN yarn install --check-files
+
+# Precompile assets
+RUN SECRET_KEY_BASE=dummy RAILS_ENV=production DATABASE_URL=postgresql://localhost/dummy bundle exec rake assets:precompile
 
 # Expose the port
 EXPOSE 3000
