@@ -65,8 +65,24 @@ sudo find "$DEPLOY_DIR/public" -type d -exec chmod 755 {} \; || find "$DEPLOY_DI
 sudo find "$DEPLOY_DIR/public" -type f -exec chmod 644 {} \; || find "$DEPLOY_DIR/public" -type f -exec chmod 644 {} \; || true
 sudo chmod 755 "$DEPLOY_DIR" || chmod 755 "$DEPLOY_DIR" || true
 
-echo "Cleaning up old Docker images..."
-docker image prune -af
+echo "Cleaning up old Docker artifacts and reclaiming disk space..."
+# Remove stopped/orphaned containers (e.g. from bundle exec rails db:prepare)
+docker container prune -f
+
+# Remove dangling untagged images left from old pulls
+docker image prune -f
+
+# Remove Docker builder/buildx cache to prevent GBs of hidden accumulation
+docker builder prune -f
+
+# Remove dangling anonymous volumes
+docker volume prune -f
+
+# Clean up any leftover temporary asset compiler containers if any exist
+docker ps -a --filter "name=temp_asset_compiler" -q | xargs -r docker rm -f || true
+
+echo "Current disk space after cleanup:"
+df -h /
 
 echo "Deployment finished successfully."
 echo "Total assets copied: $ASSET_COUNT"

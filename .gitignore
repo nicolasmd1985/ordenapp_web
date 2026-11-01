@@ -26,8 +26,11 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-.env.*
+# Ignore environment files
 .env
+.env.*
+.env.development
+.env.production
 # Ignore application configuration
 /config/application.yml
 # Gemfile.lock
@@ -37,9 +40,22 @@ dump.rdb
 *.DS_Store
 *.rdb
 
-/config/credentials/production.key
+# Cryptographic keys and certificates
+*.key
+*.pem
+*.crt
+/config/master.key
+/config/credentials/*.key
 
-/config/credentials/development.key
+# Database dumps
+*.dump
+*.sql
+*.sqlite3
+
+# Editor and temporary files
+.idea/
+*.swp
+*~
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

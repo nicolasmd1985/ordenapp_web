@@ -2,6 +2,7 @@ version: '3'
 services:
   redis:
     image: redis:6.2
+    restart: unless-stopped
     networks:
       - app_network
   web:
@@ -12,6 +13,7 @@ services:
     # build: .
     image: nicolasmd/ordenappweb:latest # Use the pre-built image
     container_name: ordenapp_web_container
+    restart: unless-stopped
     ports:
       - "3000:3000"
     depends_on:
