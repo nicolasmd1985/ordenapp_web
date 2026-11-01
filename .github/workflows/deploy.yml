@@ -185,6 +185,8 @@ jobs:
           host: ${{ secrets.AWS_EC2_HOST }}
           username: ${{ secrets.SSH_USER || 'nicolasmelectronic' }}
           key: ${{ secrets.AWS_SSH_KEY }}
+          timeout: 60s
+          command_timeout: 30m
           script: |
             cd ~/ordenapp/
             chmod +x deploy_script.sh
@@ -196,6 +198,8 @@ jobs:
           host: ${{ secrets.AWS_EC2_HOST }}
           username: ${{ secrets.SSH_USER || 'nicolasmelectronic' }}
           key: ${{ secrets.AWS_SSH_KEY }}
+          timeout: 60s
+          command_timeout: 10m
           script: |
             cd ~/ordenapp/
             docker compose ps
